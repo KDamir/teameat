@@ -1,0 +1,35 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+	  
+	  <h:head>
+	  	<h:outputStylesheet library="css" name="style.css"/>
+	  </h:head>
+
+	  <h:body>
+	  
+	  	<div id="mylab">
+	  		
+		  	<p:commandButton id="mybtn" value="Добавить заказ" action="addzakaz?faces-redirect=true"/>
+		  	<span>Номер заказа</span>
+		  	<p:inputText id="mytext"/>
+		  	<p:commandButton value="Поиск"/>
+		  	<p:spacer width="50" height="0"/>
+		  	<p:commandButton value="Печать"/>
+		  	<p:spacer width="5" height="0"/>
+		  	<p:commandButton value="Обновить"/>
+		  	
+	  	</div>
+	  	<p:tabView id="mytab">
+	  		<p:tab title="Заказанные">
+	  			<p:panelGrid></p:panelGrid>
+	  		</p:tab>
+	  		<p:tab title="Отгруженные"></p:tab>
+	  		<p:tab title="Отправленные"></p:tab>
+	  		<p:tab title="Полученные"></p:tab>
+	  		<p:tab title="Выданные"></p:tab>
+	  	</p:tabView>
+	  	
+	  </h:body>
+</html>

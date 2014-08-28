@@ -1,0 +1,60 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+	  
+	  <h:head>
+	  	
+	  </h:head>
+
+	  <h:body>
+	  <div id="mytitle" align="center" style="font-weight: bold;">Добавление заказа</div>
+	  <span>Данные о заказе</span>
+	  	<h:form>
+	  		<table>
+	  			<tr>
+	  				<td><h:outputLabel value="Ф.И.О" /></td>
+	  				<td><h:inputText value="" /></td>
+	  			</tr>
+	  			<tr>
+	  				<td><h:outputLabel value="Общая стоимость" /></td>
+	  				<td><h:inputText value="" /></td>
+	  			</tr>
+	  			<tr>
+	  				<td><h:outputLabel value="Общая стоимость(прописью)" /></td>
+	  				<td><h:inputText value="" /></td>
+	  			</tr>
+	  			<tr>
+	  				<td><h:outputLabel value="Предоплата" /></td>
+	  				<td><h:inputText value="" /></td>
+	  			</tr>
+	  			<tr>
+	  				<td><h:outputLabel value="Дата поставки(гггг/мм/дд)" /></td>
+	  				<td><p:calendar/></td>
+	  			</tr>
+	  			<tr>
+	  				<td><h:outputLabel value="Телефон клиента" /></td>
+	  				<td><h:inputText value="" /></td>
+	  			</tr>
+	  		</table>
+	  		
+	  		<hr/>
+			<table>
+	  			<tr>
+	  				<td><h:outputLabel value="Марка/Модель/Год" /></td>
+	  				<td><h:inputText value="" /></td>
+	  			</tr>
+	  			<tr>
+	  				<td><h:outputLabel value="VIN код" /></td>
+	  				<td><h:inputText value="" /></td>
+	  			</tr>
+	  		</table>
+	  		
+	  		<hr/>
+	  		
+	  		<span>Запчасти</span>
+	  		<p:dataTable></p:dataTable>
+	  	</h:form>
+	  
+	  </h:body>
+</html>

@@ -36,10 +36,10 @@ public class UserLoginView {
 		
 		if(username != null && username.equals("admin") && password != null && password.equals("admin")) {
 			logged = true;
-			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", username);
+			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Добро пожаловать " + username + "!", username);
 		} else {
 			logged = false;
-			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Loggin Erro", "Invalid credentials");
+			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Неверный логин или пароль", "Invalid credentials");
 		}
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		context.addCallbackParam("logged", logged);

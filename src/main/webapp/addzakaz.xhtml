@@ -53,7 +53,39 @@
 	  		<hr/>
 	  		
 	  		<span>Запчасти</span>
-	  		<p:dataTable></p:dataTable>
+	  		<p:dataTable var="item" value="#{listBean.list}">
+	  			<p:column headerText="Наименование">
+	  				<p:inputText value="#{item.name}" />
+	  			</p:column>
+	  			<p:column headerText="Номер">
+	  				<p:cellEditor>
+	  					<f:facet name="input">
+	  						<p:inputText value="#{item.number}"></p:inputText>
+	  					</f:facet>
+	  				</p:cellEditor>
+	  			</p:column>
+	  			<p:column headerText="Состояние">
+	  				<p:cellEditor>
+	  					<f:facet name="input">
+	  						<p:inputText></p:inputText>
+	  					</f:facet>
+	  				</p:cellEditor>
+	  			</p:column>
+	  			<p:column headerText="Количество">
+	  				<p:cellEditor>
+	  					<f:facet name="input">
+	  						<p:inputText></p:inputText>
+	  					</f:facet>
+	  				</p:cellEditor>
+	  			</p:column>
+	  			<p:column headerText="Стоимость">
+	  				<p:cellEditor>
+	  					<f:facet name="input">
+	  						<p:inputText></p:inputText>
+	  					</f:facet>
+	  				</p:cellEditor>
+	  			</p:column>
+	  		</p:dataTable>
 	  	</h:form>
 	  
 	  </h:body>

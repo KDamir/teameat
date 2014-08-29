@@ -33,18 +33,18 @@
         font-style : normal;
         border-radius: 7px 7px 7px 7px;
 	color: Silver;
+	background-color: #D7DAD3
 }
 
 #header {
         height: 60px;
         text-align: center;
-        background: url(images/bank.png) 10px 10px no-repeat #272727;
-        background-size: 58px;
+		background-size: 58px;
         color: white;
         padding: 5px;
-        font-smooth: always;
         text-shadow: 0px 0px 2px white;
         border-radius: 7px 7px 0 0;
+		background-color: #B3ABF3;
 }
 
 #line {

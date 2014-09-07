@@ -11,15 +11,14 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean
 @SessionScoped
 public class MeatService {
-	@ManagedProperty("#{meatPart}")
-	private MeatPart meatPart;
-	
-	//@ManagedProperty("#{meatList}")
+
 	private List<MeatPart> inputList;
 
 	@PostConstruct
 	public void init() {
-		inputList = new ArrayList<MeatPart>();
+		inputList = new ArrayList<>();
+        MeatPart mp = new MeatPart();
+        inputList.add(mp);
 		//System.out.println("PostConctruct");
 	}
 	public List<MeatPart> getInputList() {
@@ -29,15 +28,7 @@ public class MeatService {
 	public void setInputList(List<MeatPart> inputList) {
 		this.inputList = inputList;
 	}
-
-	public MeatPart getMeatPart() {
-		return meatPart;
-	}
-
-	public void setMeatPart(MeatPart meatPart) {
-		this.meatPart = meatPart;
-	}
-	
+/*
 	public Double proc_ot_vesa() {
 		return meatPart.getVes()*100/meatPart.getVes_chasti();
 	}
@@ -50,12 +41,13 @@ public class MeatService {
 		meatPart.setProc_ot_vesa(proc_ot_vesa());
 		meatPart.setSuma_prodaj(suma_prodaj());
 	}
-	
-	public void addZakaz() {
-		//System.out.println(meatPart.getName() + " " + meatPart.getCena_za_kg() + " " + meatPart.getOstatki() + " " + meatPart.getProc_ot_vesa());
-		meatPart.setProc_ot_vesa(proc_ot_vesa());
-		meatPart.setSuma_prodaj(suma_prodaj());
-		inputList.add(meatPart);
+*/
+	public void updateOrder(MeatPart currentItem) {
+        // TODO: Добавить расчёт процента от общего веса и суммы продаж
+        if (inputList.lastIndexOf(currentItem) == inputList.size() - 1) {
+            MeatPart meatPart = new MeatPart();
+            inputList.add(meatPart);
+        }
 		inputList.forEach(System.out::println);
 	}
 	

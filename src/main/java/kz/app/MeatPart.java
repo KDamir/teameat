@@ -1,6 +1,5 @@
 package kz.app;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -17,12 +16,12 @@ public class MeatPart {
 		this.name = name;
 	}
 
-	private Double ves;
-	private Double prod_cena;
-	private Double ves_chasti;
-	private Double cena_za_kg;
-	private Double proc_ot_vesa;
-	private Double suma_prodaj;
+	private Double ves = 0.0;
+	private Double prod_cena = 0.0;
+	private Double ves_chasti = 0.0;
+	private Double cena_za_kg = 0.0;
+	private Double proc_ot_vesa = 0.0;
+	private Double suma_prodaj = 0.0;
 
 	public Double getSuma_prodaj() {
 		return suma_prodaj;
@@ -48,12 +47,12 @@ public class MeatPart {
 		this.cena_za_kg = cena_za_kg;
 	}
 
-	public Double getVes() {
+	public Double getWeight() {
 		return ves;
 	}
 
-	public void setVes(Double ves) {
-		this.ves = ves;
+	public void setWeight(Double weight) {
+		this.ves = weight;
 	}
 
 	public Double getProd_cena() {

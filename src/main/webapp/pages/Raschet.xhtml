@@ -5,40 +5,15 @@
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-
 <f:view>
 	<h:head></h:head>
 	
 	<h:body>
 		<h:form id="fragmentForm">
-			<!-- <p:dataList id="myList" value="#{meatService.inputList}" var="tmeat">
-				#{tmeat.name},#{tmeat.ves},#{tmeat.prod_cena},#{tmeat.ves_chasti},#{tmeat.cena_za_kg},#{tmeat.proc_ot_vesa},#{tmeat.suma_prodaj}
-			</p:dataList> -->
-			  <p:dataTable id="myList" var="tmeat" value="#{meatService.inputList}" rendered="#{false}">
-				<p:column>
-					<h:outputText value="#{tmeat.name}" />
-				</p:column>
-				<p:column>
-					<h:outputText value="#{tmeat.weight}" />
-				</p:column>
-				<p:column>
-					<h:outputText value="#{tmeat.prod_cena}" />
-				</p:column>
-				<p:column>
-					<h:outputText value="#{tmeat.ves_chasti}" />
-				</p:column>
-				<p:column>
-					<h:outputText value="#{tmeat.cena_za_kg}" />
-				</p:column>
-				<p:column>
-					<h:outputText value="#{tmeat.proc_ot_vesa}" />
-				</p:column>
-				<p:column>
-					<h:outputText value="#{tmeat.suma_prodaj}" />
-				</p:column>
-			</p:dataTable>
-			
-			<h:panelGrid columns="8">
+			<div id="info"><span style="font-weight: bolder;">Информация по туше:</span>
+				<h:inputText role="textbox" styleClass="infoName" value="#{userLoginView.username}" />
+			</div>
+			<h:panelGrid columns="8" id="mainPanel">
 				<h:outputText value="Наименование" />
 				<h:outputText value="Вес позиции" />
 				<h:outputText value="Продажная цена" />
@@ -49,14 +24,29 @@
                 <h:inputHidden/>
                 <c:forEach items="#{meatService.inputList}" var="orderPart">
                     <p:inputText value="#{orderPart.name}"/>
-                    <p:inputText value="#{orderPart.weight}" style="width: 150"/>
-                    <p:inputText value="#{orderPart.prod_cena }" style="width: 150"/>
-                    <p:inputText value="#{orderPart.ves_chasti}" style="width: 150"/>
-                    <p:inputText value="#{orderPart.cena_za_kg}"/>
-                    <h:outputText value="#{orderPart.proc_ot_vesa}" id="proc_ves" />
+                    <p:inputText value="#{orderPart.weight}" styleClass="cellDouble"/>
+                    <p:inputText value="#{orderPart.prod_cena }" styleClass="cellDouble"/>
+                    <p:inputText value="#{orderPart.ves_chasti}" styleClass="cellDouble"/>
+                    <p:inputText value="#{orderPart.cena_za_kg}" styleClass="cellDouble"/>
+                    <h:outputText value="#{orderPart.proc_ot_vesa}" id="proc_ves">
+                    	<f:convertNumber pattern="#0.00"/>
+                    </h:outputText>
                     <h:outputText value="#{orderPart.suma_prodaj}" id="suma_prodaj" />
                     <p:commandButton value="Сохранить" update="fragmentForm" actionListener="#{meatService.updateOrder(orderPart)}"/>
                 </c:forEach>
+                <h:outputText value="Итого:" />
+				<h:outputText value="#{meatService.calcWeight()}" />
+				<h:inputHidden/>
+				<h:inputHidden/>
+				<h:inputHidden/>
+				<h:outputText value="#{meatService.calcProc()}">
+					<f:convertNumber pattern="#0.00"/>
+				</h:outputText>
+				<h:outputText value="#{meatService.calcSum()}" />
+                <f:facet name="footer">
+                	<p:commandButton value="Готово"/>
+                	<p:commandButton value="Расчитать" update="fragmentForm" actionListener="#{meatService.calculate}"/>
+                </f:facet>
 			</h:panelGrid>
 			
 		</h:form>

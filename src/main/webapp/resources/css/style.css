@@ -1,3 +1,6 @@
+body {
+	background-color: #D9D0CC;
+}
 #mylab {
 	color: Black;
 	font-family: Arial TUR;
@@ -55,4 +58,32 @@
 
 .ui-messages {
 	margin-right: 300px;
+}
+.ui-button {
+	height: 30px;
+	width: 100px;
+}
+.ui-button-text {
+	font-size: 13px;
+	color: black;
+}
+#info {
+	text-align: left;
+	margin-bottom: 50px;
+}
+.infoName {
+	background: #ffffff;
+	box-shadow: inset 0 1px 1px #8f8f8f;
+	color: #313131;
+	padding: 4px;
+	font-style: italic;
+	font-weight: bold;
+	width: 300px;
+	margin-left: 20px;
+}
+.cellDouble {
+	width: 150px;
+}
+#proc_ves {
+	font-weight: bold;
 }

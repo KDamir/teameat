@@ -1,0 +1,66 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<f:view>
+	<h:head></h:head>
+	
+	<h:body>
+		<h:form id="fragment_form">
+			<!-- <p:dataList id="myList" value="#{meatService.inputList}" var="tmeat">
+				#{tmeat.name},#{tmeat.ves},#{tmeat.prod_cena},#{tmeat.ves_chasti},#{tmeat.cena_za_kg},#{tmeat.proc_ot_vesa},#{tmeat.suma_prodaj}
+			</p:dataList> -->
+			  <p:dataTable id="myList" var="tmeat" value="#{meatService.inputList}">
+				<p:column>
+					<h:outputText value="#{tmeat.name}" />
+				</p:column>
+				<p:column>
+					<h:outputText value="#{tmeat.ves}" />
+				</p:column>
+				<p:column>
+					<h:outputText value="#{tmeat.prod_cena}" />
+				</p:column>
+				<p:column>
+					<h:outputText value="#{tmeat.ves_chasti}" />
+				</p:column>
+				<p:column>
+					<h:outputText value="#{tmeat.cena_za_kg}" />
+				</p:column>
+				<p:column>
+					<h:outputText value="#{tmeat.proc_ot_vesa}" />
+				</p:column>
+				<p:column>
+					<h:outputText value="#{tmeat.suma_prodaj}" />
+				</p:column>
+				
+			</p:dataTable>
+			
+			<h:panelGrid columns="7">
+				<h:outputText value="Наименование" />
+				<h:outputText value="Вес позиции" />
+				<h:outputText value="Продажная цена" />
+				<h:outputText value="Вес части туши" />
+				<h:outputText value="Цена за кг" />
+				<h:outputText value="% от общего веса" />
+				<h:outputText value="Сумма продаж" />
+				<p:inputText value="#{meatPart.name}"></p:inputText>
+				<p:inputText value="#{meatPart.ves}"></p:inputText>
+				<p:inputText value="#{meatPart.prod_cena}"></p:inputText>
+				<p:inputText value="#{meatPart.ves_chasti}"></p:inputText>
+				<p:inputText value="#{meatPart.cena_za_kg}"></p:inputText>
+				<h:outputText value="#{meatPart.proc_ot_vesa}" id="proc_ves" />
+				<h:outputText value="#{meatPart.suma_prodaj}" id="suma_prodaj" />
+				<f:facet name="footer">
+					<p:commandButton value="Добавить" update="myList" actionListener="#{meatService.addZakaz}"/>
+					<p:commandButton value="Расчитать" update="proc_ves suma_prodaj" actionListener="#{meatService.raschet}"/>
+				</f:facet>
+			
+			</h:panelGrid>
+			
+		</h:form>
+	</h:body>
+	
+</f:view>
+</ui:composition>

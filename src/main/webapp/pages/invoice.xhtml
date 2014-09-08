@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<f:view>
+	<h:head>
+		
+	</h:head>
+	
+	<h:body>
+		<h2 style="text-align: center;">Накладная</h2>
+		<h:form id="fragmentForm">
+			<h:outputText value="Отправитель" />
+			<br/>
+			<p:inputText value="#{userLoginView.username}"/>
+			<h:selectOneMenu styleClass="selectTOO" value="#{userLoginView.password}">
+				<f:selectItem itemValue="1" itemLabel="ТОО 'Альтаир-Group' "/>
+				<f:selectItem itemValue="2" itemLabel="ТОО 'КазМунайГаз'"/>
+			</h:selectOneMenu>
+			<p:panelGrid columns="5">
+				<h:outputText value="Категория" />
+				<h:outputText value="Наименование" />
+				<h:outputText value="Количество" />
+				<h:outputText value="Цена" />
+				<h:inputHidden/>
+				<c:forEach items="#{invoiceService.invoice}" var="invoice">
+					<p:inputText value="#{invoice.rank}"/>
+					<p:inputText value="#{invoice.name}"/>
+					<p:inputText value="#{invoice.amount}"/>
+					<p:inputText value="#{invoice.price}"/>
+					<p:commandButton value="Сохранить" update="fragmentForm" actionListener="#{invoiceService.updateInvoice(invoice)}"/>
+				</c:forEach>
+				<f:facet name="footer">
+					<p:commandButton value="Печать"/>
+					<p:commandButton value="Готово"/>
+				</f:facet>
+			</p:panelGrid>
+		</h:form>
+	</h:body>
+	
+</f:view>
+</ui:composition>

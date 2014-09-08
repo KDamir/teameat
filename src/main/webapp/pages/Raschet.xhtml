@@ -2,11 +2,18 @@
 	  xmlns:h="http://java.sun.com/jsf/html"
 	  xmlns:f="http://java.sun.com/jsf/core"
 	  xmlns:p="http://primefaces.org/ui"
-	  xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
-
+	  xmlns:ui="http://java.sun.com/jsf/facelets">
 <f:view>
-	<h:head></h:head>
+	<h:head/>
+
+    <script type="text/javascript">
+        function pressButton(buttonId) {
+            if (event.keyCode == 13) {
+                #{p:component('saveButton'+buttonId)}.click();
+                return false;
+            }
+        }
+    </script>
 	
 	<h:body>
 		<h:form id="fragmentForm">
@@ -22,18 +29,30 @@
 				<h:outputText value="% от общего веса" />
 				<h:outputText value="Сумма продаж" />
                 <h:inputHidden/>
-                <c:forEach items="#{meatService.inputList}" var="orderPart">
-                    <p:inputText value="#{orderPart.name}"/>
-                    <p:inputText value="#{orderPart.weight}" styleClass="cellDouble"/>
-                    <p:inputText value="#{orderPart.prod_cena }" styleClass="cellDouble"/>
-                    <p:inputText value="#{orderPart.ves_chasti}" styleClass="cellDouble"/>
-                    <p:inputText value="#{orderPart.cena_za_kg}" styleClass="cellDouble"/>
+                <ui:repeat value="#{meatService.inputList}" var="orderPart" varStatus="status">
+                    <p:inputText value="#{orderPart.name}" onkeypress="pressButton(#{status.index})"
+                                 validatorMessage="Введите наименование.">
+                            <f:validateRequired/>
+                    </p:inputText>
+                    <p:inputText value="#{orderPart.weight}" styleClass="cellDouble"
+                                 onkeypress="pressButton(#{status.index})" converterMessage="Вес должен быть больше нуля.">
+                            <f:validateDoubleRange minimum="1.0"/>
+                    </p:inputText>
+                    <p:inputText value="#{orderPart.prod_cena }" styleClass="cellDouble"
+                                 onkeypress="pressButton(#{status.index})" converterMessage="Цена должна быть больше нуля.">
+                        <f:validateDoubleRange minimum="1.0"/>
+                    </p:inputText>
+                    <p:inputText value="#{orderPart.ves_chasti}" styleClass="cellDouble"
+                                 onkeypress="pressButton(#{status.index})"/>
+                    <p:inputText value="#{orderPart.cena_za_kg}" styleClass="cellDouble"
+                                 onkeypress="pressButton(#{status.index})"/>
                     <h:outputText value="#{orderPart.proc_ot_vesa}" id="proc_ves">
                     	<f:convertNumber pattern="#0.00"/>
                     </h:outputText>
                     <h:outputText value="#{orderPart.suma_prodaj}" id="suma_prodaj" />
-                    <p:commandButton value="Сохранить" update="fragmentForm" actionListener="#{meatService.updateOrder(orderPart)}"/>
-                </c:forEach>
+                    <p:commandButton value="Сохранить" update="fragmentForm" id="#{'saveButton'+status.index}"
+                                     actionListener="#{status.last ? meatService.addNewOrder(orderPart) : meatService.updateOrder(orderPart)}"/>
+                </ui:repeat>
                 <h:outputText value="Итого:" />
 				<h:outputText value="#{meatService.calcWeight()}" />
 				<h:inputHidden/>
@@ -51,6 +70,8 @@
 			
 		</h:form>
 	</h:body>
+
+
 	
 </f:view>
 </ui:composition>

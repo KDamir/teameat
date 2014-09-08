@@ -22,7 +22,7 @@ public class MeatService {
         MeatPart mp = new MeatPart();
         inputList.add(mp);
 		//System.out.println("PostConctruct");
-	}
+    }
 	public List<MeatPart> getInputList() {
 		return inputList;
 	}
@@ -31,17 +31,25 @@ public class MeatService {
 		this.inputList = inputList;
 	}
 
-	public void updateOrder(MeatPart currentItem) {
-        if ((inputList.lastIndexOf(currentItem) == inputList.size() - 1) && currentItem.getWeight() != 0.0 ) {
-            MeatPart meatPart = new MeatPart();
-            inputList.add(meatPart);
-        }
+    public void addNewOrder(MeatPart meatPart) {
+            // Здесь будет вызов insert'а из ДАО
+        MeatPart meatPart = new MeatPart();
+        inputList.add(meatPart);
+    }
+
+	public void updateOrder(MeatPart meatPart) {
+            // TODO: ФЛК должен быть в валидаторах полей, на стороне клиента!
+        //if (currentItem.getWeight() != 0.0 ) {
+
+        //}
+
+            // Здесь будет вызов update'а из ДАО
 		//inputList.forEach(System.out::println);
 	}
 	
 	public void calculate() {
 		for(MeatPart part:inputList) {
-			if(part.getVes_chasti() != 0)
+			//if(part.getVes_chasti() != 0) - это должно быть в валидации, client side!
 				part.setProc_ot_vesa(part.getWeight()*100/part.getVes_chasti());
 			part.setSuma_prodaj(part.getWeight()*part.getProd_cena());
 		}

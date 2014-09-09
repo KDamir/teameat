@@ -10,7 +10,7 @@
 	<h:body>
 		<h:form id="fragmentForm" onkeypress="{
                                       if (event.keyCode == 13) {
-                                          #{p:component('calculateAllButton')}.click();
+                                          document.getElementById('fragmentForm:calculateAllButton').click();
                                           return false;
                                       }
                                   }">

@@ -2,7 +2,8 @@
 	  xmlns:h="http://java.sun.com/jsf/html"
 	  xmlns:f="http://java.sun.com/jsf/core"
 	  xmlns:p="http://primefaces.org/ui"
-	  xmlns:ui="http://java.sun.com/jsf/facelets">
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 <f:view>
 	<h:head/>
 
@@ -16,6 +17,8 @@
 			<div id="info"><span style="font-weight: bolder;">Информация по туше:</span>
 				<h:inputText role="textbox" styleClass="infoName" value="#{userLoginView.username}" />
 			</div>
+            <p:messages/>
+            <br/>
 			<h:panelGrid columns="8" id="mainPanel">
 				<h:outputText value="Наименование" />
 				<h:outputText value="Вес позиции" />
@@ -25,16 +28,18 @@
 				<h:outputText value="% от общего веса" />
 				<h:outputText value="Сумма продаж" />
                 <h:inputHidden/>
-                <ui:repeat value="#{meatService.inputList}" var="orderPart" varStatus="status">
-                    <p:inputText value="#{orderPart.name}" validatorMessage="Введите наименование.">
-                            <f:validateRequired/>
+
+
+                <c:forEach items="#{meatService.inputList}" var="orderPart" varStatus="status">
+                    <p:inputText id="name" value="#{orderPart.name}" validatorMessage="Введите наименование.">
+                            <f:validateLength minimum="1"/>
                     </p:inputText>
-                    <p:inputText value="#{orderPart.weight}" styleClass="cellDouble"
-                                 converterMessage="Вес должен быть больше нуля.">
+                    <p:inputText id="weight" value="#{orderPart.weight}" styleClass="cellDouble"
+                                 validatorMessage="Вес должен быть больше нуля." converterMessage="Некорректное число в поле 'Вес'.">
                             <f:validateDoubleRange minimum="1.0"/>
                     </p:inputText>
-                    <p:inputText value="#{orderPart.prod_cena }" styleClass="cellDouble"
-                                 converterMessage="Цена должна быть больше нуля.">
+                    <p:inputText id="price" value="#{orderPart.prod_cena }" styleClass="cellDouble"
+                                 validatorMessage="Цена должна быть больше нуля." converterMessage="Некорректное число в поле 'Цена'.">
                         <f:validateDoubleRange minimum="1.0"/>
                     </p:inputText>
                     <p:inputText value="#{orderPart.ves_chasti}" styleClass="cellDouble"/>
@@ -45,7 +50,7 @@
                     <h:outputText value="#{orderPart.suma_prodaj}" id="suma_prodaj" />
                     <p:commandButton value="Сохранить" update="fragmentForm"
                                      actionListener="#{meatService.updateOrder(status.index)}"/>
-                </ui:repeat>
+                </c:forEach>
                 <h:outputText value="Итого:" />
 				<h:outputText value="#{meatService.totalWeight}" />
 				<h:inputHidden/>
@@ -61,11 +66,11 @@
                 	<p:commandButton value="Расчитать всё" id="calculateAllButton" update="fragmentForm" actionListener="#{meatService.calculate}"/>
                 </f:facet>
 			</h:panelGrid>
-			
+
 		</h:form>
 	</h:body>
 
 
-	
+
 </f:view>
 </ui:composition>

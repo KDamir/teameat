@@ -29,22 +29,18 @@
 				<h:outputText value="Сумма продаж" />
                 <h:inputHidden />
                 <c:forEach items="#{meatService.inputList}" var="orderPart" varStatus="status">
-                    <p:inputText value="#{orderPart.name}" validatorMessage="Введите наименование.">
-                            <f:validateRequired/>
-                <h:inputHidden/>
-
-
-                <c:forEach items="#{meatService.inputList}" var="orderPart" varStatus="status">
                     <p:inputText id="name" value="#{orderPart.name}" validatorMessage="Введите наименование.">
                             <f:validateLength minimum="1"/>
                     </p:inputText>
                     <p:inputText id="weight" value="#{orderPart.weight}" styleClass="cellDouble"
                                  validatorMessage="Вес должен быть больше нуля." converterMessage="Некорректное число в поле 'Вес'.">
-                            <f:validateDoubleRange minimum="1.0"/>
+	                            <!-- Какое мин. значение должно быть? -->
+	                            <f:validateDoubleRange minimum="0.001"/>
                     </p:inputText>
                     <p:inputText id="price" value="#{orderPart.prod_cena }" styleClass="cellDouble"
                                  validatorMessage="Цена должна быть больше нуля." converterMessage="Некорректное число в поле 'Цена'.">
-                        <f:validateDoubleRange minimum="1.0"/>
+                            	<!-- Какое мин. значение должно быть? -->
+                        		<f:validateDoubleRange minimum="0.001"/>
                     </p:inputText>
                     <p:inputText value="#{orderPart.ves_chasti}" styleClass="cellDouble"/>
                     <p:inputText value="#{orderPart.cena_za_kg}" styleClass="cellDouble"/>
@@ -67,7 +63,7 @@
                 <f:facet name="footer">
         <!--        Зачем здесь эта кнопка? -->
                     <p:commandButton value="Готово"/>
-                	<p:commandButton value="Расчитать всё" id="calculateAllButton" update="fragmentForm" actionListener="#{meatService.calculate}"/>
+                	<p:commandButton value="Расчитать всё" id="calculateAllButton" update=":fragmentForm" actionListener="#{meatService.calculate}"/>
                 </f:facet>
 			</h:panelGrid>
 			

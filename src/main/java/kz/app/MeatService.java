@@ -31,43 +31,39 @@ public class MeatService {
 		this.inputList = inputList;
 	}
 
-    public void addNewOrder(MeatPart meatPart) {
+	public void updateOrder(int index) {
+
+        MeatPart currentPart = inputList.get(index);
+
+        if (index == inputList.size() - 1) {
             // Здесь будет вызов insert'а из ДАО
-        MeatPart meatPart = new MeatPart();
-        inputList.add(meatPart);
-    }
-
-	public void updateOrder(MeatPart meatPart) {
-            // TODO: ФЛК должен быть в валидаторах полей, на стороне клиента!
-        //if (currentItem.getWeight() != 0.0 ) {
-
-        //}
-
+            MeatPart meatPart = new MeatPart();
+            inputList.add(meatPart);
+        } else {
             // Здесь будет вызов update'а из ДАО
-		//inputList.forEach(System.out::println);
-	}
+        }
+    }
 	
 	public void calculate() {
-		for(MeatPart part:inputList) {
-			//if(part.getVes_chasti() != 0) - это должно быть в валидации, client side!
-				part.setProc_ot_vesa(part.getWeight()*100/part.getVes_chasti());
+		for (MeatPart part:inputList) {
+			part.setProc_ot_vesa(part.getWeight()*100/part.getVes_chasti());
 			part.setSuma_prodaj(part.getWeight()*part.getProd_cena());
 		}
 	}
 	/*Общий вес*/
-	public Double calcWeight() {
+	public Double getTotalWeight() {
 		sumWeight = 0.0;
 		inputList.forEach(e -> sumWeight += e.getWeight());
 		return sumWeight;
 	}
 	/*Общий процент*/
-	public Double calcProc() {
+	public Double getTotalPercent() {
 		sumProc = 0.0;
 		inputList.forEach(e -> sumProc += e.getProc_ot_vesa());
 		return sumProc;
 	}
 	/*Общая сумма продаж*/
-	public Double calcSum() {
+	public Double getTotalSum() {
 		sumProdaj = 0.0;
 		inputList.forEach(e -> sumProdaj += e.getSuma_prodaj());
 		return sumProdaj;

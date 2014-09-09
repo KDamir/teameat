@@ -27,6 +27,10 @@
 				<h:outputText value="Цена за кг" />
 				<h:outputText value="% от общего веса" />
 				<h:outputText value="Сумма продаж" />
+                <h:inputHidden />
+                <c:forEach items="#{meatService.inputList}" var="orderPart" varStatus="status">
+                    <p:inputText value="#{orderPart.name}" validatorMessage="Введите наименование.">
+                            <f:validateRequired/>
                 <h:inputHidden/>
 
 
@@ -48,7 +52,7 @@
                     	<f:convertNumber pattern="#0.00"/>
                     </h:outputText>
                     <h:outputText value="#{orderPart.suma_prodaj}" id="suma_prodaj" />
-                    <p:commandButton value="Сохранить" update="fragmentForm"
+                    <p:commandButton value="Сохранить" update=":fragmentForm"
                                      actionListener="#{meatService.updateOrder(status.index)}"/>
                 </c:forEach>
                 <h:outputText value="Итого:" />
@@ -66,11 +70,11 @@
                 	<p:commandButton value="Расчитать всё" id="calculateAllButton" update="fragmentForm" actionListener="#{meatService.calculate}"/>
                 </f:facet>
 			</h:panelGrid>
-
+			
 		</h:form>
 	</h:body>
 
 
-
+	
 </f:view>
 </ui:composition>

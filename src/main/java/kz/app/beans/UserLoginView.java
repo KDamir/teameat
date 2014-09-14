@@ -1,11 +1,10 @@
-package kz.app;
+package kz.app.beans;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -27,6 +26,14 @@ public class UserLoginView {
 	private String username;
     
     private String password;
+    
+    boolean logged = false;
+
+	// Группы пользователей. Возможно, стоит поместить в утилитный класс.
+	// TODO: Возможно, лучше создать enum вместо строковых констант, так будет красивей. Проверить, съест ли enum'ы JSF.
+	public static final String ADMINISTRATOR = "ADMINISTRATOR";
+	public static final String SUPERVISOR = "SUPERVISOR";
+	public static final String USER = "USER";
     
     public UserLoginView() {
     	try {
@@ -53,8 +60,20 @@ public class UserLoginView {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public void setLogged(boolean logged) {
+		this.logged = logged;
+	}
+	
+	/*Проверка, авторизован ли пользователь, если нет, то редиректим на логин форму*/
+	public boolean isLogged() {
+		return logged;
+	}
 
-	public void login(ActionEvent event) {
+	/* TODO: Функция должна возвращать строковую константу группы юзеров.
+		В зависимости от этого, будем редиректить на нужную страницу (через faces-config)
+	 */
+	public String login() {
 		try {
 			Connection con = ds.getConnection();
 			Statement stmt = con.createStatement();
@@ -73,17 +92,19 @@ public class UserLoginView {
 		} 
 		RequestContext context = RequestContext.getCurrentInstance();
 		FacesMessage msg = null;
-		boolean logged = false;
-		
+
+		// Через UserDao забираем по юзернейму хэш пароля из БД
+		// Здесь будет PasswordUtil.check(password, storedPassword)
 		if(username != null && username.equals("admin") && password != null && password.equals("admin")) {
-			logged = true;
+			setLogged(true);
 			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Добро пожаловать " + username + "!", username);
 		} else {
-			logged = false;
+			setLogged(false);
 			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Неверный логин или пароль", "Invalid credentials");
 		}
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		context.addCallbackParam("logged", logged);
+		return USER;
 	}
 
 }

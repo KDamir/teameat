@@ -1,0 +1,76 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:view>
+	<h:head/>
+
+	<h:body>
+		<h:form id="fragmentForm" onkeypress="{
+                                      if (event.keyCode == 13) {
+                                          document.getElementById('fragmentForm:calculateAllButton').click();
+                                          return false;
+                                      }
+                                  }">
+			<div id="info"><span style="font-weight: bolder;">Информация по туше:</span>
+				<h:inputText role="textbox" styleClass="infoName" value="#{userLoginView.username}" />
+			</div>
+            <p:messages/>
+            <br/>
+			<h:panelGrid columns="8" id="mainPanel">
+				<h:outputText value="Наименование" />
+				<h:outputText value="Вес позиции" />
+				<h:outputText value="Продажная цена" />
+				<h:outputText value="Вес части туши" />
+				<h:outputText value="Цена за кг" />
+				<h:outputText value="% от общего веса" />
+				<h:outputText value="Сумма продаж" />
+                <h:inputHidden />
+                <c:forEach items="#{meatService.inputList}" var="orderPart" varStatus="status">
+                    <p:inputText id="name" value="#{orderPart.name}" validatorMessage="Введите наименование.">
+                            <f:validateLength minimum="1"/>
+                    </p:inputText>
+                    <p:inputText id="weight" value="#{orderPart.weight}" styleClass="cellDouble"
+                                 validatorMessage="Вес должен быть больше нуля." converterMessage="Некорректное число в поле 'Вес'.">
+	                            <!-- Какое мин. значение должно быть? -->
+	                            <f:validateDoubleRange minimum="0.001"/>
+                    </p:inputText>
+                    <p:inputText id="price" value="#{orderPart.prod_cena }" styleClass="cellDouble"
+                                 validatorMessage="Цена должна быть больше нуля." converterMessage="Некорректное число в поле 'Цена'.">
+                            	<!-- Какое мин. значение должно быть? -->
+                        		<f:validateDoubleRange minimum="0.001"/>
+                    </p:inputText>
+                    <p:inputText value="#{orderPart.ves_chasti}" styleClass="cellDouble"/>
+                    <p:inputText value="#{orderPart.cena_za_kg}" styleClass="cellDouble"/>
+                    <h:outputText value="#{orderPart.proc_ot_vesa}" id="proc_ves">
+                    	<f:convertNumber pattern="#0.00"/>
+                    </h:outputText>
+                    <h:outputText value="#{orderPart.suma_prodaj}" id="suma_prodaj" />
+                    <p:commandButton value="Сохранить" update=":fragmentForm"
+                                     actionListener="#{meatService.updateOrder(status.index)}"/>
+                </c:forEach>
+                <h:outputText value="Итого:" />
+				<h:outputText value="#{meatService.totalWeight}" />
+				<h:inputHidden/>
+				<h:inputHidden/>
+				<h:inputHidden/>
+				<h:outputText value="#{meatService.totalPercent}">
+					<f:convertNumber pattern="#0.00"/>
+				</h:outputText>
+				<h:outputText value="#{meatService.totalSum}" />
+                <f:facet name="footer">
+        <!--        Зачем здесь эта кнопка? -->
+                    <p:commandButton value="Готово"/>
+                	<p:commandButton value="Расчитать всё" id="calculateAllButton" update=":fragmentForm" actionListener="#{meatService.calculate}"/>
+                </f:facet>
+			</h:panelGrid>
+			
+		</h:form>
+	</h:body>
+
+
+	
+</f:view>
+</ui:composition>

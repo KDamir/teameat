@@ -35,7 +35,9 @@ public class EditView implements Serializable {
 
 
 	private Car selected_row;
-     
+    
+	
+	
     @PostConstruct
     public void init() {
         cars1 = service.createCars(10);
@@ -66,29 +68,37 @@ public class EditView implements Serializable {
     	
         FacesMessage msg = new FacesMessage("Invoice Edited");
         FacesContext.getCurrentInstance().addMessage(null, msg);
+        
+        
     }
-/*     
-    public void onRowBeginEdit(SelectEvent event){
+  
+    public void onRowEditInit(RowEditEvent event) {
     	
-   // 	selected_row = cars1.indexOf(((Car)event.getObject()).getCategory());
-    	
- 
-        FacesMessage msg = new FacesMessage("Invoice Edited");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
-  */  
+    	   // 	System.out.println(((Car)event.getObject()).getCategory());
+    	    	System.out.println(cars1.indexOf(event.getObject()));
+    	    	
+    	        FacesMessage msg = new FacesMessage("Invoice Edited");
+    	        FacesContext.getCurrentInstance().addMessage(null, msg);
+    	        
+    	        
+    	        
+    	    }
+    
     public void onRowCancel(RowEditEvent event) {
         FacesMessage msg = new FacesMessage("Edit Cancelled");
         FacesContext.getCurrentInstance().addMessage(null, msg);
+        
+        
     }
      
  
-    public void categoryChanged(){
+    public void categoryChanged(String category){
 		//assign new value to localeCode
-    	System.out.println(getSelected_row().getCategory());
+ //	   	System.out.println(getSelected_row().getCategory());
 	       
 	//       System.out.println(cars1.get(selected_row).getCategory());
 	       
+    	System.out.println(category);
 			String [] colors = new String[10];
 	        colors[0] = "Black";
 	        colors[1] = "Black";
@@ -113,5 +123,7 @@ public class EditView implements Serializable {
 	public void setSelected_row(Car selected_row) {
 		this.selected_row = selected_row;
 	}
+
+	
     
 }

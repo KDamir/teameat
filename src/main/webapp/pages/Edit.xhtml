@@ -12,10 +12,9 @@
 
 <p:growl id="msgs" showDetail="true"/>
  
-   <p:dataTable id="cars1" selection="#{dtEditView.selected_row}"  selectionMode="single"
-    var="car" value="#{dtEditView.cars1}" editable="true" style="margin-bottom:20px">
+   <p:dataTable id="cars1" var="car" value="#{dtEditView.cars1}" editable="true" style="margin-bottom:20px">
        
-       
+       <p:ajax event="rowEditInit" listener="#{dtEditView.onRowEditInit}" update=":form:msgs" />
        <p:ajax event="rowEdit" listener="#{dtEditView.onRowEdit}" update=":form:msgs" />
        <p:ajax event="rowEditCancel" listener="#{dtEditView.onRowCancel}" update=":form:msgs" />
  	   
@@ -25,7 +24,7 @@
                <f:facet name="input">
                    <h:selectOneMenu value="#{car.category}" style="width:100%">
                    
-                   	   <p:ajax  listener="#{dtEditView.categoryChanged}" update="name"  />
+                   	   <p:ajax  listener="#{dtEditView.categoryChanged(car.category)}" update="name"  />
                 	   
                        <f:selectItems value="#{dtEditView.categories}" var="man" itemLabel="#{man}" itemValue="#{man}" />
                   	  

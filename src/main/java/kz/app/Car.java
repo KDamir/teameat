@@ -1,29 +1,62 @@
 package kz.app;
 
-import javax.faces.bean.ManagedBean;
+import java.io.Serializable;
 
-@ManagedBean
-public class Car {
-	private String number;
-	private String color;
+public class Car implements Serializable {
+
+	public String category;
+	public String name;
+	public String quantity;
+    public String price;
+
+	public String getCategory() {
+		return category;
+	}
+
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public String getQuantity() {
+		return quantity;
+	}
+
+
+	public void setQuantity(String quantity) {
+		this.quantity = quantity;
+	}
+
+
+	public String getPrice() {
+		return price;
+	}
+
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
+
+
+    public Car(String category, String name, String quantity, String price) {
+		this.category = category;
+		this.name = name;
+		this.quantity = quantity;
+		this.price = price;
+	}
 	
-	public String getNumber() {
-		return number;
-	}
-	public void setNumber(String number) {
-		this.number = number;
-	}
-	public String getColor() {
-		return color;
-	}
-	public void setColor(String color) {
-		this.color = color;
-	}
 	
-	public Car() {}
-	
-	public Car(String num, String col) {
-		this.number = num;
-		this.color = col;
-	}
+    
+
 }

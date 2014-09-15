@@ -7,6 +7,9 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import kz.app.entity.MeatTypesEntity;
+import kz.app.utils.HibernateUtil;
+
 @ManagedBean
 @SessionScoped
 public class MeatService {
@@ -15,13 +18,28 @@ public class MeatService {
 	private Double sumWeight = 0.0;
 	private Double sumProc = 0.0;
 	private Double sumProdaj = 0.0;
+	private List<String> list1;
 
 	@PostConstruct
 	public void init() {
 		inputList = new ArrayList<>();
         MeatPart mp = new MeatPart();
         inputList.add(mp);
-		//System.out.println("PostConctruct");
+        inputList.add(new MeatPart());
+        inputList.add(new MeatPart());
+        inputList.add(new MeatPart());
+        inputList.add(new MeatPart());
+        inputList.add(new MeatPart());
+        inputList.add(new MeatPart());
+        inputList.add(new MeatPart());
+        inputList.add(new MeatPart());
+        inputList.add(new MeatPart());
+        //System.out.println("PostConctruct");
+        list1 = new ArrayList<>();
+        HibernateUtil.getSession().beginTransaction();
+		List<MeatTypesEntity> list = HibernateUtil.getSessionfactory().getCurrentSession().createQuery("from MeatTypesEntity").list();
+		HibernateUtil.getSession().getTransaction().commit();
+		list.forEach(e -> list1.add(e.getType()));
     }
 	public List<MeatPart> getInputList() {
 		return inputList;
@@ -62,6 +80,9 @@ public class MeatService {
 		sumProdaj = 0.0;
 		inputList.forEach(e -> sumProdaj += e.getSuma_prodaj());
 		return sumProdaj;
+	}
+	public List<String> getList1() {
+		return list1;
 	}
 	
 }

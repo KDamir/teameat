@@ -1,0 +1,68 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:view>
+	<h:head/>
+
+	<h:body>
+		<h:form id="fragmentForm" onkeypress="{
+                                      if (event.keyCode == 13) {
+                                          document.getElementById('fragmentForm:saveOrder').click();
+                                          return false;
+                                      }
+                                  }">
+			<div id="info"><span style="font-weight: bolder;">Информация по туше:</span>
+				<h:inputText role="textbox" styleClass="infoName" value="#{userLoginView.username}" />
+			</div>
+            <p:messages/>
+            <br/>
+			<p:dataTable id="mainTable" value="#{meatService.inputList}" var="inp" editable="true" editMode="cell" draggableRows="true">
+				<p:column headerText="Наименование" sortBy="#{inp.name}">
+					<p:cellEditor>
+						<f:facet name="output"><h:outputText value="#{inp.name}"/></f:facet>
+						<f:facet name="input">
+							<h:selectOneMenu value="#{inp.name}" style="width:100%">
+								<f:selectItems value="#{meatService.list1}" var="type" itemLabel="#{type}" itemValue="#{type}"/>
+							</h:selectOneMenu>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Вес позиции">
+					<p:cellEditor>
+						<f:facet name="output"><h:outputText value="#{inp.weight}"/></f:facet>
+						<f:facet name="input"><p:inputText value="#{inp.weight}"/></f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Продажная цена">
+					<p:cellEditor>
+						<f:facet name="output"><h:outputText value="#{inp.prod_cena}"/></f:facet>
+						<f:facet name="input"><p:inputText value="#{inp.prod_cena}"/></f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Вес части туши">
+					<p:cellEditor>
+						<f:facet name="output"><h:outputText value="#{inp.ves_chasti}"/></f:facet>
+						<f:facet name="input"><p:inputText value="#{inp.ves_chasti}"/></f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Цена за кг">
+					<p:cellEditor>
+						<f:facet name="output"><h:outputText value="#{inp.cena_za_kg}"/></f:facet>
+						<f:facet name="input"><p:inputText value="#{inp.cena_za_kg}"/></f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column>
+					<p:commandButton id="saveOrder" value="Сохранить" update=":fragmentForm"
+                                     actionListener="#{meatService.updateOrder(1)}"/>
+                </p:column>
+			</p:dataTable>
+		</h:form>
+	</h:body>
+
+
+	
+</f:view>
+</ui:composition>

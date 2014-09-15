@@ -6,7 +6,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 
 @ManagedBean
 @SessionScoped
@@ -29,7 +28,6 @@ public class MeatService {
 	}
 
 	public void updateOrder(int index) {
-
         MeatPart currentPart = inputList.get(index);
 
         if (index == inputList.size() - 1) {

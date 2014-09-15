@@ -10,7 +10,7 @@
 	<h:body>
 		<h:form id="fragmentForm" onkeypress="{
                                       if (event.keyCode == 13) {
-                                          document.getElementById('fragmentForm:calculateAllButton').click();
+                                          document.getElementById('fragmentForm:saveOrder').click();
                                           return false;
                                       }
                                   }">
@@ -48,7 +48,7 @@
                     	<f:convertNumber pattern="#0.00"/>
                     </h:outputText>
                     <h:outputText value="#{orderPart.suma_prodaj}" id="suma_prodaj" />
-                    <p:commandButton value="Сохранить" update=":fragmentForm"
+                    <p:commandButton id="saveOrder" value="Сохранить" update=":fragmentForm"
                                      actionListener="#{meatService.updateOrder(status.index)}"/>
                 </c:forEach>
                 <h:outputText value="Итого:" />
@@ -63,7 +63,7 @@
                 <f:facet name="footer">
         <!--        Зачем здесь эта кнопка? -->
                     <p:commandButton value="Готово"/>
-                	<p:commandButton value="Расчитать всё" id="calculateAllButton" update=":fragmentForm" actionListener="#{meatService.calculate}"/>
+                	<p:commandButton value="Расчитать" id="calculateAllButton" update=":fragmentForm" actionListener="#{meatService.calculate}"/>
                 </f:facet>
 			</h:panelGrid>
 			

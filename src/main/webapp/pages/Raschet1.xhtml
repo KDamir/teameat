@@ -14,11 +14,22 @@
                                           return false;
                                       }
                                   }">
-			<div id="info"><span style="font-weight: bolder;">Информация по туше:</span>
-				<h:inputText role="textbox" styleClass="infoName" value="#{userLoginView.username}" />
-			</div>
             <p:messages/>
             <br/>
+            <table>
+            	<tr>
+            		<td><span style="font-weight: bolder;">Информация по туше:</span></td>
+            		<td><p:inputText value="#{meatService.infoPart.namePart}"/></td>
+            	</tr>
+            	<tr>
+            		<td><span style="font-weight: bolder;">Вес части туши</span></td>
+            		<td><p:inputText value="#{meatService.infoPart.ves_chasti}"/></td>
+            	</tr>
+            	<tr>
+            		<td><span style="font-weight: bolder;">Цена за кг</span></td>
+            		<td><p:inputText value="#{meatService.infoPart.cena_za_kg}"/></td>
+            	</tr>
+            </table>
 			<p:dataTable id="mainTable" value="#{meatService.inputList}" var="inp" editable="true" editMode="cell" draggableRows="true">
 				<p:column headerText="Наименование" sortBy="#{inp.name}">
 					<p:cellEditor>
@@ -33,25 +44,20 @@
 				<p:column headerText="Вес позиции">
 					<p:cellEditor>
 						<f:facet name="output"><h:outputText value="#{inp.weight}"/></f:facet>
-						<f:facet name="input"><p:inputText value="#{inp.weight}"/></f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{inp.weight}">
+								<p:ajax event="keyup" update="procves" listener="#{meatService.calculate(inp)}"/>
+							</p:inputText>
+						</f:facet>
 					</p:cellEditor>
+				</p:column>
+				<p:column headerText="% от общего веса" style="background-color:#FCA9A9;">
+					<h:outputText id="procves" value="#{inp.proc_ot_vesa}"/>
 				</p:column>
 				<p:column headerText="Продажная цена">
 					<p:cellEditor>
 						<f:facet name="output"><h:outputText value="#{inp.prod_cena}"/></f:facet>
 						<f:facet name="input"><p:inputText value="#{inp.prod_cena}"/></f:facet>
-					</p:cellEditor>
-				</p:column>
-				<p:column headerText="Вес части туши">
-					<p:cellEditor>
-						<f:facet name="output"><h:outputText value="#{inp.ves_chasti}"/></f:facet>
-						<f:facet name="input"><p:inputText value="#{inp.ves_chasti}"/></f:facet>
-					</p:cellEditor>
-				</p:column>
-				<p:column headerText="Цена за кг">
-					<p:cellEditor>
-						<f:facet name="output"><h:outputText value="#{inp.cena_za_kg}"/></f:facet>
-						<f:facet name="input"><p:inputText value="#{inp.cena_za_kg}"/></f:facet>
 					</p:cellEditor>
 				</p:column>
 				<p:column>

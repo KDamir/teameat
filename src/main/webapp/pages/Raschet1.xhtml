@@ -71,7 +71,7 @@
 						<f:facet name="output"><h:outputText value="#{inp.prod_cena}"/></f:facet>
 						<f:facet name="input">
 							<p:inputText value="#{inp.prod_cena}">
-								<p:ajax event="keyup" update="sumaprodaj,:fragmentForm:totalsum" listener="#{meatService.calculate(inp)}"/>
+								<p:ajax event="keyup" update="sumaprodaj,:fragmentForm:totalsum,:fragmentForm:valpr,:fragmentForm:procpr,bezubit" listener="#{meatService.calculate(inp)}"/>
 							</p:inputText>
 						</f:facet>
 					</p:cellEditor>
@@ -79,16 +79,29 @@
 				<p:column headerText="Сумма продаж" style="background-color:#FCA9A9;">
 					<h:outputText id="sumaprodaj" value="#{inp.suma_prodaj}"/>
 				</p:column>
+				<p:column headerText="Безубыточная цена" style="background-color:#FCA9A9;">
+					<h:outputText id="bezubit" value="#{(meatService.inputList.get(0).info.totalCoast*inp.suma_prodaj)/(meatService.totalSum*inp.weight)}"/>
+				</p:column>
 			</p:dataTable>
 			<h:panelGrid columns="7" id="mainPanel">
 				<h:outputText value="Итого:" />
-				<p:spacer width="300px" height="0"/>
-				<h:outputText id="totalweight" value="#{meatService.totalWeight}" />
 				<p:spacer width="200px" height="0"/>
+				<h:outputText id="totalweight" value="#{meatService.totalWeight}" />
+				<p:spacer width="150px" height="0"/>
 				<h:outputText id="totalpercent" value="#{meatService.totalPercent}" />
-				<p:spacer width="500px" height="0"/>
+				<p:spacer width="300px" height="0"/>
 				<h:outputText id="totalsum" value="#{meatService.totalSum}" />
 			</h:panelGrid>
+			<table>
+				<tr>
+					<td><span style="font-weight: bolder;">Валовая прибыль:</span></td>
+					<td><h:outputText id="valpr" value="#{meatService.totalSum-meatService.inputList.get(0).info.totalCoast}"/></td>
+				</tr>
+				<tr>
+					<td><span style="font-weight: bolder;">Процент прибыли:</span></td>
+					<td><h:outputText id="procpr" value="#{1-meatService.inputList.get(0).info.totalCoast/meatService.totalSum}"/></td>
+				</tr>
+			</table>
 		</h:form>
 	</h:body>
 

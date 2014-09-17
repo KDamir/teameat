@@ -1,6 +1,7 @@
 package kz.app;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -23,8 +24,7 @@ public class MeatService {
 	@PostConstruct
 	public void init() {
 		inputList = new ArrayList<>();
-        MeatPart mp = new MeatPart();
-        inputList.add(mp);
+        inputList.add(new MeatPart());
         inputList.add(new MeatPart());
         inputList.add(new MeatPart());
         inputList.add(new MeatPart());

@@ -19,15 +19,27 @@
             <table>
             	<tr>
             		<td><span style="font-weight: bolder;">Информация по туше:</span></td>
-            		<td><p:inputText value="#{infoPart.namePart}"/></td>
+            		<td><p:inputText value="#{meatService.inputList.get(0).info.namePart}"/></td>
             	</tr>
             	<tr>
             		<td><span style="font-weight: bolder;">Вес части туши</span></td>
-            		<td><p:inputText value="#{infoPart.ves_chasti}"/></td>
+            		<td>
+            			<p:inputText value="#{meatService.inputList.get(0).info.ves_chasti}">
+            				<p:ajax event="keyup" update="totalcoast" listener="#{meatService.calcTotal()}"/>
+            			</p:inputText>
+            		</td>
             	</tr>
             	<tr>
             		<td><span style="font-weight: bolder;">Цена за кг</span></td>
-            		<td><p:inputText value="#{infoPart.cena_za_kg}"/></td>
+            		<td>
+            			<p:inputText value="#{meatService.inputList.get(0).info.cena_za_kg}">
+            				<p:ajax event="keyup" update="totalcoast" listener="#{meatService.calcTotal()}"/>
+            			</p:inputText>
+            		</td>
+            	</tr>
+            	<tr>
+            		<td><span style="font-weight: bolder;">Итоговая стоимость части туши</span></td>
+            		<td><h:outputText id="totalcoast" value="#{meatService.inputList.get(0).info.totalCoast}"/></td>
             	</tr>
             </table>
 			<p:dataTable id="mainTable" value="#{meatService.inputList}" var="inp" editable="true" editMode="cell" draggableRows="true">

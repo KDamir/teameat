@@ -5,15 +5,13 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 
 import kz.app.entity.MeatTypesEntity;
 import kz.app.utils.HibernateUtil;
 
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class MeatService {
 
 	private List<MeatPart> inputList;
@@ -21,17 +19,10 @@ public class MeatService {
 	private Double sumProc = 0.0;
 	private Double sumProdaj = 0.0;
 	private List<String> list1;
-	@ManagedProperty(value="#{infoPart}")
-	private InfoPart infoPart;
-
-	public void setInfoPart(InfoPart infoPart) {
-		this.infoPart = infoPart;
-	}
+	
 	@PostConstruct
 	public void init() {
 		inputList = new ArrayList<>();
-		//infoPart = new InfoPart();
-		//infoPart.setVes_chasti(10.0);
         MeatPart mp = new MeatPart();
         inputList.add(mp);
         inputList.add(new MeatPart());
@@ -65,13 +56,17 @@ public class MeatService {
             // Здесь будет вызов update'а из ДАО
         }
     }
+	public void calcTotal() {
+		InfoPart tmp = inputList.get(0).getInfo();
+		tmp.setTotalCoast(tmp.getVes_chasti()*tmp.getCena_za_kg());
+	}
 	
 	public void calculate(MeatPart part) {
 		/*for (MeatPart part:inputList) {
 			part.setProc_ot_vesa(part.getWeight()*100/part.getVes_chasti());
 			part.setSuma_prodaj(part.getWeight()*part.getProd_cena());
 		}*/
-		part.setProc_ot_vesa(part.getWeight()*100/infoPart.getVes_chasti());
+		part.setProc_ot_vesa(part.getWeight()*100/inputList.get(0).getInfo().getVes_chasti());
 		part.setSuma_prodaj(part.getWeight()*part.getProd_cena());
 	}
 	/*Общий вес*/

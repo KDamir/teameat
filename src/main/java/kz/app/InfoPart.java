@@ -1,15 +1,10 @@
 package kz.app;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-
-@ManagedBean
-@ApplicationScoped
 public class InfoPart {
 	private String namePart;
-	private Double ves_chasti;
-	private Double cena_za_kg;
+	private Double ves_chasti = 0.0;
+	private Double cena_za_kg = 0.0;
+	private Double totalCoast = 0.0;
 	
 	public String getNamePart() {
 		return namePart;
@@ -28,5 +23,11 @@ public class InfoPart {
 	}
 	public void setCena_za_kg(Double cena_za_kg) {
 		this.cena_za_kg = cena_za_kg;
+	}
+	public Double getTotalCoast() {
+		return totalCoast;
+	}
+	public void setTotalCoast(Double totalCoast) {
+		this.totalCoast = totalCoast;
 	}
 }

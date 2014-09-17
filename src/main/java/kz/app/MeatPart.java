@@ -17,6 +17,7 @@ public class MeatPart {
 	private Double cena_za_kg = 0.0;
 	private Double proc_ot_vesa = 0.0;
 	private Double suma_prodaj = 0.0;
+	private InfoPart info = new InfoPart();
 
 	public Double getSuma_prodaj() {
 		return suma_prodaj;
@@ -64,6 +65,14 @@ public class MeatPart {
 
 	public void setVes_chasti(Double ves_chasti) {
 		this.ves_chasti = ves_chasti;
+	}
+
+	public InfoPart getInfo() {
+		return info;
+	}
+
+	public void setInfo(InfoPart info) {
+		this.info = info;
 	}
 	
 	//public MeatPart(name,ves, prod_cena, ves_chasti, cena_za_kg, proc_ot_vesa, suma_prod) {

@@ -5,13 +5,15 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import kz.app.entity.MeatTypesEntity;
 import kz.app.utils.HibernateUtil;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class MeatService {
 
 	private List<MeatPart> inputList;
@@ -19,13 +21,17 @@ public class MeatService {
 	private Double sumProc = 0.0;
 	private Double sumProdaj = 0.0;
 	private List<String> list1;
+	@ManagedProperty(value="#{infoPart}")
 	private InfoPart infoPart;
 
+	public void setInfoPart(InfoPart infoPart) {
+		this.infoPart = infoPart;
+	}
 	@PostConstruct
 	public void init() {
 		inputList = new ArrayList<>();
-		infoPart = new InfoPart();
-		infoPart.setVes_chasti(10.0);
+		//infoPart = new InfoPart();
+		//infoPart.setVes_chasti(10.0);
         MeatPart mp = new MeatPart();
         inputList.add(mp);
         inputList.add(new MeatPart());
@@ -66,6 +72,7 @@ public class MeatService {
 			part.setSuma_prodaj(part.getWeight()*part.getProd_cena());
 		}*/
 		part.setProc_ot_vesa(part.getWeight()*100/infoPart.getVes_chasti());
+		part.setSuma_prodaj(part.getWeight()*part.getProd_cena());
 	}
 	/*Общий вес*/
 	public Double getTotalWeight() {
@@ -87,12 +94,6 @@ public class MeatService {
 	}
 	public List<String> getList1() {
 		return list1;
-	}
-	public InfoPart getInfoPart() {
-		return infoPart;
-	}
-	public void setInfoPart(InfoPart infoPart) {
-		this.infoPart = infoPart;
 	}
 	
 }

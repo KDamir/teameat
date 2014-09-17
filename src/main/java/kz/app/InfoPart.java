@@ -1,7 +1,11 @@
 package kz.app;
 
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
-
+@ManagedBean
+@ApplicationScoped
 public class InfoPart {
 	private String namePart;
 	private Double ves_chasti;

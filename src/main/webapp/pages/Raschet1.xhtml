@@ -19,15 +19,15 @@
             <table>
             	<tr>
             		<td><span style="font-weight: bolder;">Информация по туше:</span></td>
-            		<td><p:inputText value="#{meatService.infoPart.namePart}"/></td>
+            		<td><p:inputText value="#{infoPart.namePart}"/></td>
             	</tr>
             	<tr>
             		<td><span style="font-weight: bolder;">Вес части туши</span></td>
-            		<td><p:inputText value="#{meatService.infoPart.ves_chasti}"/></td>
+            		<td><p:inputText value="#{infoPart.ves_chasti}"/></td>
             	</tr>
             	<tr>
             		<td><span style="font-weight: bolder;">Цена за кг</span></td>
-            		<td><p:inputText value="#{meatService.infoPart.cena_za_kg}"/></td>
+            		<td><p:inputText value="#{infoPart.cena_za_kg}"/></td>
             	</tr>
             </table>
 			<p:dataTable id="mainTable" value="#{meatService.inputList}" var="inp" editable="true" editMode="cell" draggableRows="true">
@@ -46,7 +46,7 @@
 						<f:facet name="output"><h:outputText value="#{inp.weight}"/></f:facet>
 						<f:facet name="input">
 							<p:inputText value="#{inp.weight}">
-								<p:ajax event="keyup" update="procves" listener="#{meatService.calculate(inp)}"/>
+								<p:ajax event="keyup" update="procves,sumaprodaj,:fragmentForm:totalweight,:fragmentForm:totalpercent" listener="#{meatService.calculate(inp)}"/>
 							</p:inputText>
 						</f:facet>
 					</p:cellEditor>
@@ -57,14 +57,26 @@
 				<p:column headerText="Продажная цена">
 					<p:cellEditor>
 						<f:facet name="output"><h:outputText value="#{inp.prod_cena}"/></f:facet>
-						<f:facet name="input"><p:inputText value="#{inp.prod_cena}"/></f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{inp.prod_cena}">
+								<p:ajax event="keyup" update="sumaprodaj,:fragmentForm:totalsum" listener="#{meatService.calculate(inp)}"/>
+							</p:inputText>
+						</f:facet>
 					</p:cellEditor>
 				</p:column>
-				<p:column>
-					<p:commandButton id="saveOrder" value="Сохранить" update=":fragmentForm"
-                                     actionListener="#{meatService.updateOrder(1)}"/>
-                </p:column>
+				<p:column headerText="Сумма продаж" style="background-color:#FCA9A9;">
+					<h:outputText id="sumaprodaj" value="#{inp.suma_prodaj}"/>
+				</p:column>
 			</p:dataTable>
+			<h:panelGrid columns="7" id="mainPanel">
+				<h:outputText value="Итого:" />
+				<p:spacer width="300px" height="0"/>
+				<h:outputText id="totalweight" value="#{meatService.totalWeight}" />
+				<p:spacer width="200px" height="0"/>
+				<h:outputText id="totalpercent" value="#{meatService.totalPercent}" />
+				<p:spacer width="500px" height="0"/>
+				<h:outputText id="totalsum" value="#{meatService.totalSum}" />
+			</h:panelGrid>
 		</h:form>
 	</h:body>
 

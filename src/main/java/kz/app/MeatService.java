@@ -6,11 +6,9 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.inject.Inject;
 
 import kz.app.dao.MeatPartDao;
 import kz.app.dao.MeatPartDaoImpl;
-import kz.app.entity.MeatCategoryEntity;
 import kz.app.entity.MeatTypesEntity;
 import kz.app.utils.HibernateUtil;
 

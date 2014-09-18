@@ -1,33 +1,32 @@
 package kz.app.beans;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
+
+import kz.app.dao.UserDao;
+import kz.app.dao.UserDaoImpl;
+import kz.app.entity.UsersEntity;
+import kz.app.utils.HibernateUtil;
 
 import org.primefaces.context.RequestContext;
 
 
 @ManagedBean
+@SessionScoped
 public class UserLoginView {
-	
-	//@Resource(name="jdbc/mydb")
-	private DataSource ds;
 	
 	private String username;
     
     private String password;
     
     boolean logged = false;
+    
+    UserDao userDao;
 
 	// Группы пользователей. Возможно, стоит поместить в утилитный класс.
 	// TODO: Возможно, лучше создать enum вместо строковых констант, так будет красивей. Проверить, съест ли enum'ы JSF.
@@ -35,14 +34,9 @@ public class UserLoginView {
 	public static final String SUPERVISOR = "SUPERVISOR";
 	public static final String USER = "USER";
     
-    public UserLoginView() {
-    	try {
-			Context tx = new InitialContext();
-			ds = (DataSource) tx.lookup("java:comp/env/jdbc/mydb");
-		} catch (NamingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    @PostConstruct
+    public void init() {
+    	userDao = new UserDaoImpl();
     }
 
 	public String getUsername() {
@@ -74,28 +68,36 @@ public class UserLoginView {
 		В зависимости от этого, будем редиректить на нужную страницу (через faces-config)
 	 */
 	public String login() {
-		try {
-			Connection con = ds.getConnection();
-			Statement stmt = con.createStatement();
-			String sql = "select surname from employee";
-			ResultSet rs = stmt.executeQuery(sql);
-			while(rs.next()) {
-				String sr = rs.getString("surname");
-				System.out.println("surname = " + sr);
-			}
-			rs.close();
-			stmt.close();
-			con.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
+		
 		RequestContext context = RequestContext.getCurrentInstance();
 		FacesMessage msg = null;
+		
+		
+		HibernateUtil.getSession().beginTransaction();
+		List<UsersEntity> users = userDao.getUser(username);
+		HibernateUtil.getSession().getTransaction().commit();
+		if(!users.isEmpty())
+			if(users.get(0).getPassword().equals(password)) {
+				msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Добро пожаловать " + username + "!", username);
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+				context.addCallbackParam("logged", logged);
+				return "success";
+			} else {
+				msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Неверный логин или пароль", "Invalid credentials");
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+				context.addCallbackParam("logged", logged);
+				return "error";
+			}
+		else {
+			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Неверный логин или пароль", "Invalid credentials");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			context.addCallbackParam("logged", logged);
+			return "error";
+		}
 
 		// Через UserDao забираем по юзернейму хэш пароля из БД
 		// Здесь будет PasswordUtil.check(password, storedPassword)
-		if(username != null && username.equals("admin") && password != null && password.equals("admin")) {
+		/*if(username != null && username.equals("admin") && password != null && password.equals("admin")) {
 			setLogged(true);
 			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Добро пожаловать " + username + "!", username);
 		} else {
@@ -103,8 +105,7 @@ public class UserLoginView {
 			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Неверный логин или пароль", "Invalid credentials");
 		}
 		FacesContext.getCurrentInstance().addMessage(null, msg);
-		context.addCallbackParam("logged", logged);
-		return USER;
+		context.addCallbackParam("logged", logged);*/
 	}
 
 }

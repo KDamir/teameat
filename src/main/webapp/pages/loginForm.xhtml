@@ -2,8 +2,9 @@
 	  xmlns:h="http://java.sun.com/jsf/html"
 	  xmlns:f="http://java.sun.com/jsf/core"
 	  xmlns:p="http://primefaces.org/ui"
-	  xmlns:ui="http://java.sun.com/jsf/facelets">
-
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  template="/template/default.xhtml">
+<ui:define name="content">
 <f:view>
 	<h:head></h:head>
 	
@@ -23,10 +24,10 @@
 	            <p:password id="password" value="#{userLoginView.password}" required="true" label="password" />
 	 			<p:message for="password"/>
 	            <f:facet name="footer">
-	                <p:commandButton value="Регистрация"/>
+	                <p:commandButton value="Регистрация" action="Raschet?faces-redirect=true"/>
 	                <p:spacer width="80px" height="0"/>
-	                <p:commandButton value="Вход" actionListener="#{userLoginView.login}" update="@form"/>
-	            </f:facet>  
+	                <p:commandButton value="Вход" action="#{userLoginView.login}" ajax="false" update="@form"/>
+	            </f:facet>
 	        </h:panelGrid>
 		</h:form>
 		</div>
@@ -36,4 +37,5 @@
 	</div>
 	</h:body>
 </f:view>
+</ui:define>
 </ui:composition>

@@ -1,13 +1,16 @@
 package kz.app;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.inject.Inject;
 
+import kz.app.dao.MeatPartDao;
+import kz.app.dao.MeatPartDaoImpl;
+import kz.app.entity.MeatCategoryEntity;
 import kz.app.entity.MeatTypesEntity;
 import kz.app.utils.HibernateUtil;
 
@@ -24,20 +27,14 @@ public class MeatService {
 	@PostConstruct
 	public void init() {
 		inputList = new ArrayList<>();
-        inputList.add(new MeatPart());
-        inputList.add(new MeatPart());
-        inputList.add(new MeatPart());
-        inputList.add(new MeatPart());
-        inputList.add(new MeatPart());
-        inputList.add(new MeatPart());
-        inputList.add(new MeatPart());
-        inputList.add(new MeatPart());
-        inputList.add(new MeatPart());
-        inputList.add(new MeatPart());
+        for(int i=0;i<10;i++) {
+        	inputList.add(new MeatPart());
+        }
         //System.out.println("PostConctruct");
         list1 = new ArrayList<>();
+        MeatPartDao meatPartDao = new MeatPartDaoImpl();
         HibernateUtil.getSession().beginTransaction();
-		List<MeatTypesEntity> list = HibernateUtil.getSessionfactory().getCurrentSession().createQuery("from MeatTypesEntity").list();
+		List<MeatTypesEntity> list = meatPartDao.getListMeatTypes();
 		HibernateUtil.getSession().getTransaction().commit();
 		list.forEach(e -> list1.add(e.getType()));
     }
@@ -79,7 +76,7 @@ public class MeatService {
 	public Double getTotalPercent() {
 		sumProc = 0.0;
 		inputList.forEach(e -> sumProc += e.getProc_ot_vesa());
-		return sumProc;
+		return round(sumProc,3);
 	}
 	/*Общая сумма продаж*/
 	public Double getTotalSum() {
@@ -89,6 +86,15 @@ public class MeatService {
 	}
 	public List<String> getList1() {
 		return list1;
+	}
+	
+	public static double round(double value, int places) {
+	    if (places < 0) throw new IllegalArgumentException();
+
+	    long factor = (long) Math.pow(10, places);
+	    value = value * factor;
+	    long tmp = Math.round(value);
+	    return (double) tmp / factor;
 	}
 	
 }

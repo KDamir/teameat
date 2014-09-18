@@ -15,6 +15,7 @@ import javax.persistence.*;
 public class MeatTypesEntity {
     private int id;
     private String type;
+    private int category_id;
 
     @Id
     @Column(name = "id")
@@ -55,4 +56,14 @@ public class MeatTypesEntity {
         result = 31 * result + (type != null ? type.hashCode() : 0);
         return result;
     }
+
+    @Basic
+    @Column(name = "category_id")
+	public int getCategory_id() {
+		return category_id;
+	}
+
+	public void setCategory_id(int category_id) {
+		this.category_id = category_id;
+	}
 }

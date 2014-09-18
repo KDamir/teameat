@@ -1,5 +1,9 @@
 package kz.app.dao;
 
+import java.util.List;
+
+import kz.app.entity.UsersEntity;
+
 /**
  * Created by Vlad Zheltovskiy.
  * E-mail: vladislav.zheltovsky@inessoft.kz
@@ -8,5 +12,6 @@ package kz.app.dao;
  * Date: 09.09.14
  * Time: 16:17
  */
-public class UserDao {
+public interface UserDao {
+	public List<UsersEntity> getUser(String name);
 }

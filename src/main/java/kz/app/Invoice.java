@@ -1,36 +1,38 @@
 package kz.app;
 
-import javax.faces.bean.ManagedBean;
+import java.util.Date;
 
-@ManagedBean
 public class Invoice {
-	private String rank;
-	private String name;
-	private String amount;
-	private String price;
-	
-	public String getRank() {
-		return rank;
-	}
-	public void setRank(String rank) {
-		this.rank = rank;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getAmount() {
-		return amount;
-	}
-	public void setAmount(String amount) {
-		this.amount = amount;
-	}
-	public String getPrice() {
-		return price;
-	}
-	public void setPrice(String price) {
-		this.price = price;
-	}
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+    private String sender;
+    private String receiver;
+    private Date date;
+
+    public String getSender() {
+        return sender;
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
+
+    public String getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 }

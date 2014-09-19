@@ -16,6 +16,7 @@ public class UsersEntity {
     private int id;
     private String username;
     private String password;
+    private int idGroup;
 
     @Basic
     @Column(name = "id")
@@ -47,25 +48,54 @@ public class UsersEntity {
         this.password = password;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    @Basic
+    @Column(name = "group_id")
+    public int getIdGroup() {
+		return idGroup;
+	}
 
-        UsersEntity that = (UsersEntity) o;
+	public void setIdGroup(int idGroup) {
+		this.idGroup = idGroup;
+	}
 
-        if (id != that.id) return false;
-        if (password != null ? !password.equals(that.password) : that.password != null) return false;
-        if (username != null ? !username.equals(that.username) : that.username != null) return false;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		result = prime * result + idGroup;
+		result = prime * result
+				+ ((password == null) ? 0 : password.hashCode());
+		result = prime * result
+				+ ((username == null) ? 0 : username.hashCode());
+		return result;
+	}
 
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (username != null ? username.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        return result;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UsersEntity other = (UsersEntity) obj;
+		if (id != other.id)
+			return false;
+		if (idGroup != other.idGroup)
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
+			return false;
+		return true;
+	}
+    
+    
 }

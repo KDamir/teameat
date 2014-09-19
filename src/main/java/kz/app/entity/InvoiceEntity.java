@@ -1,6 +1,7 @@
 package kz.app.entity;
 
 import javax.persistence.*;
+
 import java.sql.Date;
 
 /**
@@ -17,8 +18,7 @@ public class InvoiceEntity {
     private int id;
     private String sender;
     private Date date;
-    private Double quantity;
-    private Double price;
+    private int idReceiver;
 
     @Id
     @Column(name = "id")
@@ -51,48 +51,50 @@ public class InvoiceEntity {
     }
 
     @Basic
-    @Column(name = "quantity")
-    public Double getQuantity() {
-        return quantity;
-    }
+    @Column(name = "receiver_id")
+	public int getIdReceiver() {
+		return idReceiver;
+	}
 
-    public void setQuantity(Double quantity) {
-        this.quantity = quantity;
-    }
+	public void setIdReceiver(int idReceiver) {
+		this.idReceiver = idReceiver;
+	}
 
-    @Basic
-    @Column(name = "price")
-    public Double getPrice() {
-        return price;
-    }
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
+		result = prime * result + id;
+		result = prime * result + idReceiver;
+		result = prime * result + ((sender == null) ? 0 : sender.hashCode());
+		return result;
+	}
 
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        InvoiceEntity that = (InvoiceEntity) o;
-
-        if (id != that.id) return false;
-        if (date != null ? !date.equals(that.date) : that.date != null) return false;
-        if (price != null ? !price.equals(that.price) : that.price != null) return false;
-        if (quantity != null ? !quantity.equals(that.quantity) : that.quantity != null) return false;
-        if (sender != null ? !sender.equals(that.sender) : that.sender != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (sender != null ? sender.hashCode() : 0);
-        result = 31 * result + (date != null ? date.hashCode() : 0);
-        result = 31 * result + (quantity != null ? quantity.hashCode() : 0);
-        result = 31 * result + (price != null ? price.hashCode() : 0);
-        return result;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		InvoiceEntity other = (InvoiceEntity) obj;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
+		if (id != other.id)
+			return false;
+		if (idReceiver != other.idReceiver)
+			return false;
+		if (sender == null) {
+			if (other.sender != null)
+				return false;
+		} else if (!sender.equals(other.sender))
+			return false;
+		return true;
+	}
+	
 }

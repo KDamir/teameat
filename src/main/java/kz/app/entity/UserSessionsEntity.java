@@ -1,6 +1,7 @@
 package kz.app.entity;
 
 import javax.persistence.*;
+
 import java.sql.Timestamp;
 
 /**
@@ -18,6 +19,7 @@ public class UserSessionsEntity {
     private Timestamp beginTime;
     private Timestamp endTime;
     private String ip;
+    private int idUser;
 
     @Id
     @Column(name = "id")
@@ -58,28 +60,59 @@ public class UserSessionsEntity {
     public void setIp(String ip) {
         this.ip = ip;
     }
+    
+    @Basic
+    @Column(name = "user_id")
+    public int getIdUser() {
+		return idUser;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
+	}
 
-        UserSessionsEntity that = (UserSessionsEntity) o;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((beginTime == null) ? 0 : beginTime.hashCode());
+		result = prime * result + ((endTime == null) ? 0 : endTime.hashCode());
+		result = prime * result + id;
+		result = prime * result + idUser;
+		result = prime * result + ((ip == null) ? 0 : ip.hashCode());
+		return result;
+	}
 
-        if (id != that.id) return false;
-        if (beginTime != null ? !beginTime.equals(that.beginTime) : that.beginTime != null) return false;
-        if (endTime != null ? !endTime.equals(that.endTime) : that.endTime != null) return false;
-        if (ip != null ? !ip.equals(that.ip) : that.ip != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (beginTime != null ? beginTime.hashCode() : 0);
-        result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
-        result = 31 * result + (ip != null ? ip.hashCode() : 0);
-        return result;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UserSessionsEntity other = (UserSessionsEntity) obj;
+		if (beginTime == null) {
+			if (other.beginTime != null)
+				return false;
+		} else if (!beginTime.equals(other.beginTime))
+			return false;
+		if (endTime == null) {
+			if (other.endTime != null)
+				return false;
+		} else if (!endTime.equals(other.endTime))
+			return false;
+		if (id != other.id)
+			return false;
+		if (idUser != other.idUser)
+			return false;
+		if (ip == null) {
+			if (other.ip != null)
+				return false;
+		} else if (!ip.equals(other.ip))
+			return false;
+		return true;
+	}
+	
 }

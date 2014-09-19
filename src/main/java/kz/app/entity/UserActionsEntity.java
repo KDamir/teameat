@@ -1,6 +1,7 @@
 package kz.app.entity;
 
 import javax.persistence.*;
+
 import java.sql.Timestamp;
 
 /**
@@ -17,6 +18,7 @@ public class UserActionsEntity {
     private int id;
     private Timestamp datetime;
     private String description;
+    private int idSession;
 
     @Id
     @Column(name = "id")
@@ -47,26 +49,54 @@ public class UserActionsEntity {
     public void setDescription(String description) {
         this.description = description;
     }
+    
+    @Basic
+    @Column(name = "session_id")
+    public int getIdSession() {
+		return idSession;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	public void setIdSession(int idSession) {
+		this.idSession = idSession;
+	}
 
-        UserActionsEntity that = (UserActionsEntity) o;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((datetime == null) ? 0 : datetime.hashCode());
+		result = prime * result
+				+ ((description == null) ? 0 : description.hashCode());
+		result = prime * result + id;
+		result = prime * result + idSession;
+		return result;
+	}
 
-        if (id != that.id) return false;
-        if (datetime != null ? !datetime.equals(that.datetime) : that.datetime != null) return false;
-        if (description != null ? !description.equals(that.description) : that.description != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (datetime != null ? datetime.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        return result;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UserActionsEntity other = (UserActionsEntity) obj;
+		if (datetime == null) {
+			if (other.datetime != null)
+				return false;
+		} else if (!datetime.equals(other.datetime))
+			return false;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
+		if (id != other.id)
+			return false;
+		if (idSession != other.idSession)
+			return false;
+		return true;
+	}
+	
 }

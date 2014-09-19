@@ -18,6 +18,7 @@
       <mapping class="kz.app.entity.UserGroupsEntity"/>
       <mapping class="kz.app.entity.UserSessionsEntity"/>
       <mapping class="kz.app.entity.UsersEntity"/>
+      <mapping class="kz.app.entity.MeatPartEntity"/>
       <!-- DB schema will be updated if needed -->
     <!-- <property name="hbm2ddl.auto">update</property> -->
   </session-factory>

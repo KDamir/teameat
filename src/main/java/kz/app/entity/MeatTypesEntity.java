@@ -37,26 +37,6 @@ public class MeatTypesEntity {
         this.type = type;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        MeatTypesEntity that = (MeatTypesEntity) o;
-
-        if (id != that.id) return false;
-        if (type != null ? !type.equals(that.type) : that.type != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (type != null ? type.hashCode() : 0);
-        return result;
-    }
-
     @Basic
     @Column(name = "category_id")
 	public int getCategory_id() {
@@ -66,4 +46,36 @@ public class MeatTypesEntity {
 	public void setCategory_id(int category_id) {
 		this.category_id = category_id;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + category_id;
+		result = prime * result + id;
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MeatTypesEntity other = (MeatTypesEntity) obj;
+		if (category_id != other.category_id)
+			return false;
+		if (id != other.id)
+			return false;
+		if (type == null) {
+			if (other.type != null)
+				return false;
+		} else if (!type.equals(other.type))
+			return false;
+		return true;
+	}
+	
 }

@@ -1,8 +1,8 @@
 package kz.app.dao;
 
-import java.util.List;
-
 import kz.app.entity.UsersEntity;
+
+import java.util.List;
 
 /**
  * Created by Vlad Zheltovskiy.

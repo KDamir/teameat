@@ -6,11 +6,12 @@
 
 package kz.app.dao;
 
-import java.util.List;
 import kz.app.Invoice;
-import kz.app.InvoicePart;
+import kz.app.MeatPart;
 import kz.app.utils.HibernateUtil;
 import org.hibernate.Query;
+
+import java.util.List;
 
 /**
  *
@@ -29,10 +30,10 @@ public class InvoiceDaoImpl implements InvoiceDao{
     }
 
     @Override
-    public List<InvoicePart> getListInvoicePart(Invoice inv) {
+    public List<MeatPart> getListInvoicePart(Invoice inv) {
         Query query = HibernateUtil.getSessionfactory().getCurrentSession().createQuery("from MeatPartEntity where idInvoice = :inv");
             query.setParameter("inv", inv.getId());
-            List<InvoicePart> list = query.list();
+            List<MeatPart> list = query.list();
             return list;
     }
 

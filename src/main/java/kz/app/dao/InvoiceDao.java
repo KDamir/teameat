@@ -1,8 +1,9 @@
 package kz.app.dao;
 
-import java.util.List;
 import kz.app.Invoice;
-import kz.app.InvoicePart;
+import kz.app.MeatPart;
+
+import java.util.List;
 
 public interface InvoiceDao {
 
@@ -10,7 +11,7 @@ public interface InvoiceDao {
     
     public void saveInvoice(Invoice inv);
     
-    public List<InvoicePart> getListInvoicePart(Invoice inv);
+    public List<MeatPart> getListInvoicePart(Invoice inv);
     
     public void saveInvoicePart(Invoice inv);
 

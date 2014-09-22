@@ -14,7 +14,7 @@ import kz.app.utils.HibernateUtil;
 @ManagedBean
 @SessionScoped
 public class InvoiceService {
-    private List<InvoicePart> invoiceList;
+    private List<MeatPart> meatPartList;
     private Invoice invoice;
     private List<String> list1;
     private List<String> list2;
@@ -46,9 +46,9 @@ public class InvoiceService {
     @PostConstruct
     public void init() {
         invoice = new Invoice();
-        invoiceList = new ArrayList<>();
+        meatPartList = new ArrayList<>();
         for(int i = 0; i < 10; i++) {
-            invoiceList.add(new InvoicePart(invoice));
+            meatPartList.add(new MeatPart());
         }
         list1 = new ArrayList<>();
         list2 = new ArrayList<>();
@@ -64,12 +64,8 @@ public class InvoiceService {
         lista.forEach(e -> list2.add(e.getType()));
     }
     
-    public List<InvoicePart> getInvoiceList() {
-        return invoiceList;
-    }
-
-    public void setInvoiceList(List<InvoicePart> invoiceList) {
-        this.invoiceList = invoiceList;
+    public List<MeatPart> getMeatPartList() {
+        return meatPartList;
     }
 
 }

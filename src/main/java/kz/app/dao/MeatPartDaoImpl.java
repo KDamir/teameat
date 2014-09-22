@@ -1,10 +1,10 @@
 package kz.app.dao;
 
-import java.util.List;
-
 import kz.app.entity.MeatCategoryEntity;
 import kz.app.entity.MeatTypesEntity;
 import kz.app.utils.HibernateUtil;
+
+import java.util.List;
 
 public class MeatPartDaoImpl implements MeatPartDao {
 

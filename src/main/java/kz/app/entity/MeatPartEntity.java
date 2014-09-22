@@ -40,7 +40,7 @@ public class MeatPartEntity {
 	}
 	
 	@Basic
-	@Column(name = "quantity")
+	@Column(name = "weight")
 	public Double getQuantity() {
 		return quantity;
 	}

@@ -1,9 +1,9 @@
 package kz.app.dao;
 
-import java.util.List;
-
 import kz.app.entity.MeatCategoryEntity;
 import kz.app.entity.MeatTypesEntity;
+
+import java.util.List;
 
 /**
  * Created by Vlad Zheltovskiy.

@@ -1,11 +1,10 @@
 package kz.app.dao;
 
-import java.util.List;
-
-import org.hibernate.Query;
-
 import kz.app.entity.UsersEntity;
 import kz.app.utils.HibernateUtil;
+import org.hibernate.Query;
+
+import java.util.List;
 
 public class UserDaoImpl implements UserDao {
 

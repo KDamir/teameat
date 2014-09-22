@@ -83,13 +83,13 @@ public class UserLoginView {
 				context.addCallbackParam("logged", logged);
 				return "success";
 			} else {
-				msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Неверный логин или пароль", "Invalid credentials");
+				msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Неверный логин или пароль", "Invalid credentials");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 				context.addCallbackParam("logged", logged);
 				return "error";
 			}
 		else {
-			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Неверный логин или пароль", "Invalid credentials");
+			msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Неверный логин или пароль", "Invalid credentials");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			context.addCallbackParam("logged", logged);
 			return "error";

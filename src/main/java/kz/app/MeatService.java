@@ -21,8 +21,13 @@ public class MeatService {
 	private Double sumProc = 0.0;
 	private Double sumProdaj = 0.0;
 	private List<String> list1;
-	
-	@PostConstruct
+	private String meatInfo;
+    private Double pricePerKilo = 0.0;
+    private Double totalWeight = 0.0;
+    private Double totalCost = 0.0;
+
+
+    @PostConstruct
 	public void init() {
 		inputList = new ArrayList<>();
         for(int i=0;i<10;i++) {
@@ -40,7 +45,27 @@ public class MeatService {
 		return inputList;
 	}
 
-	public void updateOrder(int index) {
+    public String getMeatInfo() {
+        return meatInfo;
+    }
+
+    public void setMeatInfo(String meatInfo) {
+        this.meatInfo = meatInfo;
+    }
+
+    public Double getPricePerKilo() {
+        return pricePerKilo;
+    }
+
+    public void setPricePerKilo(Double pricePerKilo) {
+        this.pricePerKilo = pricePerKilo;
+    }
+
+    public void setTotalWeight(Double totalWeight) {
+        this.totalWeight = totalWeight;
+    }
+
+    public void updateOrder(int index) {
         MeatPart currentPart = inputList.get(index);
 
         if (index == inputList.size() - 1) {
@@ -51,19 +76,9 @@ public class MeatService {
             // Здесь будет вызов update'а из ДАО
         }
     }
-	public void calcTotal() {
-		InfoPart tmp = inputList.get(0).getInfo();
-		tmp.setTotalCoast(tmp.getVes_chasti()*tmp.getCena_za_kg());
+	public void calculate() {
 	}
 	
-	public void calculate(MeatPart part) {
-		/*for (MeatPart part:inputList) {
-			part.setProc_ot_vesa(part.getWeight()*100/part.getVes_chasti());
-			part.setSuma_prodaj(part.getWeight()*part.getProd_cena());
-		}*/
-		part.setProc_ot_vesa(part.getWeight()*100/inputList.get(0).getInfo().getVes_chasti());
-		part.setSuma_prodaj(part.getWeight()*part.getProd_cena());
-	}
 	/*Общий вес*/
 	public Double getTotalWeight() {
 		sumWeight = 0.0;
@@ -73,14 +88,12 @@ public class MeatService {
 	/*Общий процент*/
 	public Double getTotalPercent() {
 		sumProc = 0.0;
-		inputList.forEach(e -> sumProc += e.getProc_ot_vesa());
+		inputList.forEach(e -> sumProc += e.getWeightPercent());
 		return round(sumProc,3);
 	}
 	/*Общая сумма продаж*/
 	public Double getTotalSum() {
-		sumProdaj = 0.0;
-		inputList.forEach(e -> sumProdaj += e.getSuma_prodaj());
-		return sumProdaj;
+		return inputList.stream().mapToDouble(s -> s.getProfit()).sum();
 	}
 	public List<String> getList1() {
 		return list1;
@@ -94,5 +107,14 @@ public class MeatService {
 	    long tmp = Math.round(value);
 	    return (double) tmp / factor;
 	}
-	
+
+    public Double getTotalCost() {
+        totalCost = pricePerKilo * totalWeight;
+        System.out.println("totalCost = " + totalCost);
+        return totalCost;
+    }
+
+    public void setTotalCost(Double totalCost) {
+        this.totalCost = totalCost;
+    }
 }

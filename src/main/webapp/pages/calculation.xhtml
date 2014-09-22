@@ -1,0 +1,103 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:f="http://java.sun.com/jsf/core"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:ui="http://java.sun.com/jsf/facelets"
+             xmlns:c="http://java.sun.com/jsp/jstl/core" id="calculationFragment">
+		    <p:growl/>
+            <br/>
+            <table>
+            	<tr>
+            		<td><span style="font-weight: bolder;">Информация по туше:</span></td>
+            		<td><p:inputText value="#{meatService.meatInfo}"/></td>
+            	</tr>
+            	<tr>
+            		<td><span style="font-weight: bolder;">Вес части туши</span></td>
+            		<td>
+            			<p:inputText value="#{meatService.totalWeight}">
+            				<p:ajax event="blur" update="totalCost, :tabForm:growl" listener="#{meatService.calculate}"/>
+            			</p:inputText>
+            		</td>
+            	</tr>
+            	<tr>
+            		<td><span style="font-weight: bolder;">Цена за кг</span></td>
+            		<td>
+            			<p:inputText value="#{meatService.pricePerKilo}">
+            				<p:ajax event="blur" update="totalCost" listener="#{meatService.calculate}"/>
+            			</p:inputText>
+            		</td>
+            	</tr>
+            	<tr>
+            		<td><span style="font-weight: bolder;">Итоговая стоимость части туши</span></td>
+            		<td><h:outputText id="totalCost" value="#{meatService.totalCost}"/></td>
+            	</tr>
+            </table>
+			<p:dataTable id="mainTable" value="#{meatService.inputList}" var="inp" editable="true" editMode="cell" draggableRows="true"  onkeypress="{
+                                      if (event.keyCode == 13) {
+                                          document.getElementById('calculationFragment:saveOrder').click();
+                                          return false;
+                                      }
+                                  }">
+				<p:column headerText="Наименование" sortBy="#{inp.name}" >
+					<p:cellEditor>
+						<f:facet name="output"><h:outputText value="#{inp.type}"/></f:facet>
+						<f:facet name="input">
+							<h:selectOneMenu value="#{inp.type}" style="width:100%">
+								<f:selectItems value="#{meatService.list1}" var="type" itemLabel="#{type}" itemValue="#{type}"/>
+							</h:selectOneMenu>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Вес позиции">
+					<p:cellEditor>
+						<f:facet name="output"><h:outputText value="#{inp.weight}"/></f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{inp.weight}">
+								<p:ajax event="keyup" update="mainTable" listener="#{meatService.calculate(inp)}"/>
+							</p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="% от общего веса" style="background-color:#FCA9A9;">
+					<h:outputText id="procves" value="#{inp.weightPercent}"/>
+				</p:column>
+				<p:column headerText="Продажная цена">
+					<p:cellEditor>
+						<f:facet name="output"><h:outputText value="#{inp.price}"/></f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{inp.price}">
+								<p:ajax event="keyup" update="mainTable" listener="#{meatService.calculate(inp)}"/>
+							</p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Сумма продаж" style="background-color:#FCA9A9;">
+					<h:outputText id="sumaprodaj" value="#{inp.profit}"/>
+				</p:column>
+				<p:column headerText="Безубыточная цена" style="background-color:#FCA9A9;">
+						<h:outputText id="cost" value="#{meatService.totalSum != 0.0 and inp.weight != 0.0 ? (meatService.totalCost*inp.profit)/(meatService.totalSum*inp.weight) : ''}"/>
+				</p:column>
+				<p:column headerText="Остатки" style="background-color:#FCA9A9;">
+					<h:outputText id="ostatki" value=""/>
+				</p:column>
+			</p:dataTable>
+			<h:panelGrid columns="7" id="mainPanel">
+				<h:outputText value="Итого:" />
+				<p:spacer width="200px" height="0"/>
+				<h:outputText id="totalweight" value="#{meatService.totalWeight}" />
+				<p:spacer width="150px" height="0"/>
+				<h:outputText id="totalpercent" value="#{meatService.totalPercent}" />
+				<p:spacer width="300px" height="0"/>
+				<h:outputText id="totalsum" value="#{meatService.totalSum}" />
+			</h:panelGrid>
+			<table>
+				<tr>
+					<td><span style="font-weight: bolder;">Валовая прибыль:</span></td>
+					<td><h:outputText id="valpr" value="#{meatService.totalSum-meatService.totalCost}"/></td>
+				</tr>
+				<tr>
+					<td><span style="font-weight: bolder;">Процент прибыли:</span></td>
+					<td><h:outputText id="procpr" value="#{meatService.totalSum eq 0 ? '':1-meatService.inputList.totalCost/meatService.totalSum}"/></td>
+				</tr>
+			</table>
+	</ui:fragment>

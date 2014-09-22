@@ -9,8 +9,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import kz.app.dao.UserDao;
-import kz.app.dao.UserDaoImpl;
-import kz.app.entity.UsersEntity;
+import kz.app.entity.Users;
 import kz.app.utils.HibernateUtil;
 
 import org.primefaces.context.RequestContext;
@@ -36,7 +35,7 @@ public class UserLoginView {
     
     @PostConstruct
     public void init() {
-    	userDao = new UserDaoImpl();
+    	userDao = new UserDao();
     }
 
 	public String getUsername() {
@@ -74,7 +73,7 @@ public class UserLoginView {
 		
 		
 		HibernateUtil.getSession().beginTransaction();
-		List<UsersEntity> users = userDao.getUser(username);
+		List<Users> users = userDao.getUser(username);
 		HibernateUtil.getSession().getTransaction().commit();
 		if(!users.isEmpty())
 			if(users.get(0).getPassword().equals(password)) {

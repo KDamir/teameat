@@ -8,8 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import kz.app.dao.MeatPartDao;
-import kz.app.dao.MeatPartDaoImpl;
-import kz.app.entity.MeatTypesEntity;
+import kz.app.entity.MeatTypes;
 import kz.app.utils.HibernateUtil;
 
 @ManagedBean
@@ -35,9 +34,9 @@ public class MeatService {
         }
         //System.out.println("PostConctruct");
         list1 = new ArrayList<>();
-        MeatPartDao meatPartDao = new MeatPartDaoImpl();
+        MeatPartDao meatPartDao = new MeatPartDao();
         HibernateUtil.getSession().beginTransaction();
-		List<MeatTypesEntity> list = meatPartDao.getListMeatTypes();
+		List<MeatTypes> list = meatPartDao.getListMeatTypes();
 		HibernateUtil.getSession().getTransaction().commit();
 		list.forEach(e -> list1.add(e.getType()));
     }
@@ -110,7 +109,6 @@ public class MeatService {
 
     public Double getTotalCost() {
         totalCost = pricePerKilo * totalWeight;
-        System.out.println("totalCost = " + totalCost);
         return totalCost;
     }
 

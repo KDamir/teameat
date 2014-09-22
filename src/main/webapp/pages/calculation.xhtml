@@ -42,9 +42,9 @@
 					<p:cellEditor>
 						<f:facet name="output"><h:outputText value="#{inp.type}"/></f:facet>
 						<f:facet name="input">
-							<h:selectOneMenu value="#{inp.type}" style="width:100%">
+							<p:selectOneMenu value="#{inp.type}" style="width:100%">
 								<f:selectItems value="#{meatService.list1}" var="type" itemLabel="#{type}" itemValue="#{type}"/>
-							</h:selectOneMenu>
+							</p:selectOneMenu>
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -53,7 +53,7 @@
 						<f:facet name="output"><h:outputText value="#{inp.weight}"/></f:facet>
 						<f:facet name="input">
 							<p:inputText value="#{inp.weight}">
-								<p:ajax event="keyup" update="mainTable" listener="#{meatService.calculate(inp)}"/>
+								<p:ajax event="keyup" update="mainTable" listener="#{meatService.calculate}"/>
 							</p:inputText>
 						</f:facet>
 					</p:cellEditor>
@@ -66,7 +66,7 @@
 						<f:facet name="output"><h:outputText value="#{inp.price}"/></f:facet>
 						<f:facet name="input">
 							<p:inputText value="#{inp.price}">
-								<p:ajax event="keyup" update="mainTable" listener="#{meatService.calculate(inp)}"/>
+								<p:ajax event="keyup" update="mainTable" listener="#{meatService.calculate}"/>
 							</p:inputText>
 						</f:facet>
 					</p:cellEditor>

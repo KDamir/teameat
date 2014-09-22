@@ -6,9 +6,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import kz.app.dao.MeatPartDao;
-import kz.app.dao.MeatPartDaoImpl;
-import kz.app.entity.MeatCategoryEntity;
-import kz.app.entity.MeatTypesEntity;
+import kz.app.entity.MeatCategory;
+import kz.app.entity.MeatTypes;
 import kz.app.utils.HibernateUtil;
 
 @ManagedBean
@@ -52,14 +51,14 @@ public class InvoiceService {
         }
         list1 = new ArrayList<>();
         list2 = new ArrayList<>();
-        MeatPartDao meatPartDao = new MeatPartDaoImpl();
+        MeatPartDao meatPartDao = new MeatPartDao();
         HibernateUtil.getSession().beginTransaction();
-        List<MeatCategoryEntity> list = meatPartDao.getListCategory();
+        List<MeatCategory> list = meatPartDao.getListCategory();
         HibernateUtil.getSession().getTransaction().commit();
         list.forEach(e -> list1.add(e.getName()));
         
         HibernateUtil.getSession().beginTransaction();
-        List<MeatTypesEntity> lista = meatPartDao.getListMeatTypes();
+        List<MeatTypes> lista = meatPartDao.getListMeatTypes();
         HibernateUtil.getSession().getTransaction().commit();
         lista.forEach(e -> list2.add(e.getType()));
     }

@@ -81,7 +81,7 @@ public class MeatService {
 	/*Общий вес*/
 	public Double getTotalWeight() {
 		
-                return inputList.stream().mapToDouble(s -> s.getQuantity()).sum();
+                return inputList.stream().mapToDouble(s -> s.getWeight()).sum();
 	}
 	/*Общий процент*/
 	public Double getTotalPercent() {

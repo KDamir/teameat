@@ -9,16 +9,20 @@ import kz.app.dao.MeatPartDao;
 import kz.app.entity.MeatCategory;
 import kz.app.entity.MeatTypes;
 import kz.app.entity.Receiver;
+import kz.app.entity.Invoice;
 import kz.app.utils.HibernateUtil;
+import kz.app.utils.MeatPartToEntity;
 
 @ManagedBean
 @SessionScoped
 public class InvoiceService {
-    private List<kz.app.entity.MeatPart> meatPartList;
-    private kz.app.entity.Invoice invoice;
+    private List<MeatPart> meatPartList;
+    private Invoice invoice;
     private List<MeatCategory> listCategory;
     private List<MeatTypes> listTypes;
     private List<Receiver> listReceiver;
+    
+    MeatPartDao meatPartDao;
 
     public List<MeatCategory> getListCategory() {
         return listCategory;
@@ -51,14 +55,12 @@ public class InvoiceService {
     public void setMeatPartDao(MeatPartDao meatPartDao) {
         this.meatPartDao = meatPartDao;
     }
-    
-    MeatPartDao meatPartDao;
 
-    public kz.app.entity.Invoice getInvoice() {
+    public Invoice getInvoice() {
         return invoice;
     }
 
-    public void setInvoice(kz.app.entity.Invoice invoice) {
+    public void setInvoice(Invoice invoice) {
         this.invoice = invoice;
     }
 
@@ -73,6 +75,7 @@ public class InvoiceService {
 //        listTypes = new ArrayList<>();
 //        listReceiver = new ArrayList<>();
         meatPartDao = new MeatPartDao();
+        
         HibernateUtil.getSession().beginTransaction();
         listCategory = meatPartDao.getListCategory();
         listReceiver = meatPartDao.getListReceiver();
@@ -83,26 +86,21 @@ public class InvoiceService {
 //        lista.forEach(e -> listTypes.add(e.getType()));
     }
     
-    public List<kz.app.entity.MeatPart> getMeatPartList() {
+    public List<MeatPart> getMeatPartList() {
         return meatPartList;
     }
     
     public void saveInvoice() {
-//        System.out.println("invoice = " + invoice.getReceiver() + ", " + invoice.getSender() + ", " + invoice.getDate());
-//        meatPartList.forEach(e -> {System.out.println("meatPart = " + e.getCategory() + ", " + e.getType());});
-        //System.out.println("MeatPartList = " + meatPartList);
-//        HibernateUtil.getSession().beginTransaction();
         meatPartDao.saveInvoice(invoice);
         meatPartList.forEach(e -> {
-            if(e != null)
-                meatPartDao.saveMeatPart(e);
+            if(e.getCategory() != null &&  e.getType() != null)
+                meatPartDao.saveMeatPart(MeatPartToEntity.getMeatPartEntity(e, invoice));
         });
         
 //        meatPartList.forEach((MeatPart e) -> {
 //            if(e != null)
 //                meatPartDao.saveMeatPart(e, invoice);
 //        });
-//        HibernateUtil.getSession().getTransaction().commit();
         System.out.println("saved ok!");
     }
 

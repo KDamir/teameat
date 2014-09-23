@@ -25,9 +25,9 @@ public class ReceiverConverter implements Converter{
     public Object getAsObject(FacesContext fc, UIComponent uic, String string) {
         if(string == null) 
             return null;
-        HibernateUtil.getSession().beginTransaction();
+        //HibernateUtil.getSession().beginTransaction();
         Receiver receiver = dao.getReceiverById(string);
-        HibernateUtil.getSession().getTransaction().commit();
+       // HibernateUtil.getSession().getTransaction().commit();
         return receiver;
     }
 

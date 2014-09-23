@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "MeatPart.findAll", query = "SELECT m FROM MeatPart m"),
     @NamedQuery(name = "MeatPart.findById", query = "SELECT m FROM MeatPart m WHERE m.id = :id"),
-    @NamedQuery(name = "MeatPart.findByQuantity", query = "SELECT m FROM MeatPart m WHERE m.quantity = :quantity"),
+    @NamedQuery(name = "MeatPart.findByWeight", query = "SELECT m FROM MeatPart m WHERE m.weight = :weight"),
     @NamedQuery(name = "MeatPart.findByPrice", query = "SELECT m FROM MeatPart m WHERE m.price = :price")})
 public class MeatPart implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -39,8 +39,8 @@ public class MeatPart implements Serializable {
     @Column(name = "id")
     private Integer id;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "quantity")
-    private Double quantity;
+    @Column(name = "weight")
+    private Double weight;
     @Column(name = "price")
     private Double price;
     @JoinColumn(name = "category_id", referencedColumnName = "id")
@@ -68,12 +68,12 @@ public class MeatPart implements Serializable {
         this.id = id;
     }
 
-    public Double getQuantity() {
-        return quantity;
+    public Double getWeight() {
+        return weight;
     }
 
-    public void setQuantity(Double quantity) {
-        this.quantity = quantity;
+    public void setWeight(Double weight) {
+        this.weight = weight;
     }
 
     public Double getPrice() {

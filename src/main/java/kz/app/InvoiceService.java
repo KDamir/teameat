@@ -8,63 +8,102 @@ import javax.faces.bean.SessionScoped;
 import kz.app.dao.MeatPartDao;
 import kz.app.entity.MeatCategory;
 import kz.app.entity.MeatTypes;
+import kz.app.entity.Receiver;
 import kz.app.utils.HibernateUtil;
 
 @ManagedBean
 @SessionScoped
 public class InvoiceService {
-    private List<MeatPart> meatPartList;
-    private Invoice invoice;
-    private List<String> list1;
-    private List<String> list2;
+    private List<kz.app.entity.MeatPart> meatPartList;
+    private kz.app.entity.Invoice invoice;
+    private List<MeatCategory> listCategory;
+    private List<MeatTypes> listTypes;
+    private List<Receiver> listReceiver;
 
-    public List<String> getList1() {
-        return list1;
+    public List<MeatCategory> getListCategory() {
+        return listCategory;
     }
 
-    public void setList1(List<String> list1) {
-        this.list1 = list1;
+    public void setListCategory(List<MeatCategory> listCategory) {
+        this.listCategory = listCategory;
     }
 
-    public List<String> getList2() {
-        return list2;
+    public List<MeatTypes> getListTypes() {
+        return listTypes;
     }
 
-    public void setList2(List<String> list2) {
-        this.list2 = list2;
+    public void setListTypes(List<MeatTypes> listTypes) {
+        this.listTypes = listTypes;
     }
 
-    public Invoice getInvoice() {
+    public List<Receiver> getListReceiver() {
+        return listReceiver;
+    }
+
+    public void setListReceiver(List<Receiver> listReceiver) {
+        this.listReceiver = listReceiver;
+    }
+
+    public MeatPartDao getMeatPartDao() {
+        return meatPartDao;
+    }
+
+    public void setMeatPartDao(MeatPartDao meatPartDao) {
+        this.meatPartDao = meatPartDao;
+    }
+    
+    MeatPartDao meatPartDao;
+
+    public kz.app.entity.Invoice getInvoice() {
         return invoice;
     }
 
-    public void setInvoice(Invoice invoice) {
+    public void setInvoice(kz.app.entity.Invoice invoice) {
         this.invoice = invoice;
     }
 
     @PostConstruct
     public void init() {
-        invoice = new Invoice();
+        invoice = new kz.app.entity.Invoice();
         meatPartList = new ArrayList<>();
-        for(int i = 0; i < 10; i++) {
+        for(int i = 0; i < 3; i++) {
             meatPartList.add(new MeatPart());
         }
-        list1 = new ArrayList<>();
-        list2 = new ArrayList<>();
-        MeatPartDao meatPartDao = new MeatPartDao();
+//        listCategory = new ArrayList<>();
+//        listTypes = new ArrayList<>();
+//        listReceiver = new ArrayList<>();
+        meatPartDao = new MeatPartDao();
         HibernateUtil.getSession().beginTransaction();
-        List<MeatCategory> list = meatPartDao.getListCategory();
+        listCategory = meatPartDao.getListCategory();
+        listReceiver = meatPartDao.getListReceiver();
+        listTypes = meatPartDao.getListMeatTypes();
         HibernateUtil.getSession().getTransaction().commit();
-        list.forEach(e -> list1.add(e.getName()));
-        
-        HibernateUtil.getSession().beginTransaction();
-        List<MeatTypes> lista = meatPartDao.getListMeatTypes();
-        HibernateUtil.getSession().getTransaction().commit();
-        lista.forEach(e -> list2.add(e.getType()));
+//        list.forEach(e -> listCategory.add(e.getName()));
+//        listRec.forEach(e -> listReceiver.add(e.getCompanyName()));
+//        lista.forEach(e -> listTypes.add(e.getType()));
     }
     
-    public List<MeatPart> getMeatPartList() {
+    public List<kz.app.entity.MeatPart> getMeatPartList() {
         return meatPartList;
+    }
+    
+    public void saveInvoice() {
+//        System.out.println("invoice = " + invoice.getReceiver() + ", " + invoice.getSender() + ", " + invoice.getDate());
+//        meatPartList.forEach(e -> {System.out.println("meatPart = " + e.getCategory() + ", " + e.getType());});
+        //System.out.println("MeatPartList = " + meatPartList);
+//        HibernateUtil.getSession().beginTransaction();
+        meatPartDao.saveInvoice(invoice);
+        meatPartList.forEach(e -> {
+            if(e != null)
+                meatPartDao.saveMeatPart(e);
+        });
+        
+//        meatPartList.forEach((MeatPart e) -> {
+//            if(e != null)
+//                meatPartDao.saveMeatPart(e, invoice);
+//        });
+//        HibernateUtil.getSession().getTransaction().commit();
+        System.out.println("saved ok!");
     }
 
 }

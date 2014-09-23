@@ -47,8 +47,8 @@ public class MeatTypes implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "type")
     private String type;
-    @OneToMany(mappedBy = "typeId")
-    private Collection<MeatPart> meatPartCollection;
+//    @OneToMany(mappedBy = "typeId")
+//    private Collection<MeatPart> meatPartCollection;
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     @ManyToOne
     private MeatCategory categoryId;
@@ -81,14 +81,14 @@ public class MeatTypes implements Serializable {
         this.type = type;
     }
 
-    @XmlTransient
-    public Collection<MeatPart> getMeatPartCollection() {
-        return meatPartCollection;
-    }
-
-    public void setMeatPartCollection(Collection<MeatPart> meatPartCollection) {
-        this.meatPartCollection = meatPartCollection;
-    }
+//    @XmlTransient
+//    public Collection<MeatPart> getMeatPartCollection() {
+//        return meatPartCollection;
+//    }
+//
+//    public void setMeatPartCollection(Collection<MeatPart> meatPartCollection) {
+//        this.meatPartCollection = meatPartCollection;
+//    }
 
     public MeatCategory getCategoryId() {
         return categoryId;
@@ -120,7 +120,8 @@ public class MeatTypes implements Serializable {
 
     @Override
     public String toString() {
-        return "kz.app.entity.MeatTypes[ id=" + id + " ]";
+//        return "kz.app.entity.MeatTypes[ id=" + id + " ]";
+        return String.valueOf(id);
     }
     
 }

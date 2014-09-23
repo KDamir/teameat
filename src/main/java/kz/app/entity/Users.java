@@ -50,8 +50,8 @@ public class Users implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "password")
     private String password;
-    @OneToMany(mappedBy = "userId")
-    private Collection<UserSessions> userSessionsCollection;
+//    @OneToMany(mappedBy = "userId")
+//    private Collection<UserSessions> userSessionsCollection;
     @JoinColumn(name = "group_id", referencedColumnName = "id")
     @ManyToOne
     private UserGroups groupId;
@@ -93,14 +93,14 @@ public class Users implements Serializable {
         this.password = password;
     }
 
-    @XmlTransient
-    public Collection<UserSessions> getUserSessionsCollection() {
-        return userSessionsCollection;
-    }
-
-    public void setUserSessionsCollection(Collection<UserSessions> userSessionsCollection) {
-        this.userSessionsCollection = userSessionsCollection;
-    }
+//    @XmlTransient
+//    public Collection<UserSessions> getUserSessionsCollection() {
+//        return userSessionsCollection;
+//    }
+//
+//    public void setUserSessionsCollection(Collection<UserSessions> userSessionsCollection) {
+//        this.userSessionsCollection = userSessionsCollection;
+//    }
 
     public UserGroups getGroupId() {
         return groupId;

@@ -1,13 +1,13 @@
 package kz.app;
 
-public class MeatPart {
+public class MeatPart extends kz.app.entity.MeatPart{
 	
-	private String type;
-    private String category;
+//	private String type;
+//    private String category;
     // Вес
-	private Double weight = 0.0;
+	//private Double weight = 0.0;
     // Продажная цена
-	private Double price = 0.0;
+	//private Double price = 0.0;
     // Процент от общего веса
 	private Double weightPercent = 0.0;
     // Сумма продаж
@@ -23,21 +23,21 @@ public class MeatPart {
         this.cost = cost;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
+//    public String getType() {
+//        return type;
+//    }
+//
+//    public void setType(String type) {
+//        this.type = type;
+//    }
+//
+//    public String getCategory() {
+//        return category;
+//    }
+//
+//    public void setCategory(String category) {
+//        this.category = category;
+//    }
 
     public Double getProfit() {
 		return profit;
@@ -55,20 +55,20 @@ public class MeatPart {
 		this.weightPercent = weightPercent;
 	}
 
-	public Double getWeight() {
-		return weight;
-	}
-
-	public void setWeight(Double weight) {
-		this.weight = weight;
-	}
-
-	public Double getPrice() {
-		return price;
-	}
-
-	public void setPrice(Double price) {
-		this.price = price;
-	}
+//	public Double getWeight() {
+//		return weight;
+//	}
+//
+//	public void setWeight(Double weight) {
+//		this.weight = weight;
+//	}
+//
+//	public Double getPrice() {
+//		return price;
+//	}
+//
+//	public void setPrice(Double price) {
+//		this.price = price;
+//	}
 
 }

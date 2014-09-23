@@ -42,10 +42,10 @@ public class MeatCategory implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "categoryId")
-    private Collection<MeatPart> meatPartCollection;
-    @OneToMany(mappedBy = "categoryId")
-    private Collection<MeatTypes> meatTypesCollection;
+//    @OneToMany(mappedBy = "categoryId")
+//    private Collection<MeatPart> meatPartCollection;
+//    @OneToMany(mappedBy = "categoryId")
+//    private Collection<MeatTypes> meatTypesCollection;
 
     public MeatCategory() {
     }
@@ -75,23 +75,23 @@ public class MeatCategory implements Serializable {
         this.name = name;
     }
 
-    @XmlTransient
-    public Collection<MeatPart> getMeatPartCollection() {
-        return meatPartCollection;
-    }
-
-    public void setMeatPartCollection(Collection<MeatPart> meatPartCollection) {
-        this.meatPartCollection = meatPartCollection;
-    }
-
-    @XmlTransient
-    public Collection<MeatTypes> getMeatTypesCollection() {
-        return meatTypesCollection;
-    }
-
-    public void setMeatTypesCollection(Collection<MeatTypes> meatTypesCollection) {
-        this.meatTypesCollection = meatTypesCollection;
-    }
+//    @XmlTransient
+//    public Collection<MeatPart> getMeatPartCollection() {
+//        return meatPartCollection;
+//    }
+//
+//    public void setMeatPartCollection(Collection<MeatPart> meatPartCollection) {
+//        this.meatPartCollection = meatPartCollection;
+//    }
+//
+//    @XmlTransient
+//    public Collection<MeatTypes> getMeatTypesCollection() {
+//        return meatTypesCollection;
+//    }
+//
+//    public void setMeatTypesCollection(Collection<MeatTypes> meatTypesCollection) {
+//        this.meatTypesCollection = meatTypesCollection;
+//    }
 
     @Override
     public int hashCode() {
@@ -115,7 +115,8 @@ public class MeatCategory implements Serializable {
 
     @Override
     public String toString() {
-        return "kz.app.entity.MeatCategory[ name=" + name + " ]";
+//        return "kz.app.entity.MeatCategory[ name=" + name + " ]";
+        return String.valueOf(id);
     }
     
 }

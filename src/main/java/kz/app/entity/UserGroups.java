@@ -42,8 +42,8 @@ public class UserGroups implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "groupname")
     private String groupname;
-    @OneToMany(mappedBy = "groupId")
-    private Collection<Users> usersCollection;
+//    @OneToMany(mappedBy = "groupId")
+//    private Collection<Users> usersCollection;
 
     public UserGroups() {
     }
@@ -73,14 +73,14 @@ public class UserGroups implements Serializable {
         this.groupname = groupname;
     }
 
-    @XmlTransient
-    public Collection<Users> getUsersCollection() {
-        return usersCollection;
-    }
-
-    public void setUsersCollection(Collection<Users> usersCollection) {
-        this.usersCollection = usersCollection;
-    }
+//    @XmlTransient
+//    public Collection<Users> getUsersCollection() {
+//        return usersCollection;
+//    }
+//
+//    public void setUsersCollection(Collection<Users> usersCollection) {
+//        this.usersCollection = usersCollection;
+//    }
 
     @Override
     public int hashCode() {

@@ -52,8 +52,8 @@ public class Invoice implements Serializable {
     @Column(name = "date")
     @Temporal(TemporalType.DATE)
     private Date date;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoiceId")
-    private Collection<MeatPart> meatPartCollection;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoiceId")
+//    private Collection<MeatPart> meatPartCollection;
     @JoinColumn(name = "receiver_id", referencedColumnName = "id")
     @ManyToOne
     private Receiver receiverId;
@@ -89,14 +89,14 @@ public class Invoice implements Serializable {
         this.date = date;
     }
 
-    @XmlTransient
-    public Collection<MeatPart> getMeatPartCollection() {
-        return meatPartCollection;
-    }
-
-    public void setMeatPartCollection(Collection<MeatPart> meatPartCollection) {
-        this.meatPartCollection = meatPartCollection;
-    }
+//    @XmlTransient
+//    public Collection<MeatPart> getMeatPartCollection() {
+//        return meatPartCollection;
+//    }
+//
+//    public void setMeatPartCollection(Collection<MeatPart> meatPartCollection) {
+//        this.meatPartCollection = meatPartCollection;
+//    }
 
     public Receiver getReceiverId() {
         return receiverId;

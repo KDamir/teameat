@@ -63,8 +63,8 @@ public class UserSessions implements Serializable {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne
     private Users userId;
-    @OneToMany(mappedBy = "sessionId")
-    private Collection<UserActions> userActionsCollection;
+//    @OneToMany(mappedBy = "sessionId")
+//    private Collection<UserActions> userActionsCollection;
 
     public UserSessions() {
     }
@@ -119,14 +119,14 @@ public class UserSessions implements Serializable {
         this.userId = userId;
     }
 
-    @XmlTransient
-    public Collection<UserActions> getUserActionsCollection() {
-        return userActionsCollection;
-    }
-
-    public void setUserActionsCollection(Collection<UserActions> userActionsCollection) {
-        this.userActionsCollection = userActionsCollection;
-    }
+//    @XmlTransient
+//    public Collection<UserActions> getUserActionsCollection() {
+//        return userActionsCollection;
+//    }
+//
+//    public void setUserActionsCollection(Collection<UserActions> userActionsCollection) {
+//        this.userActionsCollection = userActionsCollection;
+//    }
 
     @Override
     public int hashCode() {

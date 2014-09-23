@@ -42,8 +42,8 @@ public class Receiver implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private int id;
-    @OneToMany(mappedBy = "receiverId")
-    private Collection<Invoice> invoiceCollection;
+//    @OneToMany(mappedBy = "receiverId")
+//    private Collection<Invoice> invoiceCollection;
 
     public Receiver() {
     }
@@ -73,14 +73,14 @@ public class Receiver implements Serializable {
         this.id = id;
     }
 
-    @XmlTransient
-    public Collection<Invoice> getInvoiceCollection() {
-        return invoiceCollection;
-    }
-
-    public void setInvoiceCollection(Collection<Invoice> invoiceCollection) {
-        this.invoiceCollection = invoiceCollection;
-    }
+//    @XmlTransient
+//    public Collection<Invoice> getInvoiceCollection() {
+//        return invoiceCollection;
+//    }
+//
+//    public void setInvoiceCollection(Collection<Invoice> invoiceCollection) {
+//        this.invoiceCollection = invoiceCollection;
+//    }
 
     @Override
     public int hashCode() {
@@ -104,7 +104,8 @@ public class Receiver implements Serializable {
 
     @Override
     public String toString() {
-        return "kz.app.entity.Receiver[ companyName=" + companyName + " ]";
+//        return "kz.app.entity.Receiver[ companyName=" + companyName + " ]";
+        return String.valueOf(id);
     }
     
 }

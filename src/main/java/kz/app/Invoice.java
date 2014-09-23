@@ -9,7 +9,7 @@ public class Invoice {
         return id;
     }
     private String sender;
-    private String receiver;
+    private int receiver;
     private Date date;
 
     public String getSender() {
@@ -20,11 +20,11 @@ public class Invoice {
         this.sender = sender;
     }
 
-    public String getReceiver() {
+    public int getReceiver() {
         return receiver;
     }
 
-    public void setReceiver(String receiver) {
+    public void setReceiver(int receiver) {
         this.receiver = receiver;
     }
 

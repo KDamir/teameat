@@ -130,7 +130,8 @@ public class MeatPart implements Serializable {
 
     @Override
     public String toString() {
-        return "kz.app.entity.MeatPart[ id=" + id + " ]";
+//        return "kz.app.entity.MeatPart[ id=" + id + " ]";
+        return String.valueOf(id);
     }
     
 }

@@ -6,7 +6,7 @@
 package kz.app.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,25 +17,26 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Дамир
  */
 @Entity
-@Table(name = "meat_types")
+@Table(name = "user_actions")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "MeatTypes.findAll", query = "SELECT m FROM MeatTypes m"),
-    @NamedQuery(name = "MeatTypes.findById", query = "SELECT m FROM MeatTypes m WHERE m.id = :id"),
-    @NamedQuery(name = "MeatTypes.findByType", query = "SELECT m FROM MeatTypes m WHERE m.type = :type")})
-public class MeatTypes implements Serializable {
+    @NamedQuery(name = "UserActions.findAll", query = "SELECT u FROM UserActionsEntity u"),
+    @NamedQuery(name = "UserActions.findById", query = "SELECT u FROM UserActionsEntity u WHERE u.id = :id"),
+    @NamedQuery(name = "UserActions.findByDatetime", query = "SELECT u FROM UserActionsEntity u WHERE u.datetime = :datetime"),
+    @NamedQuery(name = "UserActions.findByDescription", query = "SELECT u FROM UserActionsEntity u WHERE u.description = :description")})
+public class UserActionsEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,25 +45,26 @@ public class MeatTypes implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "type")
-    private String type;
-//    @OneToMany(mappedBy = "typeId")
-//    private Collection<MeatPart> meatPartCollection;
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    @Column(name = "datetime")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date datetime;
+    @Size(max = 255)
+    @Column(name = "description")
+    private String description;
+    @JoinColumn(name = "session_id", referencedColumnName = "id")
     @ManyToOne
-    private MeatCategory categoryId;
+    private UserSessionsEntity sessionId;
 
-    public MeatTypes() {
+    public UserActionsEntity() {
     }
 
-    public MeatTypes(Integer id) {
+    public UserActionsEntity(Integer id) {
         this.id = id;
     }
 
-    public MeatTypes(Integer id, String type) {
+    public UserActionsEntity(Integer id, Date datetime) {
         this.id = id;
-        this.type = type;
+        this.datetime = datetime;
     }
 
     public Integer getId() {
@@ -73,29 +75,28 @@ public class MeatTypes implements Serializable {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
+    public Date getDatetime() {
+        return datetime;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setDatetime(Date datetime) {
+        this.datetime = datetime;
     }
 
-//    @XmlTransient
-//    public Collection<MeatPart> getMeatPartCollection() {
-//        return meatPartCollection;
-//    }
-//
-//    public void setMeatPartCollection(Collection<MeatPart> meatPartCollection) {
-//        this.meatPartCollection = meatPartCollection;
-//    }
-
-    public MeatCategory getCategoryId() {
-        return categoryId;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCategoryId(MeatCategory categoryId) {
-        this.categoryId = categoryId;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public UserSessionsEntity getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(UserSessionsEntity sessionId) {
+        this.sessionId = sessionId;
     }
 
     @Override
@@ -108,10 +109,10 @@ public class MeatTypes implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof MeatTypes)) {
+        if (!(object instanceof UserActionsEntity)) {
             return false;
         }
-        MeatTypes other = (MeatTypes) object;
+        UserActionsEntity other = (UserActionsEntity) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -120,8 +121,7 @@ public class MeatTypes implements Serializable {
 
     @Override
     public String toString() {
-//        return "kz.app.entity.MeatTypes[ id=" + id + " ]";
-        return String.valueOf(id);
+        return "kz.app.entity.UserActionsEntity[ id=" + id + " ]";
     }
     
 }

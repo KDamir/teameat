@@ -5,9 +5,10 @@
  */
 package kz.app.utils;
 
+import kz.app.MeatPart;
 import kz.app.dao.MeatPartDao;
-import kz.app.entity.Invoice;
-import kz.app.entity.MeatPart;
+import kz.app.entity.InvoiceEntity;
+import kz.app.entity.MeatPartEntity;
 
 /**
  *
@@ -16,15 +17,15 @@ import kz.app.entity.MeatPart;
 public class MeatPartToEntity {
     private final static MeatPartDao dao = new MeatPartDao();
     
-    public static MeatPart getMeatPartEntity(kz.app.MeatPart meatPart, Invoice invoice) {
+    public static MeatPartEntity getMeatPartEntity(MeatPart meatPart, InvoiceEntity invoice) {
         if(meatPart == null) {
             return null;
         }
-        MeatPart entity = new MeatPart();
+        MeatPartEntity entity = new MeatPartEntity();
         entity.setPrice(meatPart.getPrice());
         entity.setWeight(meatPart.getWeight());
-        entity.setCategoryId(dao.getMeatCategoryById(meatPart.getCategory()));
-        entity.setTypeId(dao.getMeatTypeById(meatPart.getType()));
+        entity.setCategoryId(meatPart.getCategory());
+        entity.setTypeId(meatPart.getType());
         entity.setInvoiceId(invoice);
         return entity;
     }

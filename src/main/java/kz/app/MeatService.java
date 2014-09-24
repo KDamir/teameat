@@ -8,7 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import kz.app.dao.MeatPartDao;
-import kz.app.entity.MeatTypes;
+import kz.app.entity.MeatTypesEntity;
 import kz.app.utils.HibernateUtil;
 
 @ManagedBean
@@ -36,7 +36,7 @@ public class MeatService {
         list1 = new ArrayList<>();
         MeatPartDao meatPartDao = new MeatPartDao();
         HibernateUtil.getSession().beginTransaction();
-		List<MeatTypes> list = meatPartDao.getListMeatTypes();
+		List<MeatTypesEntity> list = meatPartDao.getListMeatTypes();
 		HibernateUtil.getSession().getTransaction().commit();
 		list.forEach(e -> list1.add(e.getType()));
     }

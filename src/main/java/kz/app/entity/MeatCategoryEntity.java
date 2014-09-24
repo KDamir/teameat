@@ -28,10 +28,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "meat_category")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "MeatCategory.findAll", query = "SELECT m FROM MeatCategory m"),
-    @NamedQuery(name = "MeatCategory.findById", query = "SELECT m FROM MeatCategory m WHERE m.id = :id"),
-    @NamedQuery(name = "MeatCategory.findByName", query = "SELECT m FROM MeatCategory m WHERE m.name = :name")})
-public class MeatCategory implements Serializable {
+    @NamedQuery(name = "MeatCategory.findAll", query = "SELECT m FROM MeatCategoryEntity m"),
+    @NamedQuery(name = "MeatCategory.findById", query = "SELECT m FROM MeatCategoryEntity m WHERE m.id = :id"),
+    @NamedQuery(name = "MeatCategory.findByName", query = "SELECT m FROM MeatCategoryEntity m WHERE m.name = :name")})
+public class MeatCategoryEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @Column(name = "id")
@@ -47,14 +47,14 @@ public class MeatCategory implements Serializable {
 //    @OneToMany(mappedBy = "categoryId")
 //    private Collection<MeatTypes> meatTypesCollection;
 
-    public MeatCategory() {
+    public MeatCategoryEntity() {
     }
 
-    public MeatCategory(String name) {
+    public MeatCategoryEntity(String name) {
         this.name = name;
     }
 
-    public MeatCategory(String name, int id) {
+    public MeatCategoryEntity(String name, int id) {
         this.name = name;
         this.id = id;
     }
@@ -103,10 +103,10 @@ public class MeatCategory implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof MeatCategory)) {
+        if (!(object instanceof MeatCategoryEntity)) {
             return false;
         }
-        MeatCategory other = (MeatCategory) object;
+        MeatCategoryEntity other = (MeatCategoryEntity) object;
         if ((this.name == null && other.name != null) || (this.name != null && !this.name.equals(other.name))) {
             return false;
         }
@@ -115,7 +115,7 @@ public class MeatCategory implements Serializable {
 
     @Override
     public String toString() {
-//        return "kz.app.entity.MeatCategory[ name=" + name + " ]";
+//        return "kz.app.entity.MeatCategoryEntity[ name=" + name + " ]";
         return String.valueOf(id);
     }
     

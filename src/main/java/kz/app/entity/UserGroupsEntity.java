@@ -28,10 +28,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "user_groups")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "UserGroups.findAll", query = "SELECT u FROM UserGroups u"),
-    @NamedQuery(name = "UserGroups.findById", query = "SELECT u FROM UserGroups u WHERE u.id = :id"),
-    @NamedQuery(name = "UserGroups.findByGroupname", query = "SELECT u FROM UserGroups u WHERE u.groupname = :groupname")})
-public class UserGroups implements Serializable {
+    @NamedQuery(name = "UserGroups.findAll", query = "SELECT u FROM UserGroupsEntity u"),
+    @NamedQuery(name = "UserGroups.findById", query = "SELECT u FROM UserGroupsEntity u WHERE u.id = :id"),
+    @NamedQuery(name = "UserGroups.findByGroupname", query = "SELECT u FROM UserGroupsEntity u WHERE u.groupname = :groupname")})
+public class UserGroupsEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @Column(name = "id")
@@ -45,14 +45,14 @@ public class UserGroups implements Serializable {
 //    @OneToMany(mappedBy = "groupId")
 //    private Collection<Users> usersCollection;
 
-    public UserGroups() {
+    public UserGroupsEntity() {
     }
 
-    public UserGroups(String groupname) {
+    public UserGroupsEntity(String groupname) {
         this.groupname = groupname;
     }
 
-    public UserGroups(String groupname, int id) {
+    public UserGroupsEntity(String groupname, int id) {
         this.groupname = groupname;
         this.id = id;
     }
@@ -92,10 +92,10 @@ public class UserGroups implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof UserGroups)) {
+        if (!(object instanceof UserGroupsEntity)) {
             return false;
         }
-        UserGroups other = (UserGroups) object;
+        UserGroupsEntity other = (UserGroupsEntity) object;
         if ((this.groupname == null && other.groupname != null) || (this.groupname != null && !this.groupname.equals(other.groupname))) {
             return false;
         }
@@ -104,7 +104,7 @@ public class UserGroups implements Serializable {
 
     @Override
     public String toString() {
-        return "kz.app.entity.UserGroups[ groupname=" + groupname + " ]";
+        return "kz.app.entity.UserGroupsEntity[ groupname=" + groupname + " ]";
     }
     
 }

@@ -6,6 +6,7 @@
 package kz.app.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,48 +17,52 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Дамир
  */
 @Entity
-@Table(name = "meat_part")
+@Table(name = "meat_types")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "MeatPart.findAll", query = "SELECT m FROM MeatPart m"),
-    @NamedQuery(name = "MeatPart.findById", query = "SELECT m FROM MeatPart m WHERE m.id = :id"),
-    @NamedQuery(name = "MeatPart.findByWeight", query = "SELECT m FROM MeatPart m WHERE m.weight = :weight"),
-    @NamedQuery(name = "MeatPart.findByPrice", query = "SELECT m FROM MeatPart m WHERE m.price = :price")})
-public class MeatPart implements Serializable {
+    @NamedQuery(name = "MeatTypes.findAll", query = "SELECT m FROM MeatTypesEntity m"),
+    @NamedQuery(name = "MeatTypes.findById", query = "SELECT m FROM MeatTypesEntity m WHERE m.id = :id"),
+    @NamedQuery(name = "MeatTypes.findByType", query = "SELECT m FROM MeatTypesEntity m WHERE m.type = :type")})
+public class MeatTypesEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "weight")
-    private Double weight;
-    @Column(name = "price")
-    private Double price;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "type")
+    private String type;
+//    @OneToMany(mappedBy = "typeId")
+//    private Collection<MeatPart> meatPartCollection;
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     @ManyToOne
-    private MeatCategory categoryId;
-    @JoinColumn(name = "invoice_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Invoice invoiceId;
-    @JoinColumn(name = "type_id", referencedColumnName = "id")
-    @ManyToOne
-    private MeatTypes typeId;
+    private MeatCategoryEntity categoryId;
 
-    public MeatPart() {
+    public MeatTypesEntity() {
     }
 
-    public MeatPart(Integer id) {
+    public MeatTypesEntity(Integer id) {
         this.id = id;
+    }
+
+    public MeatTypesEntity(Integer id, String type) {
+        this.id = id;
+        this.type = type;
     }
 
     public Integer getId() {
@@ -68,44 +73,29 @@ public class MeatPart implements Serializable {
         this.id = id;
     }
 
-    public Double getWeight() {
-        return weight;
+    public String getType() {
+        return type;
     }
 
-    public void setWeight(Double weight) {
-        this.weight = weight;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public Double getPrice() {
-        return price;
-    }
+//    @XmlTransient
+//    public Collection<MeatPart> getMeatPartCollection() {
+//        return meatPartCollection;
+//    }
+//
+//    public void setMeatPartCollection(Collection<MeatPart> meatPartCollection) {
+//        this.meatPartCollection = meatPartCollection;
+//    }
 
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public MeatCategory getCategoryId() {
+    public MeatCategoryEntity getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(MeatCategory categoryId) {
+    public void setCategoryId(MeatCategoryEntity categoryId) {
         this.categoryId = categoryId;
-    }
-
-    public Invoice getInvoiceId() {
-        return invoiceId;
-    }
-
-    public void setInvoiceId(Invoice invoiceId) {
-        this.invoiceId = invoiceId;
-    }
-
-    public MeatTypes getTypeId() {
-        return typeId;
-    }
-
-    public void setTypeId(MeatTypes typeId) {
-        this.typeId = typeId;
     }
 
     @Override
@@ -118,10 +108,10 @@ public class MeatPart implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof MeatPart)) {
+        if (!(object instanceof MeatTypesEntity)) {
             return false;
         }
-        MeatPart other = (MeatPart) object;
+        MeatTypesEntity other = (MeatTypesEntity) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -130,7 +120,7 @@ public class MeatPart implements Serializable {
 
     @Override
     public String toString() {
-//        return "kz.app.entity.MeatPart[ id=" + id + " ]";
+//        return "kz.app.entity.MeatTypesEntity[ id=" + id + " ]";
         return String.valueOf(id);
     }
     

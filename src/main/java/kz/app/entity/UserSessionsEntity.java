@@ -35,12 +35,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "user_sessions")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "UserSessions.findAll", query = "SELECT u FROM UserSessions u"),
-    @NamedQuery(name = "UserSessions.findById", query = "SELECT u FROM UserSessions u WHERE u.id = :id"),
-    @NamedQuery(name = "UserSessions.findByBeginTime", query = "SELECT u FROM UserSessions u WHERE u.beginTime = :beginTime"),
-    @NamedQuery(name = "UserSessions.findByEndTime", query = "SELECT u FROM UserSessions u WHERE u.endTime = :endTime"),
-    @NamedQuery(name = "UserSessions.findByIp", query = "SELECT u FROM UserSessions u WHERE u.ip = :ip")})
-public class UserSessions implements Serializable {
+    @NamedQuery(name = "UserSessions.findAll", query = "SELECT u FROM UserSessionsEntity u"),
+    @NamedQuery(name = "UserSessions.findById", query = "SELECT u FROM UserSessionsEntity u WHERE u.id = :id"),
+    @NamedQuery(name = "UserSessions.findByBeginTime", query = "SELECT u FROM UserSessionsEntity u WHERE u.beginTime = :beginTime"),
+    @NamedQuery(name = "UserSessions.findByEndTime", query = "SELECT u FROM UserSessionsEntity u WHERE u.endTime = :endTime"),
+    @NamedQuery(name = "UserSessions.findByIp", query = "SELECT u FROM UserSessionsEntity u WHERE u.ip = :ip")})
+public class UserSessionsEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,18 +62,18 @@ public class UserSessions implements Serializable {
     private String ip;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne
-    private Users userId;
+    private UsersEntity userId;
 //    @OneToMany(mappedBy = "sessionId")
 //    private Collection<UserActions> userActionsCollection;
 
-    public UserSessions() {
+    public UserSessionsEntity() {
     }
 
-    public UserSessions(Integer id) {
+    public UserSessionsEntity(Integer id) {
         this.id = id;
     }
 
-    public UserSessions(Integer id, Date beginTime, Date endTime) {
+    public UserSessionsEntity(Integer id, Date beginTime, Date endTime) {
         this.id = id;
         this.beginTime = beginTime;
         this.endTime = endTime;
@@ -111,11 +111,11 @@ public class UserSessions implements Serializable {
         this.ip = ip;
     }
 
-    public Users getUserId() {
+    public UsersEntity getUserId() {
         return userId;
     }
 
-    public void setUserId(Users userId) {
+    public void setUserId(UsersEntity userId) {
         this.userId = userId;
     }
 
@@ -138,10 +138,10 @@ public class UserSessions implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof UserSessions)) {
+        if (!(object instanceof UserSessionsEntity)) {
             return false;
         }
-        UserSessions other = (UserSessions) object;
+        UserSessionsEntity other = (UserSessionsEntity) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -150,7 +150,7 @@ public class UserSessions implements Serializable {
 
     @Override
     public String toString() {
-        return "kz.app.entity.UserSessions[ id=" + id + " ]";
+        return "kz.app.entity.UserSessionsEntity[ id=" + id + " ]";
     }
     
 }

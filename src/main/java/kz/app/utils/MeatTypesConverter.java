@@ -9,15 +9,14 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import kz.app.dao.InvoiceDao;
 import kz.app.dao.MeatPartDao;
-import kz.app.entity.MeatTypes;
+import kz.app.entity.MeatTypesEntity;
 
 /**
  *
  * @author damir.keldibekov
  */
-@FacesConverter(forClass = MeatTypes.class)
+@FacesConverter(forClass = MeatTypesEntity.class)
 public class MeatTypesConverter implements Converter{
 
     MeatPartDao dao = new MeatPartDao();
@@ -25,15 +24,13 @@ public class MeatTypesConverter implements Converter{
     public Object getAsObject(FacesContext fc, UIComponent uic, String string) {
         if(string == null) 
             return null;
-        HibernateUtil.getSession().beginTransaction();
-        MeatTypes meatType = dao.getMeatTypeById(string);
-        HibernateUtil.getSession().getTransaction().commit();
+        MeatTypesEntity meatType = dao.getMeatTypeById(string);
         return meatType;
     }
 
     @Override
     public String getAsString(FacesContext fc, UIComponent uic, Object o) {
-        return ((MeatTypes) o).toString();
+        return ((MeatTypesEntity) o).toString();
     }
     
 }

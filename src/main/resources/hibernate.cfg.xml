@@ -12,15 +12,15 @@
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="connection.username">root</property>
     <property name="connection.password">123</property>
-      <mapping class="kz.app.entity.Invoice"/>
-      <mapping class="kz.app.entity.MeatCategory"/>
-      <mapping class="kz.app.entity.MeatTypes"/>
-      <mapping class="kz.app.entity.Receiver"/>
-      <mapping class="kz.app.entity.UserActions"/>
-      <mapping class="kz.app.entity.UserGroups"/>
-      <mapping class="kz.app.entity.UserSessions"/>
-      <mapping class="kz.app.entity.Users"/>
-      <mapping class="kz.app.entity.MeatPart"/>
+      <mapping class="kz.app.entity.InvoiceEntity"/>
+      <mapping class="kz.app.entity.MeatCategoryEntity"/>
+      <mapping class="kz.app.entity.MeatTypesEntity"/>
+      <mapping class="kz.app.entity.ReceiverEntity"/>
+      <mapping class="kz.app.entity.UserActionsEntity"/>
+      <mapping class="kz.app.entity.UserGroupsEntity"/>
+      <mapping class="kz.app.entity.UserSessionsEntity"/>
+      <mapping class="kz.app.entity.UsersEntity"/>
+      <mapping class="kz.app.entity.MeatPartEntity"/>
       <!-- DB schema will be updated if needed -->
     <!-- <property name="hbm2ddl.auto">update</property> -->
   </session-factory>

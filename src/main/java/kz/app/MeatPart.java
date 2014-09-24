@@ -1,9 +1,14 @@
 package kz.app;
 
+import kz.app.entity.MeatCategoryEntity;
+import kz.app.entity.MeatTypesEntity;
+
 public class MeatPart{
 	
-    private String type;
-    private String category;
+//    private String type;
+//    private String category;
+    private MeatTypesEntity type;
+    private MeatCategoryEntity category;
     // Вес
     private Double weight = 0.0;
     // Продажная цена
@@ -23,19 +28,19 @@ public class MeatPart{
         this.cost = cost;
     }
 
-    public String getType() {
+    public MeatTypesEntity getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(MeatTypesEntity type) {
         this.type = type;
     }
 
-    public String getCategory() {
+    public MeatCategoryEntity getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(MeatCategoryEntity category) {
         this.category = category;
     }
 

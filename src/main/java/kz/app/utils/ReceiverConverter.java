@@ -9,15 +9,14 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import kz.app.dao.InvoiceDao;
 import kz.app.dao.MeatPartDao;
-import kz.app.entity.Receiver;
+import kz.app.entity.ReceiverEntity;
 
 /**
  *
  * @author damir.keldibekov
  */
-@FacesConverter(forClass = Receiver.class)
+@FacesConverter(forClass = ReceiverEntity.class)
 public class ReceiverConverter implements Converter{
 
     MeatPartDao dao = new MeatPartDao();
@@ -25,15 +24,13 @@ public class ReceiverConverter implements Converter{
     public Object getAsObject(FacesContext fc, UIComponent uic, String string) {
         if(string == null) 
             return null;
-        //HibernateUtil.getSession().beginTransaction();
-        Receiver receiver = dao.getReceiverById(string);
-       // HibernateUtil.getSession().getTransaction().commit();
+        ReceiverEntity receiver = dao.getReceiverById(string);
         return receiver;
     }
 
     @Override
     public String getAsString(FacesContext fc, UIComponent uic, Object o) {
-        return ((Receiver) o).toString();
+        return ((ReceiverEntity) o).toString();
     }
     
 }

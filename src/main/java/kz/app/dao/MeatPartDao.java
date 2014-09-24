@@ -1,12 +1,12 @@
 package kz.app.dao;
 
-import kz.app.entity.MeatCategory;
-import kz.app.entity.MeatTypes;
+import kz.app.entity.MeatCategoryEntity;
+import kz.app.entity.MeatTypesEntity;
 
 import java.util.List;
-import kz.app.entity.Invoice;
-import kz.app.entity.MeatPart;
-import kz.app.entity.Receiver;
+import kz.app.entity.InvoiceEntity;
+import kz.app.entity.MeatPartEntity;
+import kz.app.entity.ReceiverEntity;
 import kz.app.utils.HibernateUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -21,98 +21,40 @@ import org.hibernate.Session;
  */
 public class MeatPartDao {
     
-    public List<MeatTypes> getListMeatTypes() {
-//        Session sess = HibernateUtil.getSessionfactory().getCurrentSession();
-//        try {
-//            sess.beginTransaction();
-//            Query query = HibernateUtil.getSessionfactory().getCurrentSession().createQuery("from MeatTypes");
-//            List<MeatTypes> list = query.list();
-//            sess.getTransaction().commit();
-//            list.forEach(e -> {System.out.println("listReceiver = " + e);});
-//            return list;
-//        } catch (RuntimeException e) {
-//            sess.getTransaction().rollback();
-//            throw e;
-//        } finally {
-//            if(sess.isOpen())
-//                sess.close();
-//        }
-        return HibernateUtil.getSessionfactory().getCurrentSession().createQuery("from MeatTypes").list();
+    public List<MeatTypesEntity> getListMeatTypes() {
+        return HibernateUtil.getSessionfactory().getCurrentSession()
+                .createQuery("from MeatTypesEntity").list();
     }
 
-    public List<MeatCategory> getListCategory() {
-//        Session sess = HibernateUtil.getSessionfactory().getCurrentSession();
-//        try {
-//            sess.beginTransaction();
-//            Query query = HibernateUtil.getSessionfactory().getCurrentSession().createQuery("from MeatCategory");
-//            List<MeatCategory> list = query.list();
-//            sess.getTransaction().commit();
-//            list.forEach(e -> {System.out.println("listReceiver = " + e);});
-//            return list;
-//        } catch (RuntimeException e) {
-//            sess.getTransaction().rollback();
-//            throw e;
-//        } finally {
-//            if(sess.isOpen())
-//                sess.close();
-//        }
-        return HibernateUtil.getSessionfactory().getCurrentSession().createQuery("from MeatCategory").list();
+    public List<MeatCategoryEntity> getListCategory() {
+        return HibernateUtil.getSessionfactory().getCurrentSession()
+                .createQuery("from MeatCategoryEntity").list();
     }
     
-    public List<Receiver> getListReceiver() {
-//        Session sess = HibernateUtil.getSessionfactory().getCurrentSession();
-//        try {
-//            sess.beginTransaction();
-//            Query query = HibernateUtil.getSessionfactory().getCurrentSession().createQuery("from Receiver");
-//            List<Receiver> list = query.list();
-//            sess.getTransaction().commit();
-//            list.forEach(e -> {System.out.println("listReceiver = " + e);});
-//            return list;
-//        } catch (RuntimeException e) {
-//            sess.getTransaction().rollback();
-//            throw e;
-//        } finally {
-//            if(sess.isOpen())
-//                sess.close();
-//        }
-        return HibernateUtil.getSessionfactory().getCurrentSession().createQuery("from Receiver").list();
+    public List<ReceiverEntity> getListReceiver() {
+        return HibernateUtil.getSessionfactory().getCurrentSession()
+                .createQuery("from ReceiverEntity").list();
     }
     
-    public void saveMeatPart(MeatPart part) {
+    public void saveMeatPart(MeatPartEntity part) {
         HibernateUtil.getSession().beginTransaction();
         HibernateUtil.getSession().save(part);
         HibernateUtil.getSession().getTransaction().commit();
     }
     
-    public void saveInvoice(Invoice invoice) {
+    public void saveInvoice(InvoiceEntity invoice) {
         HibernateUtil.getSession().beginTransaction();
         HibernateUtil.getSession().save(invoice);
         HibernateUtil.getSession().getTransaction().commit();
         
     }
     
-//    public MeatCategory getMeatCategoryByName(String name) {
-//        Query query = HibernateUtil.getSessionfactory().getCurrentSession().createQuery("from MeatCategory where name = :name");
-//        query.setParameter("name", name);
-//        if(!query.list().isEmpty())
-//            return (MeatCategory) query.list().get(0);
-//        else return null;
-//    }
-//    
-//    public MeatTypes getMeatTypesyByName(String type) {
-//        Query query = HibernateUtil.getSessionfactory().getCurrentSession().createQuery("from MeatTypes where type = :type");
-//        query.setParameter("type", type);
-//        if(!query.list().isEmpty())
-//            return (MeatTypes) query.list().get(0);
-//        else return null;
-//    }
-    
-    public Receiver getReceiverById(String id) {
+    public ReceiverEntity getReceiverById(String id) {
         Session sess = HibernateUtil.getSessionfactory().getCurrentSession();
         try {
             sess.beginTransaction();
-            Query query = HibernateUtil.getSessionfactory().getCurrentSession().createQuery("from Receiver where id = :id");
-            List<Receiver> list = query.setParameter("id", Integer.parseInt(id)).list();
+            Query query = HibernateUtil.getSessionfactory().getCurrentSession().createQuery("from ReceiverEntity where id = :id");
+            List<ReceiverEntity> list = query.setParameter("id", Integer.parseInt(id)).list();
             sess.getTransaction().commit();
             if(list.isEmpty())
                 return null;
@@ -126,12 +68,12 @@ public class MeatPartDao {
         }
     }
     
-    public MeatTypes getMeatTypeById(String id) {
+    public MeatTypesEntity getMeatTypeById(String id) {
         Session sess = HibernateUtil.getSessionfactory().getCurrentSession();
         try {
             sess.beginTransaction();
-            Query query = HibernateUtil.getSessionfactory().getCurrentSession().createQuery("from MeatTypes where id = :id");
-            List<MeatTypes> list = query.setParameter("id", Integer.parseInt(id)).list();
+            Query query = HibernateUtil.getSessionfactory().getCurrentSession().createQuery("from MeatTypesEntity where id = :id");
+            List<MeatTypesEntity> list = query.setParameter("id", Integer.parseInt(id)).list();
             sess.getTransaction().commit();
             if(list.isEmpty())
                 return null;
@@ -145,12 +87,12 @@ public class MeatPartDao {
         }
     }
     
-    public MeatCategory getMeatCategoryById(String id) {
+    public MeatCategoryEntity getMeatCategoryById(String id) {
         Session sess = HibernateUtil.getSessionfactory().getCurrentSession();
         try {
             sess.beginTransaction();
-            Query query = HibernateUtil.getSessionfactory().getCurrentSession().createQuery("from MeatCategory where id = :id");
-            List<MeatCategory> list = query.setParameter("id", Integer.parseInt(id)).list();
+            Query query = HibernateUtil.getSessionfactory().getCurrentSession().createQuery("from MeatCategoryEntity where id = :id");
+            List<MeatCategoryEntity> list = query.setParameter("id", Integer.parseInt(id)).list();
             sess.getTransaction().commit();
             if(list.isEmpty())
                 return null;

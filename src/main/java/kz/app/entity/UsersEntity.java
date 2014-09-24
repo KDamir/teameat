@@ -30,11 +30,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "users")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u"),
-    @NamedQuery(name = "Users.findById", query = "SELECT u FROM Users u WHERE u.id = :id"),
-    @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username"),
-    @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password")})
-public class Users implements Serializable {
+    @NamedQuery(name = "Users.findAll", query = "SELECT u FROM UsersEntity u"),
+    @NamedQuery(name = "Users.findById", query = "SELECT u FROM UsersEntity u WHERE u.id = :id"),
+    @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM UsersEntity u WHERE u.username = :username"),
+    @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM UsersEntity u WHERE u.password = :password")})
+public class UsersEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @Column(name = "id")
@@ -54,16 +54,16 @@ public class Users implements Serializable {
 //    private Collection<UserSessions> userSessionsCollection;
     @JoinColumn(name = "group_id", referencedColumnName = "id")
     @ManyToOne
-    private UserGroups groupId;
+    private UserGroupsEntity groupId;
 
-    public Users() {
+    public UsersEntity() {
     }
 
-    public Users(String username) {
+    public UsersEntity(String username) {
         this.username = username;
     }
 
-    public Users(String username, int id, String password) {
+    public UsersEntity(String username, int id, String password) {
         this.username = username;
         this.id = id;
         this.password = password;
@@ -102,11 +102,11 @@ public class Users implements Serializable {
 //        this.userSessionsCollection = userSessionsCollection;
 //    }
 
-    public UserGroups getGroupId() {
+    public UserGroupsEntity getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(UserGroups groupId) {
+    public void setGroupId(UserGroupsEntity groupId) {
         this.groupId = groupId;
     }
 
@@ -120,10 +120,10 @@ public class Users implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Users)) {
+        if (!(object instanceof UsersEntity)) {
             return false;
         }
-        Users other = (Users) object;
+        UsersEntity other = (UsersEntity) object;
         if ((this.username == null && other.username != null) || (this.username != null && !this.username.equals(other.username))) {
             return false;
         }
@@ -132,7 +132,7 @@ public class Users implements Serializable {
 
     @Override
     public String toString() {
-        return "kz.app.entity.Users[ username=" + username + " ]";
+        return "kz.app.entity.UsersEntity[ username=" + username + " ]";
     }
     
 }

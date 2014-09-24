@@ -35,11 +35,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "invoice")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Invoice.findAll", query = "SELECT i FROM Invoice i"),
-    @NamedQuery(name = "Invoice.findById", query = "SELECT i FROM Invoice i WHERE i.id = :id"),
-    @NamedQuery(name = "Invoice.findBySender", query = "SELECT i FROM Invoice i WHERE i.sender = :sender"),
-    @NamedQuery(name = "Invoice.findByDate", query = "SELECT i FROM Invoice i WHERE i.date = :date")})
-public class Invoice implements Serializable {
+    @NamedQuery(name = "Invoice.findAll", query = "SELECT i FROM InvoiceEntity i"),
+    @NamedQuery(name = "Invoice.findById", query = "SELECT i FROM InvoiceEntity i WHERE i.id = :id"),
+    @NamedQuery(name = "Invoice.findBySender", query = "SELECT i FROM InvoiceEntity i WHERE i.sender = :sender"),
+    @NamedQuery(name = "Invoice.findByDate", query = "SELECT i FROM InvoiceEntity i WHERE i.date = :date")})
+public class InvoiceEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,12 +56,12 @@ public class Invoice implements Serializable {
 //    private Collection<MeatPart> meatPartCollection;
     @JoinColumn(name = "receiver_id", referencedColumnName = "id")
     @ManyToOne
-    private Receiver receiverId;
+    private ReceiverEntity receiverId;
 
-    public Invoice() {
+    public InvoiceEntity() {
     }
 
-    public Invoice(Integer id) {
+    public InvoiceEntity(Integer id) {
         this.id = id;
     }
 
@@ -98,11 +98,11 @@ public class Invoice implements Serializable {
 //        this.meatPartCollection = meatPartCollection;
 //    }
 
-    public Receiver getReceiverId() {
+    public ReceiverEntity getReceiverId() {
         return receiverId;
     }
 
-    public void setReceiverId(Receiver receiverId) {
+    public void setReceiverId(ReceiverEntity receiverId) {
         this.receiverId = receiverId;
     }
 
@@ -116,10 +116,10 @@ public class Invoice implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Invoice)) {
+        if (!(object instanceof InvoiceEntity)) {
             return false;
         }
-        Invoice other = (Invoice) object;
+        InvoiceEntity other = (InvoiceEntity) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -128,7 +128,7 @@ public class Invoice implements Serializable {
 
     @Override
     public String toString() {
-        return "kz.app.entity.Invoice[ id=" + id + " ]";
+        return "kz.app.entity.InvoiceEntity[ id=" + id + " ]";
     }
     
 }

@@ -38,12 +38,12 @@
                                           return false;
                                       }
                                   }">
-				<p:column headerText="Наименование" sortBy="#{inp.name}" >
+                            <p:column headerText="Наименование" sortBy="#{inp.type}" >
 					<p:cellEditor>
-						<f:facet name="output"><h:outputText value="#{inp.type}"/></f:facet>
+                                            <f:facet name="output"><h:outputText value="#{inp.type.type}"/></f:facet>
 						<f:facet name="input">
-							<p:selectOneMenu value="#{inp.type}" style="width:100%">
-								<f:selectItems value="#{meatService.list1}" var="type" itemLabel="#{type}" itemValue="#{type}"/>
+                                                    <p:selectOneMenu value="#{inp.type}" style="width:100%">
+                                                            <f:selectItems value="#{meatService.listMeatTypes}" var="type" itemLabel="#{type.type}" itemValue="#{type}"/>
 							</p:selectOneMenu>
 						</f:facet>
 					</p:cellEditor>

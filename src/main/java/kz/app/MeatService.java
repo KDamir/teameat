@@ -15,34 +15,34 @@ import kz.app.utils.HibernateUtil;
 @SessionScoped
 public class MeatService {
 
-	private List<MeatPart> inputList;
-	private Double sumWeight = 0.0;
-	private Double sumProc = 0.0;
-	private Double sumProdaj = 0.0;
-	private List<String> list1;
-	private String meatInfo;
+    private List<MeatPart> inputList;
+    private Double sumWeight = 0.0;
+    private Double sumProc = 0.0;
+    private Double sumProdaj = 0.0;
+    private List<MeatTypesEntity> listMeatTypes;
+    private String meatInfo;
     private Double pricePerKilo = 0.0;
     private Double totalWeight = 0.0;
     private Double totalCost = 0.0;
 
+    MeatPartDao meatPartDao;
 
     @PostConstruct
-	public void init() {
-		inputList = new ArrayList<>();
+    public void init() {
+        inputList = new ArrayList<>();
         for(int i=0;i<10;i++) {
-        	inputList.add(new MeatPart());
+                inputList.add(new MeatPart());
         }
-        //System.out.println("PostConctruct");
-        list1 = new ArrayList<>();
-        MeatPartDao meatPartDao = new MeatPartDao();
+        meatPartDao = new MeatPartDao();
+        
         HibernateUtil.getSession().beginTransaction();
-		List<MeatTypesEntity> list = meatPartDao.getListMeatTypes();
-		HibernateUtil.getSession().getTransaction().commit();
-		list.forEach(e -> list1.add(e.getType()));
+        listMeatTypes = meatPartDao.getListMeatTypes();
+        HibernateUtil.getSession().getTransaction().commit();
     }
-	public List<MeatPart> getInputList() {
-		return inputList;
-	}
+    
+    public List<MeatPart> getInputList() {
+            return inputList;
+    }
 
     public String getMeatInfo() {
         return meatInfo;
@@ -75,36 +75,34 @@ public class MeatService {
             // Здесь будет вызов update'а из ДАО
         }
     }
-	public void calculate() {
-	}
+    public void calculate() {
+    }
 	
-	/*Общий вес*/
-	public Double getTotalWeight() {
-		
-                return inputList.stream().mapToDouble(s -> s.getWeight()).sum();
-	}
-	/*Общий процент*/
-	public Double getTotalPercent() {
-		sumProc = 0.0;
-		inputList.forEach(e -> sumProc += e.getWeightPercent());
-		return round(sumProc,3);
-	}
-	/*Общая сумма продаж*/
-	public Double getTotalSum() {
-		return inputList.stream().mapToDouble(s -> s.getProfit()).sum();
-	}
-	public List<String> getList1() {
-		return list1;
-	}
-	
-	public static double round(double value, int places) {
-	    if (places < 0) throw new IllegalArgumentException();
+    /*Общий вес*/
+    public Double getTotalWeight() {
+        return inputList.stream().mapToDouble(s -> s.getWeight()).sum();
+    }
+    /*Общий процент*/
+    public Double getTotalPercent() {
+        return inputList.stream().mapToDouble(s -> s.getWeightPercent()).sum();
+    }
+    /*Общая сумма продаж*/
+    public Double getTotalSum() {
+        return inputList.stream().mapToDouble(s -> s.getProfit()).sum();
+    }
 
-	    long factor = (long) Math.pow(10, places);
-	    value = value * factor;
-	    long tmp = Math.round(value);
-	    return (double) tmp / factor;
-	}
+    public List<MeatTypesEntity> getListMeatTypes() {
+        return listMeatTypes;
+    }
+        
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
+    }
 
     public Double getTotalCost() {
         totalCost = pricePerKilo * totalWeight;

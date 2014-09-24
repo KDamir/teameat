@@ -52,7 +52,9 @@
             </p:cellEditor>
         </p:column>
         <f:facet name="footer">
-            <p:commandButton value="Готово" action="#{invoiceService.saveInvoice}"/>
+            <p:commandButton value="Готово" action="#{invoiceService.saveInvoice}" ajax="false">
+                <p:ajax update="@form"/>
+            </p:commandButton>
         </f:facet>
     </p:dataTable>
 </ui:fragment>

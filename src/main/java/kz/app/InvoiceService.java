@@ -3,8 +3,10 @@ package kz.app;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import kz.app.dao.MeatPartDao;
 import kz.app.entity.MeatCategoryEntity;
 import kz.app.entity.MeatTypesEntity;
@@ -91,8 +93,14 @@ public class InvoiceService {
             if(e.getCategory() != null &&  e.getType() != null)
                 meatPartDao.saveMeatPart(MeatPartToEntity.getMeatPartEntity(e, invoice));
         });
-
-        System.out.println("saved ok!");
+        invoice = new InvoiceEntity();
+        meatPartList = new ArrayList<>();
+        for(int i = 0; i < 3; i++) {
+            meatPartList.add(new MeatPart());
+        }
+        FacesMessage msg = null;
+        msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Накладная сохранена","сохранение накладной");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
 }

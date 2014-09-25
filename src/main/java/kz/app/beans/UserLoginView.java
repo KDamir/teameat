@@ -18,7 +18,7 @@ import org.primefaces.context.RequestContext;
 
 @ManagedBean
 @SessionScoped
-public class UserLoginView implements Serializable{
+public class UserLoginView{
 	
     private String username;
     

@@ -6,6 +6,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.persistence.Persistence;
+import kz.app.dao.CommonDao;
 
 import kz.app.dao.MeatPartDao;
 import kz.app.entity.MeatTypesEntity;
@@ -26,6 +28,7 @@ public class MeatService {
     private Double totalCost = 0.0;
 
     MeatPartDao meatPartDao;
+//    CommonDao jpa;
 
     @PostConstruct
     public void init() {
@@ -33,6 +36,9 @@ public class MeatService {
         for(int i=0;i<10;i++) {
                 inputList.add(new MeatPart());
         }
+//        jpa = new CommonDao(Persistence
+//                    .createEntityManagerFactory("kz.app_teameat_war_0.0.1-SNAPSHOTPU"));
+//        listMeatTypes = jpa.findMeatTypesEntityEntities();
         meatPartDao = new MeatPartDao();
         
         HibernateUtil.getSession().beginTransaction();

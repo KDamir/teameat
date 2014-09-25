@@ -3,8 +3,12 @@ package kz.app;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.persistence.Persistence;
+import javax.transaction.UserTransaction;
+import kz.app.dao.CommonDao;
 import kz.app.dao.MeatPartDao;
 import kz.app.entity.MeatCategoryEntity;
 import kz.app.entity.MeatTypesEntity;
@@ -23,6 +27,11 @@ public class InvoiceService {
     private List<ReceiverEntity> listReceiver;
     
     MeatPartDao meatPartDao;
+    
+//    CommonDao jpa;
+//    
+//    @Resource 
+//    private UserTransaction utx;
 
     public List<MeatCategoryEntity> getListCategory() {
         return listCategory;
@@ -71,7 +80,13 @@ public class InvoiceService {
         for(int i = 0; i < 3; i++) {
             meatPartList.add(new MeatPart());
         }
-
+        
+//        jpa = new CommonDao(Persistence
+//                    .createEntityManagerFactory("kz.app_teameat_war_0.0.1-SNAPSHOTPU"));
+//
+//        listCategory = jpa.findMeatCategoryEntityEntities();
+//        listReceiver = jpa.findReceiverEntityEntities();
+//        listTypes    = jpa.findMeatTypesEntityEntities();
         meatPartDao = new MeatPartDao();
         
         HibernateUtil.getSession().beginTransaction();

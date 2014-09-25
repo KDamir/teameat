@@ -14,11 +14,11 @@ import org.hibernate.Query;
  * Date: 09.09.14
  * Time: 16:17
  */
-public class UserDao {
+public class UserDao { 
     public List<UsersEntity> getUser(String name) {
-		Query query = HibernateUtil.getSessionfactory().getCurrentSession().createQuery("from UsersEntity where username = :usr");
-		query.setParameter("usr", name);
-		List<UsersEntity> list = query.list();
-		return list;
-	}
+        Query query = HibernateUtil.getSessionfactory().getCurrentSession().createQuery("from UsersEntity where username = :usr");
+        query.setParameter("usr", name);
+        List<UsersEntity> list = query.list();
+        return list;
+    }
 }

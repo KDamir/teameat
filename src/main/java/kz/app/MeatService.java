@@ -6,8 +6,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.persistence.Persistence;
-import kz.app.dao.CommonDao;
 
 import kz.app.dao.MeatPartDao;
 import kz.app.entity.MeatTypesEntity;
@@ -17,14 +15,11 @@ import kz.app.utils.HibernateUtil;
 @SessionScoped
 public class MeatService {
 
-    private List<MeatPart> inputList;
-    private Double sumWeight = 0.0;
-    private Double sumProc = 0.0;
-    private Double sumProdaj = 0.0;
+    private List<MeatPart> meatParts;
     private List<MeatTypesEntity> listMeatTypes;
     private String meatInfo;
     private Double pricePerKilo = 0.0;
-    private Double totalWeight = 0.0;
+    private Double meatPartsWeight = 0.0;
     private Double totalCost = 0.0;
 
     MeatPartDao meatPartDao;
@@ -32,9 +27,9 @@ public class MeatService {
 
     @PostConstruct
     public void init() {
-        inputList = new ArrayList<>();
+        meatParts = new ArrayList<>();
         for(int i=0;i<10;i++) {
-                inputList.add(new MeatPart());
+                meatParts.add(new MeatPart());
         }
 //        jpa = new CommonDao(Persistence
 //                    .createEntityManagerFactory("kz.app_teameat_war_0.0.1-SNAPSHOTPU"));
@@ -46,8 +41,8 @@ public class MeatService {
         HibernateUtil.getSession().getTransaction().commit();
     }
     
-    public List<MeatPart> getInputList() {
-            return inputList;
+    public List<MeatPart> getMeatParts() {
+            return meatParts;
     }
 
     public String getMeatInfo() {
@@ -66,17 +61,20 @@ public class MeatService {
         this.pricePerKilo = pricePerKilo;
     }
 
-    public void setTotalWeight(Double totalWeight) {
-        this.totalWeight = totalWeight;
+    public void setMeatPartsWeight(Double totalWeight) {
+        this.meatPartsWeight = totalWeight;
+    }
+    public Double getMeatPartsWeight() {
+        return meatPartsWeight;
     }
 
     public void updateOrder(int index) {
-        MeatPart currentPart = inputList.get(index);
+        MeatPart currentPart = meatParts.get(index);
 
-        if (index == inputList.size() - 1) {
+        if (index == meatParts.size() - 1) {
             // Здесь будет вызов insert'а из ДАО
             MeatPart meatPart = new MeatPart();
-            inputList.add(meatPart);
+            meatParts.add(meatPart);
         } else {
             // Здесь будет вызов update'а из ДАО
         }
@@ -86,15 +84,15 @@ public class MeatService {
 	
     /*Общий вес*/
     public Double getTotalWeight() {
-        return inputList.stream().mapToDouble(s -> s.getWeight()).sum();
+        return meatParts.stream().mapToDouble(MeatPart::getWeight).sum();
     }
     /*Общий процент*/
     public Double getTotalPercent() {
-        return inputList.stream().mapToDouble(s -> s.getWeightPercent()).sum();
+        return meatParts.stream().mapToDouble(MeatPart::getWeightPercent).sum();
     }
     /*Общая сумма продаж*/
-    public Double getTotalSum() {
-        return inputList.stream().mapToDouble(s -> s.getProfit()).sum();
+    public Double getTotalSalesAmount() {
+        return meatParts.stream().mapToDouble(MeatPart::getRevenue).sum();
     }
 
     public List<MeatTypesEntity> getListMeatTypes() {
@@ -111,7 +109,7 @@ public class MeatService {
     }
 
     public Double getTotalCost() {
-        totalCost = pricePerKilo * totalWeight;
+        totalCost = pricePerKilo * meatPartsWeight;
         return totalCost;
     }
 

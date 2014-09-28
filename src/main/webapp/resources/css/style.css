@@ -87,3 +87,7 @@ body {
 #proc_ves {
 	font-weight: bold;
 }
+
+.unchangeable {
+    background-color: #FCA9A9;
+}

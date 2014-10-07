@@ -5,34 +5,45 @@
              xmlns:ui="http://java.sun.com/jsf/facelets"
              id="calculationFragment">
             <p:panelGrid id="infoTable" columns="2">
-            	<h:outputText value="Информация по туше:"/>
-            	<p:inputText value="#{meatService.meatInfo}"/>
-                <h:outputText value="Вес части туши:"/>
-            	<p:inputText value="#{meatService.meatPartsWeight}">
-            	    <p:ajax event="blur" update="totalCost"/>
-            	</p:inputText>
-                <h:outputText value="Цена за кг:"/>
-            	<p:inputText value="#{meatService.pricePerKilo}">
-            		<p:ajax event="blur" update="totalCost"/>
-            	</p:inputText>
-                <h:outputText value="Итоговая стоимость части туши:"/>
-                <p:inputText id="totalCost" value="#{meatService.totalCost}" readonly="true" style="background-color: #FCA9A9"/>
+                <p:panelGrid id="carcassInfo" columns="2">
+                    <h:outputText value="Информация по туше:"/>
+                    <p:inputText value="#{calculationController.meatInfo}"/>
+                    <h:outputText value="Вес части туши:"/>
+                    <p:inputText value="#{calculationController.carcassWeight}">
+                        <p:ajax event="blur" update="infoTable, mainTable"/>
+                    </p:inputText>
+                    <h:outputText value="Цена за кг:"/>
+                    <p:inputText value="#{calculationController.pricePerKilo}">
+                        <p:ajax event="blur" update="infoTable, mainTable"/>
+                    </p:inputText>
+                    <h:outputText value="Итоговая стоимость части туши:"/>
+                    <p:inputText id="totalCost" value="#{calculationController.totalCost}" readonly="true" style="background-color: #FCA9A9"/>
+                </p:panelGrid>
+                <p:panelGrid id="profitInfo" columns="1">
+                    <h:outputText value="Валовая прибыль"/>
+                    <p:inputText id="profit" readonly="true" style="background-color: #FCA9A9"
+                                 value="#{calculationController.totalSalesAmount-calculationController.totalCost}"/>
+                    <h:outputText value="Процент прибыли"/>
+                    <p:inputText id="profitPercent" readonly="true" style="background-color: #FCA9A9"
+                                 value="#{calculationController.totalSalesAmount eq 0 ? '' :
+                                 1-calculationController.totalCost/calculationController.totalSalesAmount}" />
+                </p:panelGrid>
             </p:panelGrid>
             <br/>
-			<p:dataTable id="mainTable" value="#{meatService.meatParts}" var="meatPart" editable="true" editMode="cell" draggableRows="true"  onkeypress="{
+			<p:dataTable id="mainTable" value="#{calculationController.meatParts}" var="meatPart" editable="true" editMode="cell" draggableRows="true"  onkeypress="{
                                       if (event.keyCode == 13) {
                                           document.getElementById('calculationFragment:saveOrder').click();
                                           return false;
                                       }
                                   }">
-                <p:ajax event="cellEdit" update="mainTable" listener="#{meatService.calculate}"/>
+
 				<p:column headerText="Наименование" sortBy="#{meatPart.type.type}" >
 					<p:cellEditor>
 						<f:facet name="output"><h:outputText value="#{meatPart.type.type}"/></f:facet>
 						<f:facet name="input">
-                                                    <p:selectOneMenu value="#{meatPart.type}" style="width:100%">
-                                                        <f:selectItems value="#{meatService.listMeatTypes}" var="type" itemLabel="#{type.type}" itemValue="#{type}"/>
-                                                    </p:selectOneMenu>
+                            <p:selectOneMenu value="#{meatPart.type}" style="width:100%">
+                                <f:selectItems value="#{calculationController.listMeatTypes}" var="type" itemLabel="#{type.type}" itemValue="#{type}"/>
+                            </p:selectOneMenu>
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -40,30 +51,37 @@
 					<p:cellEditor>
 						<f:facet name="output"><h:outputText value="#{meatPart.weight}"/></f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{meatPart.weight}" immediate="true">
-                                                            <p:ajax event="blur" update=":tabForm:j_idt6:mainTable:totalWeight, :tabForm:j_idt6:mainTable:totalsSection,procves"/>
+							<p:inputText value="#{meatPart.weight}">
+                                <p:ajax event="blur" update="mainTable, :appForm:tabs:infoTable"/>
 							</p:inputText>
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
 				<p:column headerText="% от общего веса" style="background-color: #FCA9A9">
-					<h:outputText id="procves" value="#{meatPart.weightPercent}"/>
+					<h:outputText value="#{meatPart.calculateWeightPercent(calculationController.carcassWeight)}">
+                        <f:convertNumber pattern="#0.00" />
+                    </h:outputText>
 				</p:column>
 				<p:column headerText="Продажная цена">
 					<p:cellEditor>
 						<f:facet name="output"><h:outputText value="#{meatPart.price}"/></f:facet>
 						<f:facet name="input">
 							<p:inputText value="#{meatPart.price}">
-								<p:ajax event="blur" update=":tabForm:j_idt6:mainTable"/>
+								<p:ajax event="blur" update="mainTable, :appForm:tabs:infoTable"/>
 							</p:inputText>
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
 				<p:column headerText="Выручка" style="background-color: #FCA9A9">
-					<h:outputText id="sumaprodaj" value="#{meatPart.revenue}"/>
+					<h:outputText id="revenue" value="#{meatPart.revenue}">
+                        <f:convertNumber pattern="#0.00" />
+                    </h:outputText>
 				</p:column>
 				<p:column headerText="Безубыточная цена" style="background-color: #FCA9A9">
-						<h:outputText id="cost" value="#{meatService.totalSalesAmount != 0.0 and meatPart.weight != 0.0 ? (meatService.totalCost*meatPart.revenue)/(meatService.totalSalesAmount*meatPart.weight) : ''}"/>
+					<h:outputText id="cost" value="#{calculationController.totalSalesAmount != 0.0 and meatPart.weight != 0.0 ?
+					    (calculationController.totalCost*meatPart.revenue)/(calculationController.totalSalesAmount*meatPart.weight) : ''}">
+                        <f:convertNumber pattern="#0.00" />
+                    </h:outputText>
 				</p:column>
 				<p:column headerText="Остатки" style="background-color: #FCA9A9">
 					<h:outputText id="ostatki" value=""/>
@@ -71,23 +89,31 @@
                 <p:columnGroup type="footer" id="totalsSection">
                     <p:row>
                         <p:column footerText="Итого:" />
-                        <p:column id="totalWeight" footerText="#{meatService.totalWeight}" />
-                        <p:column id="totalPercent" footerText="#{meatService.totalPercent}" />
+                        <p:column id="totalWeight">
+                            <f:facet name="footer">
+                                <h:outputText value="#{calculationController.totalWeight}">
+                                    <f:convertNumber pattern="#0.00" />
+                                </h:outputText>
+                            </f:facet>
+                        </p:column>
+                        <p:column id="totalPercent">
+                            <f:facet name="footer">
+                                <h:outputText value="#{calculationController.totalPercent}">
+                                    <f:convertNumber pattern="#0.00" />
+                                </h:outputText>
+                            </f:facet>
+                        </p:column>
                         <p:column footerText="" />
-                        <p:column id="totalSalesAmount" footerText="#{meatService.totalSalesAmount}" />
+                        <p:column id="totalSalesAmount">
+                            <f:facet name="footer">
+                                <h:outputText value="#{calculationController.totalSalesAmount}">
+                                    <f:convertNumber pattern="#0.00" />
+                                </h:outputText>
+                            </f:facet>
+                        </p:column>
                         <p:column footerText="" />
                         <p:column footerText="" />
                     </p:row>
                 </p:columnGroup>
 			</p:dataTable>
-			<table>
-				<tr>
-					<td><span style="font-weight: bolder;">Валовая прибыль:</span></td>
-					<td><h:outputText id="valpr" value="#{meatService.totalSalesAmount-meatService.totalCost}"/></td>
-				</tr>
-				<tr>
-					<td><span style="font-weight: bolder;">Процент прибыли:</span></td>
-					<td><h:outputText id="procpr" value="#{meatService.totalSalesAmount eq 0 ? '':1-meatService.meatParts.totalCost/meatService.totalSalesAmount}"/></td>
-				</tr>
-			</table>
 	</ui:fragment>

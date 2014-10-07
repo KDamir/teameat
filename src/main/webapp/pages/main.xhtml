@@ -5,16 +5,16 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 template="/template/default.xhtml">
     <ui:define name="content">
-        <h:form id="tabForm">
+        <h:form id="appForm">
             <p:growl id="growl" showDetail="true" life="10" />
-            <p:tabView orientation="left">
-                <p:tab title="Заполнение накладных на продажу" rendered="#{true}">
+            <p:tabView id="tabs" orientation="left">
+                <p:tab id="invoiceTab" title="Заполнение накладных на продажу" rendered="#{true}">
                    <ui:include src="invoice.xhtml"/>
                 </p:tab>
-                <p:tab title="Рассчитать остатки" rendered="#{true}">
+                <p:tab id="calcTab" title="Рассчитать остатки" rendered="#{true}">
                     <ui:include src="calculation.xhtml"/>
                 </p:tab>
-                <p:tab title="Просмотр накладных" rendered="#{true}">
+                <p:tab id="historyTab" title="Просмотр накладных" rendered="#{true}">
                     <ui:include src="invoiceHistory.xhtml"/>
                 </p:tab>
             </p:tabView>

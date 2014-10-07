@@ -7,16 +7,13 @@ public class MeatPart {
 	
 //    private String type;
 //    private String category;
+    // TODO:
     private MeatTypesEntity type;
     private MeatCategoryEntity category;
     // Вес
 	private Double weight = 0.0;
     // Продажная цена
 	private Double price = 0.0;
-    // Процент от общего веса
-	private Double weightPercent = 0.0;
-    // Сумма продаж
-	private Double revenue = 0.0;
     // Безубыточная цена
     private Double cost;
 
@@ -45,19 +42,12 @@ public class MeatPart {
     }
 
     public Double getRevenue() {
-		return revenue;
+		return weight * price;
 	}
 
-	public void setRevenue(Double revenue) {
-		this.revenue = revenue;
-	}
-
-	public Double getWeightPercent() {
-		return weightPercent;
-	}
-
-	public void setWeightPercent(Double weightPercent) {
-		this.weightPercent = weightPercent;
+    // TODO: Возможно, имеет смысл отрефакторить: хранить в митпарте ссылку на его митсервис. Или хранить общий вес туши в каждом митпарте.
+	public Double calculateWeightPercent(Double carcassWeight) {
+		return carcassWeight==0 ? weight : weight/carcassWeight*100;
 	}
 
 	public Double getWeight() {

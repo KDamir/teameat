@@ -6,22 +6,22 @@
         id="invoiceFragment">
     <p:panelGrid columns="2">
         <h:outputText value="Отправитель:"/>
-        <p:inputText id="senderInput" value="#{invoiceService.invoice.sender}" style="width: 400px"/>
+        <p:inputText id="senderInput" value="#{invoiceController.invoice.sender}" style="width: 400px"/>
         <h:outputText value="Получатель:"/>
-        <p:selectOneMenu value="#{invoiceService.invoice.receiverId}" style="width: 100%">
-            <f:selectItems value="#{invoiceService.listReceiver}" var="receiver" itemValue="#{receiver}" itemLabel="#{receiver.companyName}"/>
+        <p:selectOneMenu value="#{invoiceController.invoice.receiverId}" style="width: 100%">
+            <f:selectItems value="#{invoiceController.listReceiver}" var="receiver" itemValue="#{receiver}" itemLabel="#{receiver.companyName}"/>
         </p:selectOneMenu>
         <h:outputText value="Дата:"/>
-        <p:calendar value="#{invoiceService.invoice.date}"/>
+        <p:calendar value="#{invoiceController.invoice.date}"/>
     </p:panelGrid>
     <br/>
-    <p:dataTable value="#{invoiceService.meatPartList}" var="meatPart" editable="true" editMode="cell">
+    <p:dataTable value="#{invoiceController.meatPartList}" var="meatPart" editable="true" editMode="cell">
         <p:column headerText="Категория" sortBy="#{meatPart.category.name}" style="height: 30px;">
             <p:cellEditor>
                 <f:facet name="output"><h:outputText value="#{meatPart.category.name}"/></f:facet>
                 <f:facet name="input">
                     <p:selectOneMenu value="#{meatPart.category}" style="width:100%">
-                        <f:selectItems value="#{invoiceService.listCategory}" var="cat" itemLabel="#{cat.name}"
+                        <f:selectItems value="#{invoiceController.listCategory}" var="cat" itemLabel="#{cat.name}"
                                        itemValue="#{cat}"/>
                     </p:selectOneMenu>
                 </f:facet>
@@ -32,7 +32,7 @@
                 <f:facet name="output"><h:outputText value="#{meatPart.type.type}"/></f:facet>
                 <f:facet name="input">
                     <p:selectOneMenu value="#{meatPart.type}" style="width:100%">
-                        <f:selectItems value="#{invoiceService.listTypes}" var="type" itemLabel="#{type.type}"
+                        <f:selectItems value="#{invoiceController.listTypes}" var="type" itemLabel="#{type.type}"
                                        itemValue="#{type}"/>
                     </p:selectOneMenu>
                 </f:facet>
@@ -53,7 +53,7 @@
             </p:cellEditor>
         </p:column>
         <f:facet name="footer">
-            <p:commandButton value="Готово" action="#{invoiceService.saveInvoice}" ajax="false">
+            <p:commandButton value="Готово" action="#{invoiceController.saveInvoice}" ajax="false">
                 <p:ajax update="@form"/>
             </p:commandButton>
         </f:facet>

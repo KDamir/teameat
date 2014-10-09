@@ -14,6 +14,7 @@ import javax.persistence.Persistence;
 import kz.app.dao.CommonDao;
 import kz.app.dao.InvoiceDao;
 import kz.app.entity.InvoiceEntity;
+import kz.app.entity.MeatPartEntity;
 import kz.app.utils.HibernateUtil;
 
 /**
@@ -25,6 +26,7 @@ import kz.app.utils.HibernateUtil;
 public class InvoiceHistoryService {
     private List<InvoiceEntity> listInvoice;
     private InvoiceEntity selectedInvoice;
+    private List<MeatPartEntity> selectedmeatPartList;
     
     private static final InvoiceDao dao = new InvoiceDao();
 //    private static final CommonDao jpa = new CommonDao(Persistence
@@ -40,6 +42,13 @@ public class InvoiceHistoryService {
     
     public void onEdit(InvoiceEntity invoiceS) {
         selectedInvoice = invoiceS;
+        HibernateUtil.getSession().beginTransaction();
+        selectedmeatPartList = dao.getListMeatPart(selectedInvoice);
+        HibernateUtil.getSession().getTransaction().commit();
+    }
+    
+    public void updateInvoice() {
+        dao.updateInvoice(selectedInvoice, selectedmeatPartList);
     }
     
     public List<InvoiceEntity> getListInvoice() {
@@ -53,5 +62,14 @@ public class InvoiceHistoryService {
     public void setSelectedInvoice(InvoiceEntity selectedInvoice) {
         this.selectedInvoice = selectedInvoice;
     }
+
+    public List<MeatPartEntity> getSelectedmeatPartList() {
+        return selectedmeatPartList;
+    }
+
+    public void setSelectedmeatPartList(List<MeatPartEntity> selectedmeatPartList) {
+        this.selectedmeatPartList = selectedmeatPartList;
+    }
+    
     
 }

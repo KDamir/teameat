@@ -16,23 +16,23 @@
             <p:calendar value="#{historyService.selectedInvoice.date}"/>
         </p:panelGrid>
         <br/>
-        <p:dataTable value="#{invoiceService.meatPartList}" var="meatPart" editable="true" editMode="cell">
-            <p:column headerText="Категория" sortBy="#{meatPart.category.name}" style="height: 30px;">
+        <p:dataTable value="#{historyService.selectedmeatPartList}" var="meatPart" editable="true" editMode="cell">
+            <p:column headerText="Категория" sortBy="#{meatPart.categoryId.name}" style="height: 30px;">
                 <p:cellEditor>
-                    <f:facet name="output"><h:outputText value="#{meatPart.category.name}"/></f:facet>
+                    <f:facet name="output"><h:outputText value="#{meatPart.categoryId.name}"/></f:facet>
                     <f:facet name="input">
-                        <p:selectOneMenu value="#{meatPart.category}" style="width:100%">
+                        <p:selectOneMenu value="#{meatPart.categoryId}" style="width:100%">
                             <f:selectItems value="#{invoiceService.listCategory}" var="cat" itemLabel="#{cat.name}"
                                            itemValue="#{cat}"/>
                         </p:selectOneMenu>
                     </f:facet>
                 </p:cellEditor>
             </p:column>
-            <p:column headerText="Наименование" sortBy="#{meatPart.type.type}" style="height: 30px;">
+            <p:column headerText="Наименование" sortBy="#{meatPart.typeId.type}" style="height: 30px;">
                 <p:cellEditor>
-                    <f:facet name="output"><h:outputText value="#{meatPart.type.type}"/></f:facet>
+                    <f:facet name="output"><h:outputText value="#{meatPart.typeId.type}"/></f:facet>
                     <f:facet name="input">
-                        <p:selectOneMenu value="#{meatPart.type}" style="width:100%">
+                        <p:selectOneMenu value="#{meatPart.typeId}" style="width:100%">
                             <f:selectItems value="#{invoiceService.listTypes}" var="type" itemLabel="#{type.type}"
                                            itemValue="#{type}"/>
                         </p:selectOneMenu>
@@ -54,7 +54,7 @@
                 </p:cellEditor>
             </p:column>
             <f:facet name="footer">
-                <p:commandButton value="Готово" action="#{invoiceService.saveInvoice}" ajax="false">
+                <p:commandButton value="Готово" action="#{historyService.updateInvoice}" ajax="false">
                     <p:ajax update="@form"/>
                 </p:commandButton>
             </f:facet>

@@ -51,8 +51,8 @@
 					<p:cellEditor>
 						<f:facet name="output"><h:outputText value="#{meatPart.weight}"/></f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{meatPart.weight}" immediate="true">
-                                                            <p:ajax event="blur" update="totalWeight, totalsSection,procves"/>
+							<p:inputText value="#{meatPart.weight}">
+-                                                            <p:ajax event="blur" update="mainTable, :appForm:tabs:infoTable"/>
 							</p:inputText>
 						</f:facet>
 					</p:cellEditor>
@@ -67,7 +67,7 @@
 						<f:facet name="output"><h:outputText value="#{meatPart.price}"/></f:facet>
 						<f:facet name="input">
 							<p:inputText value="#{meatPart.price}">
-								<p:ajax event="blur" update="mainTable"/>
+								<p:ajax event="blur" update="mainTable, :appForm:tabs:infoTable"/>
 							</p:inputText>
 						</f:facet>
 					</p:cellEditor>

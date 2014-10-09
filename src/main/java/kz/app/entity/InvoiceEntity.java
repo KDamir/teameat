@@ -6,8 +6,8 @@
 package kz.app.entity;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.Collection;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -50,7 +50,6 @@ public class InvoiceEntity implements Serializable {
     @Column(name = "sender")
     private String sender;
     @Column(name = "date")
-    @Temporal(TemporalType.DATE)
     private Date date;
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoiceId")
 //    private Collection<MeatPart> meatPartCollection;

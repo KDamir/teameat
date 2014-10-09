@@ -22,10 +22,14 @@ public class CalculationController {
     private Double totalCost = 0.0;
 
     MeatPartDao meatPartDao;
+
+    private int count;
 //    CommonDao jpa;
 
     @PostConstruct
     public void init() {
+        count++;
+        System.out.println("count = " + count);
         meatParts = new ArrayList<>();
         for(int i=0;i<10;i++) {
                 meatParts.add(new MeatPart());

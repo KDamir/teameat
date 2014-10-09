@@ -9,6 +9,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.persistence.Persistence;
 import kz.app.dao.CommonDao;
 import kz.app.dao.InvoiceDao;
@@ -20,9 +21,10 @@ import kz.app.utils.HibernateUtil;
  * @author damir.keldibekov
  */
 @ManagedBean(name = "historyService")
-@RequestScoped
+@SessionScoped
 public class InvoiceHistoryService {
     private List<InvoiceEntity> listInvoice;
+    private InvoiceEntity selectedInvoice;
     
     private static final InvoiceDao dao = new InvoiceDao();
 //    private static final CommonDao jpa = new CommonDao(Persistence
@@ -35,8 +37,21 @@ public class InvoiceHistoryService {
         listInvoice = dao.getListInvoice();
         HibernateUtil.getSession().getTransaction().commit();
     }
-
+    
+    public void onEdit(InvoiceEntity invoiceS) {
+        selectedInvoice = invoiceS;
+    }
+    
     public List<InvoiceEntity> getListInvoice() {
         return listInvoice;
     }
+
+    public InvoiceEntity getSelectedInvoice() {
+        return selectedInvoice;
+    }
+
+    public void setSelectedInvoice(InvoiceEntity selectedInvoice) {
+        this.selectedInvoice = selectedInvoice;
+    }
+    
 }

@@ -1,61 +1,63 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
              xmlns:h="http://xmlns.jcp.org/jsf/html"
              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
              xmlns:p="http://primefaces.org/ui"
              xmlns:f="http://xmlns.jcp.org/jsf/core"
         id="invoiceFragment">
-    <p:panelGrid columns="2">
-        <h:outputText value="Отправитель:"/>
-        <p:inputText id="senderInput" value="#{invoiceController.invoice.sender}" style="width: 400px"/>
-        <h:outputText value="Получатель:"/>
-        <p:selectOneMenu value="#{invoiceController.invoice.receiverId}" style="width: 100%">
-            <f:selectItems value="#{invoiceController.listReceiver}" var="receiver" itemValue="#{receiver}" itemLabel="#{receiver.companyName}"/>
-        </p:selectOneMenu>
-        <h:outputText value="Дата:"/>
-        <p:calendar value="#{invoiceController.invoice.date}"/>
-    </p:panelGrid>
-    <br/>
-    <p:dataTable value="#{invoiceController.meatPartList}" var="meatPart" editable="true" editMode="cell">
-        <p:column headerText="Категория" sortBy="#{meatPart.category.name}" style="height: 30px;">
-            <p:cellEditor>
-                <f:facet name="output"><h:outputText value="#{meatPart.category.name}"/></f:facet>
-                <f:facet name="input">
-                    <p:selectOneMenu value="#{meatPart.category}" style="width:100%">
-                        <f:selectItems value="#{invoiceController.listCategory}" var="cat" itemLabel="#{cat.name}"
-                                       itemValue="#{cat}"/>
-                    </p:selectOneMenu>
-                </f:facet>
-            </p:cellEditor>
-        </p:column>
-        <p:column headerText="Наименование" sortBy="#{meatPart.type.type}" style="height: 30px;">
-            <p:cellEditor>
-                <f:facet name="output"><h:outputText value="#{meatPart.type.type}"/></f:facet>
-                <f:facet name="input">
-                    <p:selectOneMenu value="#{meatPart.type}" style="width:100%">
-                        <f:selectItems value="#{invoiceController.listTypes}" var="type" itemLabel="#{type.type}"
-                                       itemValue="#{type}"/>
-                    </p:selectOneMenu>
-                </f:facet>
-            </p:cellEditor>
-        </p:column>
-        <p:column headerText="Количество" sortBy="#{meatPart.weight}" style="height: 30px;">
-            <p:cellEditor>
-                <f:facet name="output"><h:outputText value="#{meatPart.weight}"/></f:facet>
-                <f:facet name="input"><p:inputText value="#{meatPart.weight}" style="width:100%"/>
-                </f:facet>
-            </p:cellEditor>
-        </p:column>
-        <p:column headerText="Цена" sortBy="#{meatPart.price}" style="height: 30px;">
-            <p:cellEditor>
-                <f:facet name="output"><h:outputText value="#{meatPart.price}"/></f:facet>
-                <f:facet name="input"><p:inputText value="#{meatPart.price}" style="width:100%"/>
-                </f:facet>
-            </p:cellEditor>
-        </p:column>
-        <f:facet name="footer">
-            <p:commandButton value="Готово" action="#{invoiceController.saveInvoice}" ajax="false">
-                <p:ajax update="@form"/>
-            </p:commandButton>
-        </f:facet>
-    </p:dataTable>
-</ui:fragment>
+    <p:dialog widgetVar="invoiceDlg" id="panelDlg" styleClass="invoiceClass">
+        <p:panelGrid columns="2" rendered="#{not empty historyService.selectedInvoice}">
+            <h:outputText value="Отправитель:"/>
+            <p:inputText id="senderInput" value="#{historyService.selectedInvoice.sender}" style="width: 400px"/>
+            <h:outputText value="Получатель:"/>
+            <p:selectOneMenu value="#{historyService.selectedInvoice.receiverId}" style="width: 100%">
+                <f:selectItems value="#{invoiceService.listReceiver}" var="receiver" itemValue="#{receiver}" itemLabel="#{receiver.companyName}"/>
+            </p:selectOneMenu>
+            <h:outputText value="Дата:"/>
+            <p:calendar value="#{historyService.selectedInvoice.date}"/>
+        </p:panelGrid>
+        <br/>
+        <p:dataTable value="#{invoiceService.meatPartList}" var="meatPart" editable="true" editMode="cell">
+            <p:column headerText="Категория" sortBy="#{meatPart.category.name}" style="height: 30px;">
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{meatPart.category.name}"/></f:facet>
+                    <f:facet name="input">
+                        <p:selectOneMenu value="#{meatPart.category}" style="width:100%">
+                            <f:selectItems value="#{invoiceService.listCategory}" var="cat" itemLabel="#{cat.name}"
+                                           itemValue="#{cat}"/>
+                        </p:selectOneMenu>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column headerText="Наименование" sortBy="#{meatPart.type.type}" style="height: 30px;">
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{meatPart.type.type}"/></f:facet>
+                    <f:facet name="input">
+                        <p:selectOneMenu value="#{meatPart.type}" style="width:100%">
+                            <f:selectItems value="#{invoiceService.listTypes}" var="type" itemLabel="#{type.type}"
+                                           itemValue="#{type}"/>
+                        </p:selectOneMenu>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column headerText="Количество" sortBy="#{meatPart.weight}" style="height: 30px;">
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{meatPart.weight}"/></f:facet>
+                    <f:facet name="input"><p:inputText value="#{meatPart.weight}" style="width:100%"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <p:column headerText="Цена" sortBy="#{meatPart.price}" style="height: 30px;">
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{meatPart.price}"/></f:facet>
+                    <f:facet name="input"><p:inputText value="#{meatPart.price}" style="width:100%"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            <f:facet name="footer">
+                <p:commandButton value="Готово" action="#{invoiceService.saveInvoice}" ajax="false">
+                    <p:ajax update="@form"/>
+                </p:commandButton>
+            </f:facet>
+        </p:dataTable>
+    </p:dialog>
+</ui:composition>

@@ -28,12 +28,12 @@
                     </f:facet>
                 </p:cellEditor>
             </p:column>
-            <p:column headerText="Наименование" sortBy="#{meatPart.typeId.type}" style="height: 30px;">
+            <p:column headerText="Наименование" sortBy="#{meatPart.typeId.name}" style="height: 30px;">
                 <p:cellEditor>
-                    <f:facet name="output"><h:outputText value="#{meatPart.typeId.type}"/></f:facet>
+                    <f:facet name="output"><h:outputText value="#{meatPart.typeId.name}"/></f:facet>
                     <f:facet name="input">
                         <p:selectOneMenu value="#{meatPart.typeId}" style="width:100%">
-                            <f:selectItems value="#{invoiceController.listTypes}" var="type" itemLabel="#{type.type}"
+                            <f:selectItems value="#{invoiceController.listTypes}" var="type" itemLabel="#{type.name}"
                                            itemValue="#{type}"/>
                         </p:selectOneMenu>
                     </f:facet>

@@ -89,9 +89,9 @@ public class InvoiceController {
         meatPartDao = new MeatPartDao();
         
         HibernateUtil.getSession().beginTransaction();
-        listCategory = meatPartDao.getListCategory();
-        listReceiver = meatPartDao.getListReceiver();
-        listTypes    = meatPartDao.getListMeatTypes();
+        listCategory = meatPartDao.getCategoriesList();
+        listReceiver = meatPartDao.getReceiversList();
+        listTypes    = meatPartDao.getTypesList();
         HibernateUtil.getSession().getTransaction().commit();
     }
     

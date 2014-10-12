@@ -25,24 +25,26 @@ public class MeatPartDao {
     public static final String GET_MEAT_CATEGORIES = "from MeatCategoryEntity";
     public static final String GET_RECEIVERS = "from ReceiverEntity";
 
-    public List<MeatTypesEntity> getListMeatTypes() {
+    public List<MeatTypesEntity> getTypesList() {
         return HibernateUtil.createQueryForList(GET_MEAT_TYPES);
     }
 
-    public List<MeatCategoryEntity> getListCategory() {
+    public List<MeatCategoryEntity> getCategoriesList() {
         return HibernateUtil.createQueryForList(GET_MEAT_CATEGORIES);
     }
     
-    public List<ReceiverEntity> getListReceiver() {
+    public List<ReceiverEntity> getReceiversList() {
         return HibernateUtil.createQueryForList(GET_RECEIVERS);
     }
-    
+
+    // TODO: А роллбэк где?
     public void saveMeatPart(MeatPartEntity part) {
         HibernateUtil.getSession().beginTransaction();
         HibernateUtil.getSession().save(part);
         HibernateUtil.getSession().getTransaction().commit();
     }
-    
+
+    // TODO: А роллбэк где?
     public void saveInvoice(InvoiceEntity invoice) {
         HibernateUtil.getSession().beginTransaction();
         HibernateUtil.getSession().save(invoice);

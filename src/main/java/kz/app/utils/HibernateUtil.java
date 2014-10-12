@@ -47,13 +47,4 @@ public class HibernateUtil {
         }
     }
 
-
-
-//    public static void startTransaction() {
-//        getSession().beginTransaction();
-//    }
-//
-//    public static void commitTransaction() {
-//        getSession().getTransaction().commit();
-//    }
 }

@@ -6,7 +6,6 @@
 package kz.app.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,12 +16,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -34,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "MeatTypes.findAll", query = "SELECT m FROM MeatTypesEntity m"),
     @NamedQuery(name = "MeatTypes.findById", query = "SELECT m FROM MeatTypesEntity m WHERE m.id = :id"),
-    @NamedQuery(name = "MeatTypes.findByType", query = "SELECT m FROM MeatTypesEntity m WHERE m.type = :type")})
+    @NamedQuery(name = "MeatTypes.findByName", query = "SELECT m FROM MeatTypesEntity m WHERE m.name = :name")})
 public class MeatTypesEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,8 +42,8 @@ public class MeatTypesEntity implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "type")
-    private String type;
+    @Column(name = "name")
+    private String name;
 //    @OneToMany(mappedBy = "typeId")
 //    private Collection<MeatPart> meatPartCollection;
     @JoinColumn(name = "category_id", referencedColumnName = "id")
@@ -60,9 +57,9 @@ public class MeatTypesEntity implements Serializable {
         this.id = id;
     }
 
-    public MeatTypesEntity(Integer id, String type) {
+    public MeatTypesEntity(Integer id, String name) {
         this.id = id;
-        this.type = type;
+        this.name = name;
     }
 
     public Integer getId() {
@@ -73,12 +70,12 @@ public class MeatTypesEntity implements Serializable {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
+    public String getName() {
+        return name;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setName(String name) {
+        this.name = name;
     }
 
 //    @XmlTransient

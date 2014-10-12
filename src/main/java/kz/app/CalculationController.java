@@ -1,44 +1,49 @@
 package kz.app;
 
 import kz.app.dao.MeatPartDao;
+import kz.app.entity.MeatCategoryEntity;
 import kz.app.entity.MeatTypesEntity;
-import kz.app.utils.HibernateUtil;
+import kz.app.utils.Constants;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @ManagedBean
 @SessionScoped
 public class CalculationController {
 
     private List<MeatPart> meatParts;
-    private List<MeatTypesEntity> listMeatTypes;
+    private List<MeatTypesEntity> types;
+    private List<MeatCategoryEntity> categories;
     private String meatInfo;
     private Double pricePerKilo = 0.0;
     private Double carcassWeight = 0.0;
     private Double totalCost = 0.0;
 
-    MeatPartDao meatPartDao;
-
-    private int count;
+    private MeatPartDao meatPartDao;
 
     @PostConstruct
     public void init() {
-        System.out.println("CalculationController.init IN");
         meatParts = new ArrayList<>();
-        for(int i=0;i<10;i++) {
-                meatParts.add(new MeatPart());
+        for (int i = 0; i < 5; i++) {
+            meatParts.add(new MeatPart());
         }
 //        jpa = new CommonDao(Persistence
 //                    .createEntityManagerFactory("kz.app_teameat_war_0.0.1-SNAPSHOTPU"));
-//        listMeatTypes = jpa.findMeatTypesEntityEntities();
+//        types = jpa.findMeatTypesEntityEntities();
         meatPartDao = new MeatPartDao();
-        
-        listMeatTypes = meatPartDao.getListMeatTypes();
-        System.out.println("CalculationController.init OUT");
+
+        categories = meatPartDao.getCategoriesList();
+        categories.add(0, getBlankCategory());
+
+        types = meatPartDao.getTypesList();
     }
     
     public List<MeatPart> getMeatParts() {
@@ -68,20 +73,12 @@ public class CalculationController {
         return carcassWeight;
     }
 
-    public void updateOrder(int index) {
-        MeatPart currentPart = meatParts.get(index);
+    public void updateOrder() {
+        FacesContext context = FacesContext.getCurrentInstance();
 
-        if (index == meatParts.size() - 1) {
-            // Здесь будет вызов insert'а из ДАО
-            MeatPart meatPart = new MeatPart();
-            meatParts.add(meatPart);
-        } else {
-            // Здесь будет вызов update'а из ДАО
-        }
+        context.addMessage(null, new FacesMessage(Constants.UPDATE_SUCCESSFUL));
     }
-    public void calculate() {
-    }
-	
+
     /*Общий вес*/
     public Double getTotalWeight() {
         return meatParts.stream().mapToDouble(MeatPart::getWeight).sum();
@@ -95,17 +92,17 @@ public class CalculationController {
         return meatParts.stream().mapToDouble(MeatPart::getRevenue).sum();
     }
 
-    public List<MeatTypesEntity> getListMeatTypes() {
-        return listMeatTypes;
+    public List<MeatTypesEntity> filterTypes(MeatCategoryEntity selectedCategory) {
+        List<MeatTypesEntity> filteredTypes = types.stream()
+                .filter(type -> type.getCategoryId().equals(selectedCategory))
+                .map(type -> type)
+                .collect(Collectors.toList());
+        filteredTypes.add(0, getBlankType());
+        return filteredTypes;
     }
-        
-    public static double round(double value, int places) {
-        if (places < 0) throw new IllegalArgumentException();
 
-        long factor = (long) Math.pow(10, places);
-        value = value * factor;
-        long tmp = Math.round(value);
-        return (double) tmp / factor;
+    public List<MeatCategoryEntity> getCategories() {
+        return categories;
     }
 
     public Double getTotalCost() {
@@ -115,5 +112,29 @@ public class CalculationController {
 
     public void setTotalCost(Double totalCost) {
         this.totalCost = totalCost;
+    }
+
+    public MeatCategoryEntity getBlankCategory() {
+        MeatCategoryEntity blankCategory = new MeatCategoryEntity();
+        blankCategory.setName("");
+        return blankCategory;
+    }
+
+    public MeatTypesEntity getBlankType() {
+        MeatTypesEntity blankType = new MeatTypesEntity();
+        blankType.setName("");
+        return blankType;
+    }
+
+    public void addNewMeatPart() {
+        meatParts.add(new MeatPart());
+    }
+
+    public void deleteLastMeatPart() {
+        meatParts.remove(meatParts.size() - 1);
+    }
+
+    public void resetType(MeatPart selectedPart) {
+        selectedPart.setType(filterTypes(selectedPart.getCategory()).get(0));
     }
 }

@@ -96,3 +96,9 @@ body {
     left: 150px!important;
     height: auto!important;
 }
+
+.ui-growl {
+    position: fixed!important;
+    top: 40%!important;
+    left: 5%!important;
+}

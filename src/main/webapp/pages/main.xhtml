@@ -6,9 +6,12 @@
                 template="/template/default.xhtml">
     <ui:define name="content">
         <h:form id="appForm">
-            <p:growl id="growl" showDetail="true" life="10" />
+            <p:growl id="growl" showDetail="true" life="3000"/>
             <ui:include src="invoice.xhtml"/>
             <p:tabView orientation="left" id="tabs">
+                <p:tab id="invoiceTab" title="Заполнение накладных на продажу" rendered="#{true}">
+                    <ui:include src="invoice.xhtml"/>
+                </p:tab>
                 <p:tab id="calcTab" title="Рассчитать остатки" rendered="#{true}">
                     <ui:include src="calculation.xhtml"/>
                 </p:tab>

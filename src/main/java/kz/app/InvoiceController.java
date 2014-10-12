@@ -6,7 +6,7 @@ import kz.app.entity.MeatCategoryEntity;
 import kz.app.entity.MeatTypesEntity;
 import kz.app.entity.ReceiverEntity;
 import kz.app.utils.HibernateUtil;
-import kz.app.utils.MeatPartToEntity;
+import kz.app.utils.MeatPartConverter;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -103,7 +103,7 @@ public class InvoiceController {
         meatPartDao.saveInvoice(invoice);
         meatPartList.forEach(e -> {
             if(e.getCategory() != null &&  e.getType() != null)
-                meatPartDao.saveMeatPart(MeatPartToEntity.getMeatPartEntity(e, invoice));
+                meatPartDao.saveMeatPart(MeatPartConverter.convertMeatPartToEntity(e, invoice));
         });
         invoice = new InvoiceEntity();
         meatPartList = new ArrayList<>();

@@ -24,12 +24,10 @@ public class CalculationController {
     MeatPartDao meatPartDao;
 
     private int count;
-//    CommonDao jpa;
 
     @PostConstruct
     public void init() {
-        count++;
-        System.out.println("count = " + count);
+        System.out.println("CalculationController.init IN");
         meatParts = new ArrayList<>();
         for(int i=0;i<10;i++) {
                 meatParts.add(new MeatPart());
@@ -39,9 +37,8 @@ public class CalculationController {
 //        listMeatTypes = jpa.findMeatTypesEntityEntities();
         meatPartDao = new MeatPartDao();
         
-        HibernateUtil.getSession().beginTransaction();
         listMeatTypes = meatPartDao.getListMeatTypes();
-        HibernateUtil.getSession().getTransaction().commit();
+        System.out.println("CalculationController.init OUT");
     }
     
     public List<MeatPart> getMeatParts() {

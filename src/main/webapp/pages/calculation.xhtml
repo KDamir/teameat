@@ -36,8 +36,7 @@
                                           return false;
                                       }
                                   }">
-
-				<p:column headerText="Наименование" sortBy="#{meatPart.type.type}" >
+				<p:column headerText="Тип" sortBy="#{meatPart.type.type}" >
 					<p:cellEditor>
 						<f:facet name="output"><h:outputText value="#{meatPart.type.type}"/></f:facet>
 						<f:facet name="input">
@@ -89,6 +88,7 @@
                 <p:columnGroup type="footer" id="totalsSection">
                     <p:row>
                         <p:column footerText="Итого:" />
+                        <p:column footerText="" />
                         <p:column id="totalWeight">
                             <f:facet name="footer">
                                 <h:outputText value="#{calculationController.totalWeight}">

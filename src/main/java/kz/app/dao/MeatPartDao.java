@@ -20,20 +20,21 @@ import org.hibernate.Session;
  * Time: 14:29
  */
 public class MeatPartDao {
-    
+
+    public static final String GET_MEAT_TYPES = "from MeatTypesEntity";
+    public static final String GET_MEAT_CATEGORIES = "from MeatCategoryEntity";
+    public static final String GET_RECEIVERS = "from ReceiverEntity";
+
     public List<MeatTypesEntity> getListMeatTypes() {
-        return HibernateUtil.getSessionfactory().getCurrentSession()
-                .createQuery("from MeatTypesEntity").list();
+        return HibernateUtil.createQueryForList(GET_MEAT_TYPES);
     }
 
     public List<MeatCategoryEntity> getListCategory() {
-        return HibernateUtil.getSessionfactory().getCurrentSession()
-                .createQuery("from MeatCategoryEntity").list();
+        return HibernateUtil.createQueryForList(GET_MEAT_CATEGORIES);
     }
     
     public List<ReceiverEntity> getListReceiver() {
-        return HibernateUtil.getSessionfactory().getCurrentSession()
-                .createQuery("from ReceiverEntity").list();
+        return HibernateUtil.createQueryForList(GET_RECEIVERS);
     }
     
     public void saveMeatPart(MeatPartEntity part) {

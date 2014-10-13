@@ -6,7 +6,7 @@
 package kz.app.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;

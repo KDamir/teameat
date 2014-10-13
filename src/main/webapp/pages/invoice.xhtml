@@ -5,7 +5,6 @@
              xmlns:f="http://xmlns.jcp.org/jsf/core"
         id="invoiceFragment">
     <p:dialog widgetVar="invoiceDlg" id="panelDlg" styleClass="invoiceClass">
-        <h:form id="eiForm">
         <p:panelGrid columns="2" rendered="#{not empty historyService.selectedInvoice}">
             <h:outputText value="Отправитель:"/>
             <p:inputText id="senderInput" value="#{historyService.selectedInvoice.sender}" style="width: 400px"/>
@@ -65,6 +64,5 @@
                 </p:commandButton>
             </f:facet>
         </p:dataTable>
-        </h:form>
     </p:dialog>
 </ui:composition>

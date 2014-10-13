@@ -88,11 +88,9 @@ public class InvoiceController {
 //        listTypes    = jpa.findMeatTypesEntityEntities();
         meatPartDao = new MeatPartDao();
         
-        HibernateUtil.getSession().beginTransaction();
         listCategory = meatPartDao.getCategoriesList();
         listReceiver = meatPartDao.getReceiversList();
         listTypes    = meatPartDao.getTypesList();
-        HibernateUtil.getSession().getTransaction().commit();
     }
     
     public List<MeatPart> getMeatPartList() {

@@ -13,8 +13,10 @@ import javax.faces.bean.SessionScoped;
 import javax.persistence.Persistence;
 import kz.app.dao.CommonDao;
 import kz.app.dao.InvoiceDao;
+import kz.app.dao.MeatPartDao;
 import kz.app.entity.InvoiceEntity;
 import kz.app.entity.MeatPartEntity;
+import kz.app.entity.ReceiverEntity;
 import kz.app.utils.HibernateUtil;
 
 /**
@@ -35,9 +37,8 @@ public class InvoiceHistoryService {
     @PostConstruct
     public void init() {
 //        listInvoice = jpa.findInvoiceEntityEntities();
-        HibernateUtil.getSession().beginTransaction();
+        selectedInvoice = null;
         listInvoice = dao.getListInvoice();
-        HibernateUtil.getSession().getTransaction().commit();
     }
     
     public void onEdit(InvoiceEntity invoiceS) {

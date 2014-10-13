@@ -10,8 +10,7 @@ import org.hibernate.Query;
 
 public class InvoiceDao {
     public List<InvoiceEntity> getListInvoice() {
-        return HibernateUtil.getSessionfactory().getCurrentSession()
-                .createQuery("from InvoiceEntity").list();
+        return HibernateUtil.createQueryForList("from InvoiceEntity");
     }
 
     public void saveInvoice(InvoiceEntity inv) {

@@ -5,12 +5,16 @@
              xmlns:f="http://xmlns.jcp.org/jsf/core"
         id="invoiceFragment">
     <p:dialog widgetVar="invoiceDlg" id="panelDlg" styleClass="invoiceClass">
+        <h:form id="eiForm">
         <p:panelGrid columns="2" rendered="#{not empty historyService.selectedInvoice}">
             <h:outputText value="Отправитель:"/>
             <p:inputText id="senderInput" value="#{historyService.selectedInvoice.sender}" style="width: 400px"/>
             <h:outputText value="Получатель:"/>
             <p:selectOneMenu value="#{historyService.selectedInvoice.receiverId}" style="width: 100%">
-                <f:selectItems value="#{invoiceController.listReceiver}" var="receiver" itemValue="#{receiver}" itemLabel="#{receiver.companyName}"/>
+                <f:selectItems value="#{invoiceController.listReceiver}" 
+                               var="receiver" 
+                               itemValue="#{receiver}" 
+                               itemLabel="#{receiver.companyName}"/>
             </p:selectOneMenu>
             <h:outputText value="Дата:"/>
             <p:calendar value="#{historyService.selectedInvoice.date}"/>
@@ -54,10 +58,13 @@
                 </p:cellEditor>
             </p:column>
             <f:facet name="footer">
-                <p:commandButton value="Готово" action="#{historyService.updateInvoice}" ajax="false">
+                <p:commandButton value="Готово" 
+                                 action="#{historyService.updateInvoice}" 
+                                 ajax="false">
                     <p:ajax update="@form"/>
                 </p:commandButton>
             </f:facet>
         </p:dataTable>
+        </h:form>
     </p:dialog>
 </ui:composition>

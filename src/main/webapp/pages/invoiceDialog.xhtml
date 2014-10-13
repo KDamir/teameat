@@ -4,37 +4,38 @@
              xmlns:p="http://primefaces.org/ui"
              xmlns:f="http://xmlns.jcp.org/jsf/core"
         id="invoiceFragment">
-        <p:panelGrid columns="2">
+    <p:dialog widgetVar="invoiceDlg" id="panelDlg" styleClass="invoiceClass">
+        <p:panelGrid columns="2" rendered="#{not empty historyService.selectedInvoice}">
             <h:outputText value="Отправитель:"/>
-            <p:inputText id="senderInput" value="#{invoiceController.invoice.sender}" style="width: 400px"/>
+            <p:inputText id="senderInput" value="#{historyService.selectedInvoice.sender}" style="width: 400px"/>
             <h:outputText value="Получатель:"/>
-            <p:selectOneMenu value="#{invoiceController.invoice.receiverId}" style="width: 100%">
+            <p:selectOneMenu value="#{historyService.selectedInvoice.receiverId}" style="width: 100%">
                 <f:selectItems value="#{invoiceController.listReceiver}" 
                                var="receiver" 
                                itemValue="#{receiver}" 
                                itemLabel="#{receiver.companyName}"/>
             </p:selectOneMenu>
             <h:outputText value="Дата:"/>
-            <p:calendar value="#{invoiceController.invoice.date}"/>
+            <p:calendar value="#{historyService.selectedInvoice.date}"/>
         </p:panelGrid>
         <br/>
-        <p:dataTable value="#{invoiceController.meatPartList}" var="meatPart" editable="true" editMode="cell">
-            <p:column headerText="Категория" sortBy="#{meatPart.category.name}" style="height: 30px;">
+        <p:dataTable value="#{historyService.selectedmeatPartList}" var="meatPart" editable="true" editMode="cell">
+            <p:column headerText="Категория" sortBy="#{meatPart.categoryId.name}" style="height: 30px;">
                 <p:cellEditor>
-                    <f:facet name="output"><h:outputText value="#{meatPart.category.name}"/></f:facet>
+                    <f:facet name="output"><h:outputText value="#{meatPart.categoryId.name}"/></f:facet>
                     <f:facet name="input">
-                        <p:selectOneMenu value="#{meatPart.category}" style="width:100%">
+                        <p:selectOneMenu value="#{meatPart.categoryId}" style="width:100%">
                             <f:selectItems value="#{invoiceController.listCategory}" var="cat" itemLabel="#{cat.name}"
                                            itemValue="#{cat}"/>
                         </p:selectOneMenu>
                     </f:facet>
                 </p:cellEditor>
             </p:column>
-            <p:column headerText="Наименование" sortBy="#{meatPart.type.name}" style="height: 30px;">
+            <p:column headerText="Наименование" sortBy="#{meatPart.typeId.name}" style="height: 30px;">
                 <p:cellEditor>
-                    <f:facet name="output"><h:outputText value="#{meatPart.type.name}"/></f:facet>
+                    <f:facet name="output"><h:outputText value="#{meatPart.typeId.name}"/></f:facet>
                     <f:facet name="input">
-                        <p:selectOneMenu value="#{meatPart.type}" style="width:100%">
+                        <p:selectOneMenu value="#{meatPart.typeId}" style="width:100%">
                             <f:selectItems value="#{invoiceController.listTypes}" var="type" itemLabel="#{type.name}"
                                            itemValue="#{type}"/>
                         </p:selectOneMenu>
@@ -57,10 +58,11 @@
             </p:column>
             <f:facet name="footer">
                 <p:commandButton value="Готово" 
-                                 action="#{invoiceController.saveInvoice}" 
+                                 action="#{historyService.updateInvoice}" 
                                  ajax="false">
                     <p:ajax update="@form"/>
                 </p:commandButton>
             </f:facet>
         </p:dataTable>
+    </p:dialog>
 </ui:composition>

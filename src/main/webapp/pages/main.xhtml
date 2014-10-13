@@ -7,7 +7,7 @@
     <ui:define name="content">
         <h:form id="appForm">
             <p:growl id="growl" showDetail="true" life="3000"/>
-            <ui:include src="invoice.xhtml"/>
+            <ui:include src="invoiceDialog.xhtml"/>
             <p:tabView orientation="left" id="tabs">
                 <p:tab id="invoiceTab" title="Заполнение накладных на продажу" rendered="#{true}">
                     <ui:include src="invoice.xhtml"/>

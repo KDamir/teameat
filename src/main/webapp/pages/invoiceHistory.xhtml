@@ -4,7 +4,15 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <f:view>
-        <h:form id="historyForm">
+        <p:panelGrid columns="2">
+            <p:outputLabel value="Дата начала:" for="beginDate"/>
+            <p:calendar id="beginDate" value="#{historyService.begin}"/>
+            <p:outputLabel value="Дата окончания:" for="endDate"/>
+            <p:calendar id="endDate" value="#{historyService.end}"/>
+        </p:panelGrid>
+        <p:commandButton value="найти" 
+                             update="historyTable"
+                             action="#{historyService.searchInvoice()}"/>
             <p:dataTable id="historyTable" value="#{historyService.listInvoice}" var="invoice">
                 <p:column headerText="Id">
                     <h:outputText value="#{invoice.id}"/>
@@ -30,6 +38,5 @@
             <p:commandButton value="Обновить" action="#{historyService.init}" ajax="false">
                 <p:ajax update="@form"/>
             </p:commandButton>
-        </h:form>
     </f:view>
 </ui:composition>

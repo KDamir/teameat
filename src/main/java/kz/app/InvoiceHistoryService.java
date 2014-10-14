@@ -5,6 +5,7 @@
  */
 package kz.app;
 
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -33,12 +34,15 @@ public class InvoiceHistoryService {
     private static final InvoiceDao dao = new InvoiceDao();
 //    private static final CommonDao jpa = new CommonDao(Persistence
 //                    .createEntityManagerFactory("kz.app_teameat_war_0.0.1-SNAPSHOTPU"));
+   
+    private Date begin;
+    private Date end;
     
     @PostConstruct
     public void init() {
 //        listInvoice = jpa.findInvoiceEntityEntities();
         selectedInvoice = null;
-        listInvoice = dao.getListInvoice();
+        //listInvoice = dao.getListInvoice();
     }
     
     public void onEdit(InvoiceEntity invoiceS) {
@@ -50,6 +54,12 @@ public class InvoiceHistoryService {
     
     public void updateInvoice() {
         dao.updateInvoice(selectedInvoice, selectedmeatPartList);
+    }
+    
+    public void searchInvoice() {
+        java.sql.Date beginSql = new java.sql.Date(begin.getTime());
+        java.sql.Date endSql = new java.sql.Date(end.getTime());
+        listInvoice = dao.getListInvoice(endSql, beginSql);
     }
     
     public List<InvoiceEntity> getListInvoice() {
@@ -72,5 +82,20 @@ public class InvoiceHistoryService {
         this.selectedmeatPartList = selectedmeatPartList;
     }
     
+    public Date getBegin() {
+        return begin;
+    }
+
+    public void setBegin(Date begin) {
+        this.begin = begin;
+    }
+
+    public Date getEnd() {
+        return end;
+    }
+
+    public void setEnd(Date end) {
+        this.end = end;
+    }
     
 }

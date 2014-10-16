@@ -4,6 +4,10 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <f:view>
+        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+            <p:graphicImage name="../images/ajax-loader.gif" />
+        </p:dialog>
         <p:panelGrid columns="2">
             <p:outputLabel value="Дата начала:" for="beginDate"/>
             <p:calendar id="beginDate" value="#{historyService.begin}"/>
@@ -12,7 +16,8 @@
         </p:panelGrid>
         <p:commandButton value="найти" 
                              update="historyTable"
-                             action="#{historyService.searchInvoice()}"/>
+                             action="#{historyService.searchInvoice()}"
+                             global="true"/>
             <p:dataTable id="historyTable" value="#{historyService.listInvoice}" var="invoice">
                 <p:column headerText="Id">
                     <h:outputText value="#{invoice.id}"/>

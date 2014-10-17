@@ -5,7 +5,6 @@ import kz.app.entity.InvoiceEntity;
 import kz.app.entity.MeatCategoryEntity;
 import kz.app.entity.MeatTypesEntity;
 import kz.app.entity.ReceiverEntity;
-import kz.app.utils.HibernateUtil;
 import kz.app.utils.MeatPartConverter;
 
 import javax.annotation.PostConstruct;
@@ -112,5 +111,5 @@ public class InvoiceController {
         msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Накладная сохранена","сохранение накладной");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-
+    
 }

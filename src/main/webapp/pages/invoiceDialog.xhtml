@@ -59,8 +59,9 @@
             <f:facet name="footer">
                 <p:commandButton value="Готово" 
                                  action="#{historyService.updateInvoice}" 
-                                 ajax="false">
-                    <p:ajax update="@form"/>
+                                 ajax="true"
+                                 update=":appForm"
+                                 oncomplete="PF('invoiceDlg').hide()">
                 </p:commandButton>
             </f:facet>
         </p:dataTable>

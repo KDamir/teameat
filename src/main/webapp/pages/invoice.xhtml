@@ -2,13 +2,13 @@
              xmlns:h="http://xmlns.jcp.org/jsf/html"
              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
              xmlns:p="http://primefaces.org/ui"
-             xmlns:f="http://xmlns.jcp.org/jsf/core"
-        id="invoiceFragment">
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
         <p:panelGrid columns="2">
             <h:outputText value="Отправитель:"/>
             <p:inputText id="senderInput" value="#{invoiceController.invoice.sender}" style="width: 400px"/>
             <h:outputText value="Получатель:"/>
             <p:selectOneMenu value="#{invoiceController.invoice.receiverId}" style="width: 100%">
+                <f:selectItem itemValue="" itemLabel=""/>
                 <f:selectItems value="#{invoiceController.listReceiver}" 
                                var="receiver" 
                                itemValue="#{receiver}" 
@@ -24,6 +24,7 @@
                     <f:facet name="output"><h:outputText value="#{meatPart.category.name}"/></f:facet>
                     <f:facet name="input">
                         <p:selectOneMenu value="#{meatPart.category}" style="width:100%">
+                            <f:selectItem itemValue="" itemLabel=""/>
                             <f:selectItems value="#{invoiceController.listCategory}" var="cat" itemLabel="#{cat.name}"
                                            itemValue="#{cat}"/>
                         </p:selectOneMenu>
@@ -35,6 +36,7 @@
                     <f:facet name="output"><h:outputText value="#{meatPart.type.name}"/></f:facet>
                     <f:facet name="input">
                         <p:selectOneMenu value="#{meatPart.type}" style="width:100%">
+                            <f:selectItem itemValue="" itemLabel=""/>
                             <f:selectItems value="#{invoiceController.listTypes}" var="type" itemLabel="#{type.name}"
                                            itemValue="#{type}"/>
                         </p:selectOneMenu>
@@ -57,9 +59,9 @@
             </p:column>
             <f:facet name="footer">
                 <p:commandButton value="Готово" 
-                                 action="#{invoiceController.saveInvoice}" 
-                                 ajax="false">
-                    <p:ajax update="@form"/>
+                                 action="#{invoiceController.saveInvoice}"
+                                 update=":appForm"
+                                 ajax="true">
                 </p:commandButton>
             </f:facet>
         </p:dataTable>

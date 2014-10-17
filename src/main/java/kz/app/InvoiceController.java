@@ -112,4 +112,12 @@ public class InvoiceController {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
     
+    public void addMeatPart() {
+        meatPartList.add(new MeatPart());
+    }
+    
+    public void deleteLastMeatPart() {
+        meatPartList.remove(meatPartList.size() - 1);
+    }
+    
 }

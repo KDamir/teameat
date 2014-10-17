@@ -18,7 +18,13 @@
             <p:calendar value="#{invoiceController.invoice.date}"/>
         </p:panelGrid>
         <br/>
-        <p:dataTable value="#{invoiceController.meatPartList}" var="meatPart" editable="true" editMode="cell">
+        <p:commandButton value="Добавить строку" 
+                         update="meatPartTable" 
+                         action="#{invoiceController.addMeatPart}"/>
+        <p:commandButton value="Удалить последнюю строку" 
+                         update="meatPartTable" 
+                         action="#{invoiceController.deleteLastMeatPart}"/>
+        <p:dataTable id="meatPartTable" value="#{invoiceController.meatPartList}" var="meatPart" editable="true" editMode="cell">
             <p:column headerText="Категория" sortBy="#{meatPart.category.name}" style="height: 30px;">
                 <p:cellEditor>
                     <f:facet name="output"><h:outputText value="#{meatPart.category.name}"/></f:facet>

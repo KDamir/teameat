@@ -10,6 +10,7 @@
     <class>kz.app.entity.UserActionsEntity</class>
     <class>kz.app.entity.UserGroupsEntity</class>
     <class>kz.app.entity.UserSessionsEntity</class>
+    <class>kz.app.entity.CalculationEntity</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://46.8.27.144:3306/teameat?zeroDateTimeBehavior=convertToNull"/>

@@ -6,7 +6,10 @@
     <p:commandButton value="Добавить строку" action="#{tableController.addNewMeatPart}" update="table"/>
     <p:commandButton value="Удалить последнюю строку" action="#{tableController.deleteLastMeatPart}"
                      update="table"/>
-    <p:commandButton value="Сохранить" action="#{tableController.updateOrder}" update=":appForm:growl"/>
+    <p:commandButton value="Сохранить" 
+                     action="#{tableController.updateOrder}" 
+                     update=":appForm"
+                     oncomplete="PF('invoiceDlg').hide()"/>
     <p:dataTable id="table" value="#{tableController.meatParts}" var="meatPart" editable="true"
                  editMode="cell" rendered="#{tableController.meatParts ne null}">
         <p:column headerText="Категория" sortBy="#{meatPart.category.name}">

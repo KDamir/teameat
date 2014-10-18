@@ -23,6 +23,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -40,6 +41,14 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Invoice.findBySender", query = "SELECT i FROM InvoiceEntity i WHERE i.sender = :sender"),
     @NamedQuery(name = "Invoice.findByDate", query = "SELECT i FROM InvoiceEntity i WHERE i.date = :date")})
 public class InvoiceEntity implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "totalAmount")
+    private double totalAmount;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "paidAmount")
+    private double paidAmount;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -128,6 +137,22 @@ public class InvoiceEntity implements Serializable {
     @Override
     public String toString() {
         return "kz.app.entity.InvoiceEntity[ id=" + id + " ]";
+    }
+
+    public double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public double getPaidAmount() {
+        return paidAmount;
+    }
+
+    public void setPaidAmount(double paidAmount) {
+        this.paidAmount = paidAmount;
     }
     
 }

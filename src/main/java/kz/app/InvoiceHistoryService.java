@@ -54,7 +54,10 @@ public class InvoiceHistoryService extends AbstractMeatPartController{
         afterEditPressed=true;
         selectedInvoice = invoiceS;
         HibernateUtil.getSession().beginTransaction();
-        meatParts = dao.getListMeatPart(selectedInvoice).stream().map(MeatPartConverter::convertEntityToMeatPart).collect(Collectors.toList());
+        meatParts = dao.getListMeatPart(selectedInvoice)
+                        .stream()
+                        .map(MeatPartConverter::convertEntityToMeatPart)
+                        .collect(Collectors.toList());
         HibernateUtil.getSession().getTransaction().commit();
     }
     

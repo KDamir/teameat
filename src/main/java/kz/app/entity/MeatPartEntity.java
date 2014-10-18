@@ -52,6 +52,9 @@ public class MeatPartEntity implements Serializable {
     @JoinColumn(name = "type_id", referencedColumnName = "id")
     @ManyToOne
     private MeatTypesEntity typeId;
+    @JoinColumn(name = "calculation_id", referencedColumnName = "id")
+    @ManyToOne(optional = true)
+    private CalculationEntity calculationId;
 
     public MeatPartEntity() {
     }
@@ -60,54 +63,64 @@ public class MeatPartEntity implements Serializable {
         this.id = id;
     }
 
+    //<editor-fold defaultstate="collapsed" desc="getter/setter">
     public Integer getId() {
         return id;
     }
-
+    
     public void setId(Integer id) {
         this.id = id;
     }
-
+    
     public Double getWeight() {
         return weight;
     }
-
+    
     public void setWeight(Double weight) {
         this.weight = weight;
     }
-
+    
     public Double getPrice() {
         return price;
     }
-
+    
     public void setPrice(Double price) {
         this.price = price;
     }
-
+    
     public MeatCategoryEntity getCategoryId() {
         return categoryId;
     }
-
+    
     public void setCategoryId(MeatCategoryEntity categoryId) {
         this.categoryId = categoryId;
     }
-
+    
     public InvoiceEntity getInvoiceId() {
         return invoiceId;
     }
-
+    
     public void setInvoiceId(InvoiceEntity invoiceId) {
         this.invoiceId = invoiceId;
     }
-
+    
     public MeatTypesEntity getTypeId() {
         return typeId;
     }
-
+    
     public void setTypeId(MeatTypesEntity typeId) {
         this.typeId = typeId;
     }
-
+    
+    public CalculationEntity getCalculationId() {
+        return calculationId;
+    }
+    
+    public void setCalculationId(CalculationEntity calculationId) {
+        this.calculationId = calculationId;
+    }
+//</editor-fold>
+    
     @Override
     public int hashCode() {
         int hash = 0;

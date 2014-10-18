@@ -32,6 +32,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Receiver.findByCompanyName", query = "SELECT r FROM ReceiverEntity r WHERE r.companyName = :companyName"),
     @NamedQuery(name = "Receiver.findById", query = "SELECT r FROM ReceiverEntity r WHERE r.id = :id")})
 public class ReceiverEntity implements Serializable {
+    @OneToMany(mappedBy = "receiverId")
+    private Collection<InvoiceEntity> invoiceEntityCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -106,6 +108,15 @@ public class ReceiverEntity implements Serializable {
     public String toString() {
 //        return "kz.app.entity.ReceiverEntity[ companyName=" + companyName + " ]";
         return String.valueOf(id);
+    }
+
+    @XmlTransient
+    public Collection<InvoiceEntity> getInvoiceEntityCollection() {
+        return invoiceEntityCollection;
+    }
+
+    public void setInvoiceEntityCollection(Collection<InvoiceEntity> invoiceEntityCollection) {
+        this.invoiceEntityCollection = invoiceEntityCollection;
     }
     
 }

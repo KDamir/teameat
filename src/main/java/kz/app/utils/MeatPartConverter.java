@@ -28,16 +28,15 @@ public class MeatPartConverter {
         return entity;
     }
 
-//    public static MeatPart convertEntityToMeatPart(InvoiceEntity invoice, MeatPart meatPart) {
-//        if(meatPart == null) {
-//            return null;
-//        }
-//        MeatPartEntity entity = new MeatPartEntity();
-//        entity.setPrice(meatPart.getPrice());
-//        entity.setWeight(meatPart.getWeight());
-//        entity.setCategoryId(meatPart.getCategory());
-//        entity.setTypeId(meatPart.getType());
-//        entity.setInvoiceId(invoice);
-//        return entity;
-//    }
+    public static MeatPart convertEntityToMeatPart(MeatPartEntity entity) {
+        if(entity == null) {
+            return null;
+        }
+        MeatPart meatPart = new MeatPart();
+        meatPart.setPrice(entity.getPrice());
+        meatPart.setWeight(entity.getWeight());
+        meatPart.setCategory(entity.getCategoryId());
+        meatPart.setType(entity.getTypeId());
+        return meatPart;
+       }
 }

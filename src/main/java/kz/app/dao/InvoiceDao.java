@@ -32,8 +32,8 @@ public class InvoiceDao {
     
     public void updateInvoice(InvoiceEntity inv, List<MeatPartEntity> part) {
         HibernateUtil.getSession().beginTransaction();
-        HibernateUtil.getSession().update(inv);
-        part.forEach(e -> HibernateUtil.getSession().update(e));
+        HibernateUtil.getSession().saveOrUpdate(inv);
+        part.forEach(e -> HibernateUtil.getSession().saveOrUpdate(e));
         HibernateUtil.getSession().getTransaction().commit();
     }
     

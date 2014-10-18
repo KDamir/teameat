@@ -17,36 +17,13 @@ import java.util.List;
 
 @ManagedBean
 @SessionScoped
-public class InvoiceController {
-    private List<MeatPart> meatPartList;
+public class InvoiceController extends AbstractMeatPartController{
+
     private InvoiceEntity invoice;
-    private List<MeatCategoryEntity> listCategory;
-    private List<MeatTypesEntity> listTypes;
     private List<ReceiverEntity> listReceiver;
     
     MeatPartDao meatPartDao;
     
-//    CommonDao jpa;
-//    
-//    @Resource 
-//    private UserTransaction utx;
-
-    public List<MeatCategoryEntity> getListCategory() {
-        return listCategory;
-    }
-
-    public void setListCategory(List<MeatCategoryEntity> listCategory) {
-        this.listCategory = listCategory;
-    }
-
-    public List<MeatTypesEntity> getListTypes() {
-        return listTypes;
-    }
-
-    public void setListTypes(List<MeatTypesEntity> listTypes) {
-        this.listTypes = listTypes;
-    }
-
     public List<ReceiverEntity> getListReceiver() {
         return listReceiver;
     }
@@ -74,50 +51,37 @@ public class InvoiceController {
     @PostConstruct
     public void init() {
         invoice = new InvoiceEntity();
-        meatPartList = new ArrayList<>();
+        meatParts = new ArrayList<>();
         for(int i = 0; i < 3; i++) {
-            meatPartList.add(new MeatPart());
+            meatParts.add(new MeatPart());
         }
-        
-//        jpa = new CommonDao(Persistence
-//                    .createEntityManagerFactory("kz.app_teameat_war_0.0.1-SNAPSHOTPU"));
-//
-//        listCategory = jpa.findMeatCategoryEntityEntities();
-//        listReceiver = jpa.findReceiverEntityEntities();
-//        listTypes    = jpa.findMeatTypesEntityEntities();
         meatPartDao = new MeatPartDao();
-        
-        listCategory = meatPartDao.getCategoriesList();
+        categories = meatPartDao.getCategoriesList();
         listReceiver = meatPartDao.getReceiversList();
-        listTypes    = meatPartDao.getTypesList();
+        types    = meatPartDao.getTypesList();
     }
     
-    public List<MeatPart> getMeatPartList() {
-        return meatPartList;
+    public List<MeatPart> getMeatParts() {
+        return meatParts;
     }
     
-    public void saveInvoice() {
+    @Override
+    public void updateOrder() {
         meatPartDao.saveInvoice(invoice);
-        meatPartList.forEach(e -> {
-            if(e.getCategory() != null &&  e.getType() != null)
+        // TODO: Должна быть валидация на заполнение нужных полей
+        meatParts.forEach(e -> {
+            if (e.getCategory() != null && e.getType() != null)
                 meatPartDao.saveMeatPart(MeatPartConverter.convertMeatPartToEntity(e, invoice));
         });
         invoice = new InvoiceEntity();
-        meatPartList = new ArrayList<>();
+        meatParts = new ArrayList<>();
         for(int i = 0; i < 3; i++) {
-            meatPartList.add(new MeatPart());
+            meatParts.add(new MeatPart());
         }
         FacesMessage msg = null;
-        msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Накладная сохранена","сохранение накладной");
+        msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Накладная сохранена",
+                "Информация о новой накладной сохранена в базе данных");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-    
-    public void addMeatPart() {
-        meatPartList.add(new MeatPart());
-    }
-    
-    public void deleteLastMeatPart() {
-        meatPartList.remove(meatPartList.size() - 1);
-    }
-    
+
 }

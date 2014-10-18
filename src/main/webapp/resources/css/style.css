@@ -89,7 +89,7 @@ body {
 }
 
 .unchangeable {
-    background-color: #FCA9A9;
+    background-color: #FCA9A9!important;
 }
 .invoiceClass {
     width: 1000px!important;

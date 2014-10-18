@@ -5,20 +5,18 @@
  */
 package kz.app;
 
-import java.util.Date;
-import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
-import javax.persistence.Persistence;
-import kz.app.dao.CommonDao;
 import kz.app.dao.InvoiceDao;
 import kz.app.dao.MeatPartDao;
 import kz.app.entity.InvoiceEntity;
-import kz.app.entity.MeatPartEntity;
-import kz.app.entity.ReceiverEntity;
 import kz.app.utils.HibernateUtil;
+import kz.app.utils.MeatPartConverter;
+
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -26,34 +24,38 @@ import kz.app.utils.HibernateUtil;
  */
 @ManagedBean(name = "historyService")
 @SessionScoped
-public class InvoiceHistoryService {
+public class InvoiceHistoryService extends AbstractMeatPartController{
     private List<InvoiceEntity> listInvoice;
     private InvoiceEntity selectedInvoice;
-    private List<MeatPartEntity> selectedmeatPartList;
-    
+
     private static final InvoiceDao dao = new InvoiceDao();
-//    private static final CommonDao jpa = new CommonDao(Persistence
-//                    .createEntityManagerFactory("kz.app_teameat_war_0.0.1-SNAPSHOTPU"));
-   
     private Date begin;
     private Date end;
-    
+    private MeatPartDao meatPartDao;
+    private boolean afterEditPressed;
+
+    public boolean isAfterEditPressed() {
+        return afterEditPressed;
+    }
+
     @PostConstruct
     public void init() {
 //        listInvoice = jpa.findInvoiceEntityEntities();
         selectedInvoice = null;
-        //listInvoice = dao.getListInvoice();
+        meatPartDao = new MeatPartDao();
+
+        categories = meatPartDao.getCategoriesList();
+        categories.add(0, getBlankCategory());
+
+        types = meatPartDao.getTypesList();
     }
     
     public void onEdit(InvoiceEntity invoiceS) {
+        afterEditPressed=true;
         selectedInvoice = invoiceS;
         HibernateUtil.getSession().beginTransaction();
-        selectedmeatPartList = dao.getListMeatPart(selectedInvoice);
+        meatParts = dao.getListMeatPart(selectedInvoice).stream().map(MeatPartConverter::convertEntityToMeatPart).collect(Collectors.toList());
         HibernateUtil.getSession().getTransaction().commit();
-    }
-    
-    public void updateInvoice() {
-        dao.updateInvoice(selectedInvoice, selectedmeatPartList);
     }
     
     public void searchInvoice() {
@@ -74,14 +76,6 @@ public class InvoiceHistoryService {
         this.selectedInvoice = selectedInvoice;
     }
 
-    public List<MeatPartEntity> getSelectedmeatPartList() {
-        return selectedmeatPartList;
-    }
-
-    public void setSelectedmeatPartList(List<MeatPartEntity> selectedmeatPartList) {
-        this.selectedmeatPartList = selectedmeatPartList;
-    }
-    
     public Date getBegin() {
         return begin;
     }
@@ -97,5 +91,12 @@ public class InvoiceHistoryService {
     public void setEnd(Date end) {
         this.end = end;
     }
-    
+
+    @Override
+    public void updateOrder() {
+        dao.updateInvoice(selectedInvoice, meatParts.stream()
+                                            .map(mp -> MeatPartConverter.convertMeatPartToEntity(mp, selectedInvoice))
+                                            .collect(Collectors.toList())
+        );
+    }
 }

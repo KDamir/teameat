@@ -139,5 +139,24 @@ public class MeatPartDao {
                 sess.close();
         }
     }
+    
+    public MeatPartEntity getMeatPartById(Integer id) {
+        Session sess = HibernateUtil.getSessionfactory().getCurrentSession();
+        try {
+            sess.beginTransaction();
+            Query query = HibernateUtil.getSessionfactory().getCurrentSession().createQuery("from MeatPartEntity where id = :id");
+            List<MeatPartEntity> list = query.setParameter("id", id).list();
+            sess.getTransaction().commit();
+            if(list.isEmpty())
+                return null;
+            return list.get(0);
+        } catch (RuntimeException e) {
+            sess.getTransaction().rollback();
+            throw e;
+        } finally {
+            if(sess.isOpen())
+                sess.close();
+        }
+    }
 
 }

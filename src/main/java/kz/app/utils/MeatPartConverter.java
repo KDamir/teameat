@@ -16,11 +16,14 @@ import kz.app.entity.MeatPartEntity;
  * @author Дамир
  */
 public class MeatPartConverter {
+    private static MeatPartDao dao = new MeatPartDao();
     public static MeatPartEntity convertMeatPartToEntity(MeatPart meatPart, InvoiceEntity invoice, CalculationEntity calc) {
         if(meatPart == null) {
             return null;
         }
-        MeatPartEntity entity = new MeatPartEntity();
+        MeatPartEntity entity = dao.getMeatPartById(meatPart.getId());
+        if(entity == null)
+            entity = new MeatPartEntity();
         entity.setPrice(meatPart.getPrice());
         entity.setWeight(meatPart.getWeight());
         entity.setCategoryId(meatPart.getCategory());
@@ -35,6 +38,7 @@ public class MeatPartConverter {
             return null;
         }
         MeatPart meatPart = new MeatPart();
+        meatPart.setId(entity.getId());
         meatPart.setPrice(entity.getPrice());
         meatPart.setWeight(entity.getWeight());
         meatPart.setCategory(entity.getCategoryId());

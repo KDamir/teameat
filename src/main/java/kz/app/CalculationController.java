@@ -11,6 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -56,7 +57,7 @@ public class CalculationController extends AbstractMeatPartController {
     @Override
     public void updateOrder() {
         FacesContext context = FacesContext.getCurrentInstance();
-        
+        calc.setDate(new Date());
         meatPartDao.saveCalculation(calc);
         meatParts.forEach(e -> {
             if (e.getCategory() != null && e.getType() != null)

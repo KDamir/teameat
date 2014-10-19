@@ -5,19 +5,33 @@
              xmlns:ui="http://java.sun.com/jsf/facelets"
              id="calculationFragment">
             <p:panelGrid id="infoTable" columns="2">
-                <p:panelGrid id="carcassInfo" columns="2">
-                    <h:outputText value="Информация по туше:"/>
-                    <p:inputText value="#{calculationController.calc.info}"/>
-                    <h:outputText value="Вес части туши:"/>
-                    <p:inputText value="#{calculationController.calc.vesChasti}">
+                <p:panelGrid id="carcassInfo" columns="3">
+                    <p:outputLabel value="Информация по туше:" for="calcInfo"/>
+                    <p:inputText id="calcInfo" 
+                                 value="#{calculationController.calc.info}"
+                                 required="true"
+                                 requiredMessage="Поле 'Инофрмация по туше' не может быть пустым."
+                                 immediate="true"/>
+                    <p:message for="calcInfo" display="icon"/>
+                    <p:outputLabel value="Вес части туши:" for="vesChasti"/>
+                    <p:inputText id="vesChasti" 
+                                 value="#{calculationController.calc.vesChasti}"
+                                 converterMessage="Введите численное значение для поля 'Вес части туши'.">
+                        <f:validateDoubleRange/>
                         <p:ajax event="change" update="infoTable, mainTable"/>
                     </p:inputText>
-                    <h:outputText value="Цена за кг:"/>
-                    <p:inputText value="#{calculationController.calc.cenaZaKg}">
+                    <p:message for="vesChasti" display="icon"/>
+                    <p:outputLabel value="Цена за кг:" for="cenaZaKg"/>
+                    <p:inputText id="cenaZaKg" 
+                                 value="#{calculationController.calc.cenaZaKg}"
+                                 converterMessage="Веддите численное значение для поля 'Цена за кг'.">
+                        <f:validateDoubleRange/>
                         <p:ajax event="change" update="infoTable, mainTable"/>
                     </p:inputText>
+                    <p:message for="cenaZaKg" display="icon"/>
                     <h:outputText value="Итоговая стоимость части туши:"/>
                     <p:inputText id="totalCost" value="#{calculationController.totalCost}" readonly="true" style="background-color: #FCA9A9"/>
+                    <h:outputText value=""/>
                 </p:panelGrid>
                 <p:panelGrid id="profitInfo" columns="1">
                     <h:outputText value="Валовая прибыль"/>
@@ -66,9 +80,10 @@
 					<p:cellEditor>
 						<f:facet name="output"><h:outputText value="#{meatPart.weight}"/></f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{meatPart.weight}">
-                                <p:ajax event="change" update="mainTable, :appForm:tabs:infoTable"/>
-							</p:inputText>
+                                                    <p:inputText value="#{meatPart.weight}">
+                                                        <f:validateDoubleRange minimum="0.00001"/>
+                                                        <p:ajax event="change" update="mainTable, :appForm:tabs:infoTable"/>
+                                                    </p:inputText>
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -82,6 +97,7 @@
 						<f:facet name="output"><h:outputText value="#{meatPart.price}"/></f:facet>
 						<f:facet name="input">
 							<p:inputText value="#{meatPart.price}">
+                                                            <f:validateDoubleRange minimum="0.000001"/>
 								<p:ajax event="change" update="mainTable, :appForm:tabs:infoTable"/>
 							</p:inputText>
 						</f:facet>

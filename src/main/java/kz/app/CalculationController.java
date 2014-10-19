@@ -1,8 +1,6 @@
 package kz.app;
 
 import kz.app.dao.MeatPartDao;
-import kz.app.entity.MeatCategoryEntity;
-import kz.app.entity.MeatTypesEntity;
 import kz.app.utils.Constants;
 
 import javax.annotation.PostConstruct;
@@ -12,9 +10,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.stream.Collectors;
 import kz.app.entity.CalculationEntity;
 import kz.app.utils.MeatPartConverter;
 
@@ -26,7 +21,7 @@ public class CalculationController extends AbstractMeatPartController {
     
     private CalculationEntity calc;
 
-    private MeatPartDao meatPartDao;
+    private static final MeatPartDao meatPartDao = ApplicationController.dao;
 
     @PostConstruct
     public void init() {
@@ -35,7 +30,6 @@ public class CalculationController extends AbstractMeatPartController {
         for (int i = 0; i < 5; i++) {
             addNewMeatPart();
         }
-        meatPartDao = new MeatPartDao();
         categories = ApplicationController.categories;
         categories.add(0, getBlankCategory());
 

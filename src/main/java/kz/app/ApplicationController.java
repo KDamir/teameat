@@ -16,7 +16,7 @@ import kz.app.entity.ReceiverEntity;
  */
 public class ApplicationController{
     
-    private static final MeatPartDao dao = new MeatPartDao();
+    public static final MeatPartDao dao = new MeatPartDao();
     
     public static final List<MeatTypesEntity> types = dao.getTypesList();
     public static final List<MeatCategoryEntity> categories = dao.getCategoriesList();

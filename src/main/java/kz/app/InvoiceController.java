@@ -2,8 +2,6 @@ package kz.app;
 
 import kz.app.dao.MeatPartDao;
 import kz.app.entity.InvoiceEntity;
-import kz.app.entity.MeatCategoryEntity;
-import kz.app.entity.MeatTypesEntity;
 import kz.app.entity.ReceiverEntity;
 import kz.app.utils.MeatPartConverter;
 
@@ -22,7 +20,7 @@ public class InvoiceController extends AbstractMeatPartController{
     private InvoiceEntity invoice;
     private List<ReceiverEntity> listReceiver;
     
-    MeatPartDao meatPartDao;
+    private static final MeatPartDao meatPartDao = ApplicationController.dao;
     
     public List<ReceiverEntity> getListReceiver() {
         return listReceiver;
@@ -30,14 +28,6 @@ public class InvoiceController extends AbstractMeatPartController{
 
     public void setListReceiver(List<ReceiverEntity> listReceiver) {
         this.listReceiver = listReceiver;
-    }
-
-    public MeatPartDao getMeatPartDao() {
-        return meatPartDao;
-    }
-
-    public void setMeatPartDao(MeatPartDao meatPartDao) {
-        this.meatPartDao = meatPartDao;
     }
 
     public InvoiceEntity getInvoice() {
@@ -54,16 +44,10 @@ public class InvoiceController extends AbstractMeatPartController{
         meatParts = new ArrayList<>();
         for(int i = 0; i < 3; i++) {
             meatParts.add(new MeatPart());
-        }
-        meatPartDao = new MeatPartDao();
-        
+        }        
         categories   = ApplicationController.categories;
         listReceiver = ApplicationController.receivers;
         types        = ApplicationController.types;
-    }
-    
-    public List<MeatPart> getMeatParts() {
-        return meatParts;
     }
     
     @Override

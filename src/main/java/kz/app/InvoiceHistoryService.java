@@ -17,6 +17,9 @@ import javax.faces.bean.SessionScoped;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import kz.app.utils.Constants;
 
 /**
  *
@@ -28,11 +31,12 @@ public class InvoiceHistoryService extends AbstractMeatPartController{
     private List<InvoiceEntity> listInvoice;
     private InvoiceEntity selectedInvoice;
 
-    private static final InvoiceDao dao = new InvoiceDao();
     private Date begin;
     private Date end;
-    private MeatPartDao meatPartDao;
     private boolean afterEditPressed;
+    
+    private static final InvoiceDao dao = new InvoiceDao();
+    private static final MeatPartDao meatPartDao = ApplicationController.dao;
 
     public boolean isAfterEditPressed() {
         return afterEditPressed;
@@ -40,9 +44,7 @@ public class InvoiceHistoryService extends AbstractMeatPartController{
 
     @PostConstruct
     public void init() {
-//        listInvoice = jpa.findInvoiceEntityEntities();
         selectedInvoice = null;
-        meatPartDao = new MeatPartDao();
         categories = ApplicationController.categories;
         categories.add(0, getBlankCategory());
 
@@ -66,40 +68,44 @@ public class InvoiceHistoryService extends AbstractMeatPartController{
         listInvoice = dao.getListInvoice(endSql, beginSql);
     }
     
+    //<editor-fold defaultstate="collapsed" desc="Getter/Setter">
     public List<InvoiceEntity> getListInvoice() {
         return listInvoice;
     }
-
+    
     public InvoiceEntity getSelectedInvoice() {
         return selectedInvoice;
     }
-
+    
     public void setSelectedInvoice(InvoiceEntity selectedInvoice) {
         this.selectedInvoice = selectedInvoice;
     }
-
+    
     public Date getBegin() {
         return begin;
     }
-
+    
     public void setBegin(Date begin) {
         this.begin = begin;
     }
-
+    
     public Date getEnd() {
         return end;
     }
-
+    
     public void setEnd(Date end) {
         this.end = end;
     }
+//</editor-fold>
 
     @Override
     public void updateOrder() {
+        FacesContext context = FacesContext.getCurrentInstance();
         dao.updateInvoice(selectedInvoice, meatParts.stream()
                                             .map(mp -> MeatPartConverter.convertMeatPartToEntity(mp, selectedInvoice, null))
                                             .collect(Collectors.toList())
         );
+        context.addMessage(null, new FacesMessage(Constants.UPDATE_SUCCESSFUL));
     }
 
     @Override

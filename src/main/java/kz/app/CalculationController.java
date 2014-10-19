@@ -80,4 +80,11 @@ public class CalculationController extends AbstractMeatPartController {
         this.totalCost = totalCost;
     }
 
+    @Override
+    public void deleteLastMeatPart() {
+        int idx = meatParts.size() - 1;
+        meatPartDao.deleteMeatPart(MeatPartConverter.convertMeatPartToEntity(meatParts.get(idx), null, calc));
+        meatParts.remove(idx);
+    }
+
 }

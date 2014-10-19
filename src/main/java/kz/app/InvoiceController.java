@@ -85,4 +85,10 @@ public class InvoiceController extends AbstractMeatPartController{
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
+    @Override
+    public void deleteLastMeatPart() {
+        int idx = meatParts.size() - 1;
+        meatPartDao.deleteMeatPart(MeatPartConverter.convertMeatPartToEntity(meatParts.get(idx), invoice, null));
+        meatParts.remove(idx);
+    }
 }

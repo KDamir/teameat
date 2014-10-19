@@ -52,6 +52,21 @@ public class MeatPartDao {
                 sess.close();
         }
     }
+    
+    public void deleteMeatPart(MeatPartEntity part) {
+        Session sess = HibernateUtil.getSessionfactory().getCurrentSession();
+        try {
+            sess.beginTransaction();
+            sess.delete(part);
+            sess.getTransaction().commit();
+        } catch (RuntimeException e) {
+            sess.getTransaction().rollback();
+            throw e;
+        } finally {
+            if(sess.isOpen())
+                sess.close();
+        }
+    }
 
     public void saveInvoice(InvoiceEntity invoice) {
         Session sess = HibernateUtil.getSessionfactory().getCurrentSession();

@@ -101,4 +101,13 @@ public class InvoiceHistoryService extends AbstractMeatPartController{
                                             .collect(Collectors.toList())
         );
     }
+
+    @Override
+    public void deleteLastMeatPart() {
+        int idx = meatParts.size() - 1;
+        meatPartDao.deleteMeatPart(MeatPartConverter.convertMeatPartToEntity(meatParts.get(idx), selectedInvoice, null));
+        meatParts.remove(idx);
+    }
+    
+    
 }

@@ -71,7 +71,7 @@ public class InvoiceController extends AbstractMeatPartController{
         // TODO: Должна быть валидация на заполнение нужных полей
         meatParts.forEach(e -> {
             if (e.getCategory() != null && e.getType() != null)
-                meatPartDao.saveMeatPart(MeatPartConverter.convertMeatPartToEntity(e, invoice));
+                meatPartDao.saveMeatPart(MeatPartConverter.convertMeatPartToEntity(e, invoice, null));
         });
         invoice = new InvoiceEntity();
         meatParts = new ArrayList<>();

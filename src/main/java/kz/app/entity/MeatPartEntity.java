@@ -47,7 +47,7 @@ public class MeatPartEntity implements Serializable {
     @ManyToOne
     private MeatCategoryEntity categoryId;
     @JoinColumn(name = "invoice_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     private InvoiceEntity invoiceId;
     @JoinColumn(name = "type_id", referencedColumnName = "id")
     @ManyToOne

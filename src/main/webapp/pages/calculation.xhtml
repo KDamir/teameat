@@ -7,13 +7,13 @@
             <p:panelGrid id="infoTable" columns="2">
                 <p:panelGrid id="carcassInfo" columns="2">
                     <h:outputText value="Информация по туше:"/>
-                    <p:inputText value="#{calculationController.meatInfo}"/>
+                    <p:inputText value="#{calculationController.calc.info}"/>
                     <h:outputText value="Вес части туши:"/>
-                    <p:inputText value="#{calculationController.carcassWeight}">
+                    <p:inputText value="#{calculationController.calc.vesChasti}">
                         <p:ajax event="change" update="infoTable, mainTable"/>
                     </p:inputText>
                     <h:outputText value="Цена за кг:"/>
-                    <p:inputText value="#{calculationController.pricePerKilo}">
+                    <p:inputText value="#{calculationController.calc.cenaZaKg}">
                         <p:ajax event="change" update="infoTable, mainTable"/>
                     </p:inputText>
                     <h:outputText value="Итоговая стоимость части туши:"/>
@@ -32,8 +32,8 @@
                 </p:panelGrid>
             </p:panelGrid>
             <br/>
-            <p:commandButton value="Добавить строку" action="#{calculationController.addNewMeatPart}" update="mainTable"/>
-            <p:commandButton value="Удалить последнюю строку" action="#{calculationController.deleteLastMeatPart}" update="mainTable"/>
+            <p:commandButton value="Добавить" action="#{calculationController.addNewMeatPart}" update="mainTable"/>
+            <p:commandButton value="Удалить" action="#{calculationController.deleteLastMeatPart}" update="mainTable"/>
             <p:commandButton value="Сохранить" action="#{calculationController.updateOrder}" update=":appForm:growl"/>
 			<p:dataTable id="mainTable" value="#{calculationController.meatParts}" var="meatPart" varStatus="status" editable="true" editMode="cell" draggableRows="true"  onkeypress="{
                                       if (event.keyCode == 13) {
@@ -67,13 +67,13 @@
 						<f:facet name="output"><h:outputText value="#{meatPart.weight}"/></f:facet>
 						<f:facet name="input">
 							<p:inputText value="#{meatPart.weight}">
--                               <p:ajax event="change" update="mainTable, :appForm:tabs:infoTable"/>
+                                <p:ajax event="change" update="mainTable, :appForm:tabs:infoTable"/>
 							</p:inputText>
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
 				<p:column headerText="% от общего веса" style="background-color: #FCA9A9">
-					<h:outputText value="#{meatPart.calculateWeightPercent(calculationController.carcassWeight)}">
+                                    <h:outputText value="#{meatPart.calculateWeightPercent(calculationController.calc.vesChasti)}">
                         <f:convertNumber pattern="#0.00" />
                     </h:outputText>
 				</p:column>

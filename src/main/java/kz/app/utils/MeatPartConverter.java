@@ -7,6 +7,7 @@ package kz.app.utils;
 
 import kz.app.MeatPart;
 import kz.app.dao.MeatPartDao;
+import kz.app.entity.CalculationEntity;
 import kz.app.entity.InvoiceEntity;
 import kz.app.entity.MeatPartEntity;
 
@@ -15,7 +16,7 @@ import kz.app.entity.MeatPartEntity;
  * @author Дамир
  */
 public class MeatPartConverter {
-    public static MeatPartEntity convertMeatPartToEntity(MeatPart meatPart, InvoiceEntity invoice) {
+    public static MeatPartEntity convertMeatPartToEntity(MeatPart meatPart, InvoiceEntity invoice, CalculationEntity calc) {
         if(meatPart == null) {
             return null;
         }
@@ -25,6 +26,7 @@ public class MeatPartConverter {
         entity.setCategoryId(meatPart.getCategory());
         entity.setTypeId(meatPart.getType());
         entity.setInvoiceId(invoice);
+        entity.setCalculationId(calc);
         return entity;
     }
 

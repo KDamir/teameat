@@ -4,6 +4,7 @@ import kz.app.entity.MeatCategoryEntity;
 import kz.app.entity.MeatTypesEntity;
 
 import java.util.List;
+import kz.app.entity.CalculationEntity;
 import kz.app.entity.InvoiceEntity;
 import kz.app.entity.MeatPartEntity;
 import kz.app.entity.ReceiverEntity;
@@ -37,19 +38,49 @@ public class MeatPartDao {
         return HibernateUtil.createQueryForList(GET_RECEIVERS);
     }
 
-    // TODO: А роллбэк где?
     public void saveMeatPart(MeatPartEntity part) {
-        HibernateUtil.getSession().beginTransaction();
-        HibernateUtil.getSession().save(part);
-        HibernateUtil.getSession().getTransaction().commit();
+        Session sess = HibernateUtil.getSessionfactory().getCurrentSession();
+        try {
+            sess.beginTransaction();
+            sess.saveOrUpdate(part);
+            sess.getTransaction().commit();
+        } catch (RuntimeException e) {
+            sess.getTransaction().rollback();
+            throw e;
+        } finally {
+            if(sess.isOpen())
+                sess.close();
+        }
     }
 
-    // TODO: А роллбэк где?
     public void saveInvoice(InvoiceEntity invoice) {
-        HibernateUtil.getSession().beginTransaction();
-        HibernateUtil.getSession().save(invoice);
-        HibernateUtil.getSession().getTransaction().commit();
-        
+        Session sess = HibernateUtil.getSessionfactory().getCurrentSession();
+        try {
+            sess.beginTransaction();
+            sess.saveOrUpdate(invoice);
+            sess.getTransaction().commit();
+        } catch (RuntimeException e) {
+            sess.getTransaction().rollback();
+            throw e;
+        } finally {
+            if(sess.isOpen())
+                sess.close();
+        }
+    }
+    
+    public void saveCalculation(CalculationEntity calc) {
+        Session sess = HibernateUtil.getSessionfactory().getCurrentSession();
+        try {
+            sess.beginTransaction();
+            sess.saveOrUpdate(calc);
+            sess.getTransaction().commit();
+        } catch (RuntimeException e) {
+            sess.getTransaction().rollback();
+            throw e;
+        } finally {
+            if(sess.isOpen())
+                sess.close();
+        }
     }
     
     public ReceiverEntity getReceiverById(String id) {

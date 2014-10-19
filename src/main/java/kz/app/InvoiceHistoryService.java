@@ -98,7 +98,7 @@ public class InvoiceHistoryService extends AbstractMeatPartController{
     @Override
     public void updateOrder() {
         dao.updateInvoice(selectedInvoice, meatParts.stream()
-                                            .map(mp -> MeatPartConverter.convertMeatPartToEntity(mp, selectedInvoice))
+                                            .map(mp -> MeatPartConverter.convertMeatPartToEntity(mp, selectedInvoice, null))
                                             .collect(Collectors.toList())
         );
     }

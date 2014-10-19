@@ -43,11 +43,10 @@ public class InvoiceHistoryService extends AbstractMeatPartController{
 //        listInvoice = jpa.findInvoiceEntityEntities();
         selectedInvoice = null;
         meatPartDao = new MeatPartDao();
-
-        categories = meatPartDao.getCategoriesList();
+        categories = ApplicationController.categories;
         categories.add(0, getBlankCategory());
 
-        types = meatPartDao.getTypesList();
+        types = ApplicationController.types;
     }
     
     public void onEdit(InvoiceEntity invoiceS) {

@@ -36,11 +36,10 @@ public class CalculationController extends AbstractMeatPartController {
             addNewMeatPart();
         }
         meatPartDao = new MeatPartDao();
-
-        categories = meatPartDao.getCategoriesList();
+        categories = ApplicationController.categories;
         categories.add(0, getBlankCategory());
 
-        types = meatPartDao.getTypesList();
+        types = ApplicationController.types;
     }
     
     //<editor-fold defaultstate="collapsed" desc="Getter/Setter">

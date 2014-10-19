@@ -56,9 +56,10 @@ public class InvoiceController extends AbstractMeatPartController{
             meatParts.add(new MeatPart());
         }
         meatPartDao = new MeatPartDao();
-        categories = meatPartDao.getCategoriesList();
-        listReceiver = meatPartDao.getReceiversList();
-        types    = meatPartDao.getTypesList();
+        
+        categories   = ApplicationController.categories;
+        listReceiver = ApplicationController.receivers;
+        types        = ApplicationController.types;
     }
     
     public List<MeatPart> getMeatParts() {

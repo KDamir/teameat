@@ -9,7 +9,7 @@ package kz.app;
  * Time: 23:23
  */
 public enum UserGroupType {
-    USER("USER"), SUPERVISOR("SUPERVISOR"), ADMINISTRATOR("ADMINISTRATOR");
+    USER("vendor"), SUPERVISOR("SUPERVISOR"), ADMINISTRATOR("admin");
 
     public String getCode() {
         return code;

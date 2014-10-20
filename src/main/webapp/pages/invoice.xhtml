@@ -9,6 +9,7 @@
             <p:inputText id="senderInput" value="#{invoiceController.invoice.sender}"/>
             <h:outputText value="Получатель:"/>
             <p:selectOneMenu value="#{invoiceController.invoice.receiverId}" >
+                <f:selectItem itemValue="" itemLabel=""/>
                 <f:selectItems value="#{invoiceController.listReceiver}" 
                                var="receiver" 
                                itemValue="#{receiver}" 

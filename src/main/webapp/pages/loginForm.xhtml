@@ -15,24 +15,25 @@
         </div>
         <div id="content">
 		<h:form styleClass="loginform">
-			<p:messages/>
-			<h:panelGrid columns="3" cellpadding="5">
-	            <h:outputLabel for="username" value="Логин:" />
-	            <p:inputText id="username" value="#{userLoginView.username}" required="true" label="username" />
-	 			<p:message for="username"/>
-	            <h:outputLabel for="password" value="Пароль:" />
-	            <p:password id="password" value="#{userLoginView.password}" required="true" label="password" />
-	 			<p:message for="password"/>
-	            <f:facet name="footer">
-	                <p:commandButton value="Регистрация" action="Raschet?faces-redirect=true"/>
-	                <p:spacer width="80px" height="0"/>
-	                <p:commandButton value="Вход" action="#{userLoginView.login}" ajax="false" update="@form"/>
-	            </f:facet>
-	        </h:panelGrid>
+                    <p:messages/>
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <p:outputLabel for="username" value="Логин:" />
+                        <p:inputText id="username" value="#{userLoginView.username}" required="true" label="username" />
+                        <p:message for="username"/>
+                        <p:outputLabel for="password" value="Пароль:" />
+                        <p:password id="password" value="#{userLoginView.password}" required="true" label="password" />
+                        <p:message for="password"/>
+                        <f:facet name="footer">
+                            <p:commandButton value="Вход" 
+                                             action="#{userLoginView.login}" 
+                                             ajax="false" 
+                                             update="@form"/>
+                        </f:facet>
+                    </h:panelGrid>
 		</h:form>
-		</div>
-		<div id="footer">
-                <ui:insert name="footer" />
+        </div>
+        <div id="footer">
+            <ui:insert name="footer" />
         </div>
 	</div>
 	</h:body>

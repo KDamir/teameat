@@ -8,6 +8,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
+import kz.app.ApplicationController;
 
 import kz.app.dao.UserDao;
 import kz.app.entity.UsersEntity;
@@ -72,15 +74,16 @@ public class UserLoginView{
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage msg = null;
 
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ApplicationController appBean =(ApplicationController) fc.getApplication().getELResolver().getValue(fc.getELContext(), null, "appBean");
 
-        HibernateUtil.getSession().beginTransaction();
-        List<UsersEntity> users = userDao.getUser(username);
-        HibernateUtil.getSession().getTransaction().commit();
-        if(!users.isEmpty())
-            if(users.get(0).getPassword().equals(password)) {
+        UsersEntity user = userDao.getUserByLogin(username);
+        if(user != null)
+            if(user.getPassword().equals(password)) {
                 msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Добро пожаловать " + username + "!", username);
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 context.addCallbackParam("logged", logged);
+                appBean.setGroup(user.getGroupId());
                 return "success";
             } else {
                 msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Неверный логин или пароль", "Invalid credentials");
@@ -108,4 +111,11 @@ public class UserLoginView{
         context.addCallbackParam("logged", logged);*/
     }
 
+    public String logout() {
+        this.logged = false;
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        if(session != null)
+            session.invalidate();
+        return "go_to_login";
+    }
 }

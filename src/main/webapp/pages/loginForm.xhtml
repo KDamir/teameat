@@ -16,13 +16,19 @@
         <div id="content">
 		<h:form styleClass="loginform">
                     <p:messages/>
-                    <h:panelGrid columns="3" cellpadding="5">
+                    <h:panelGrid columns="2" cellpadding="5">
                         <p:outputLabel for="username" value="Логин:" />
-                        <p:inputText id="username" value="#{userLoginView.username}" required="true" label="username" />
-                        <p:message for="username"/>
+                        <p:inputText id="username" 
+                                     value="#{userLoginView.username}" 
+                                     required="true" 
+                                     label="username"
+                                     requiredMessage="Введите логин"/>
                         <p:outputLabel for="password" value="Пароль:" />
-                        <p:password id="password" value="#{userLoginView.password}" required="true" label="password" />
-                        <p:message for="password"/>
+                        <p:password id="password" 
+                                    value="#{userLoginView.password}" 
+                                    required="true" 
+                                    label="password" 
+                                    requiredMessage="Введите пароль"/>
                         <f:facet name="footer">
                             <p:commandButton value="Вход" 
                                              action="#{userLoginView.login}" 

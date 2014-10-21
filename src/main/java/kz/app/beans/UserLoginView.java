@@ -30,6 +30,12 @@ public class UserLoginView{
     
     UserDao userDao;
     
+    ApplicationController appBean;
+    
+    FacesContext fc;
+    FacesMessage msg;
+    RequestContext context;
+    
     // Группы пользователей. Возможно, стоит поместить в утилитный класс.
     // TODO: Возможно, лучше создать enum вместо строковых констант, так будет красивей. Проверить, съест ли enum'ы JSF.
     public static final String ADMINISTRATOR = "ADMINISTRATOR";
@@ -71,18 +77,17 @@ public class UserLoginView{
      */
     public String login() {
 
-        RequestContext context = RequestContext.getCurrentInstance();
-        FacesMessage msg = null;
-
-        FacesContext fc = FacesContext.getCurrentInstance();
-        ApplicationController appBean =(ApplicationController) fc.getApplication().getELResolver().getValue(fc.getELContext(), null, "appBean");
-
+        context = RequestContext.getCurrentInstance();
+        msg = null;
+        fc = FacesContext.getCurrentInstance();
+        
         UsersEntity user = userDao.getUserByLogin(username);
         if(user != null)
             if(user.getPassword().equals(password)) {
                 msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Добро пожаловать " + username + "!", username);
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 context.addCallbackParam("logged", logged);
+                appBean =(ApplicationController) fc.getApplication().getELResolver().getValue(fc.getELContext(), null, "appBean");
                 appBean.setGroup(user.getGroupId());
                 return "success";
             } else {

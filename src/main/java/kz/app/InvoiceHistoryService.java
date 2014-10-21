@@ -35,8 +35,8 @@ public class InvoiceHistoryService extends AbstractMeatPartController{
     private Date end;
     private boolean afterEditPressed;
     
-    private static final InvoiceDao dao = new InvoiceDao();
-    private static final MeatPartDao meatPartDao = ApplicationController.dao;
+    private static InvoiceDao dao;
+    private static MeatPartDao meatPartDao;
 
     public boolean isAfterEditPressed() {
         return afterEditPressed;
@@ -44,10 +44,10 @@ public class InvoiceHistoryService extends AbstractMeatPartController{
 
     @PostConstruct
     public void init() {
+        dao = new InvoiceDao();
+        meatPartDao = ApplicationController.dao;
         selectedInvoice = null;
         categories = ApplicationController.categories;
-        categories.add(0, getBlankCategory());
-
         types = ApplicationController.types;
     }
     

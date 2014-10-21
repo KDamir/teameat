@@ -21,18 +21,17 @@ public class CalculationController extends AbstractMeatPartController {
     
     private CalculationEntity calc;
 
-    private static final MeatPartDao meatPartDao = ApplicationController.dao;
+    private static MeatPartDao meatPartDao;
 
     @PostConstruct
     public void init() {
+        meatPartDao = ApplicationController.dao;
         calc = new CalculationEntity();
         meatParts = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             addNewMeatPart();
         }
         categories = ApplicationController.categories;
-        categories.add(0, getBlankCategory());
-
         types = ApplicationController.types;
     }
     

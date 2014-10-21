@@ -20,7 +20,7 @@ public class InvoiceController extends AbstractMeatPartController{
     private InvoiceEntity invoice;
     private List<ReceiverEntity> listReceiver;
     
-    private static final MeatPartDao meatPartDao = ApplicationController.dao;
+    private static MeatPartDao meatPartDao;
     
     public List<ReceiverEntity> getListReceiver() {
         return listReceiver;
@@ -40,6 +40,7 @@ public class InvoiceController extends AbstractMeatPartController{
 
     @PostConstruct
     public void init() {
+        meatPartDao = ApplicationController.dao;
         invoice = new InvoiceEntity();
         meatParts = new ArrayList<>();
         for(int i = 0; i < 3; i++) {

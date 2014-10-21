@@ -1,6 +1,7 @@
 package kz.app;
 
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import kz.app.dao.MeatPartDao;
@@ -21,13 +22,26 @@ import kz.app.entity.UserGroupsEntity;
 @SessionScoped
 public class ApplicationController{
     
-    public static final MeatPartDao dao = new MeatPartDao();
+    public static MeatPartDao dao;
     
-    public static final List<MeatTypesEntity> types = dao.getTypesList();
-    public static final List<MeatCategoryEntity> categories = dao.getCategoriesList();
-    public static final List<ReceiverEntity> receivers = dao.getReceiversList();
+    public static List<MeatTypesEntity> types;
+    public static List<MeatCategoryEntity> categories;
+    public static List<ReceiverEntity> receivers;
     
     private UserGroupsEntity group;
+    
+    @PostConstruct
+    public void init() {
+        dao = new MeatPartDao();
+        types = dao.getTypesList();
+        categories = dao.getCategoriesList();
+        receivers = dao.getReceiversList();
+        
+        /*Пустая ячейка*/
+        MeatCategoryEntity blankCategory = new MeatCategoryEntity();
+        blankCategory.setName("");
+        categories.add(0, blankCategory);
+    }
 
     //<editor-fold defaultstate="collapsed" desc="Getter/Setter">
     public UserGroupsEntity getGroup() {

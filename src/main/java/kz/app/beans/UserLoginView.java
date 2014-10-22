@@ -1,8 +1,5 @@
 package kz.app.beans;
 
-import java.io.Serializable;
-import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -13,8 +10,7 @@ import kz.app.ApplicationController;
 
 import kz.app.dao.UserDao;
 import kz.app.entity.UsersEntity;
-import kz.app.utils.HibernateUtil;
-
+import kz.app.utils.PasswordUtil;
 import org.primefaces.context.RequestContext;
 
 
@@ -75,7 +71,7 @@ public class UserLoginView{
     /* TODO: Функция должна возвращать строковую константу группы юзеров.
             В зависимости от этого, будем редиректить на нужную страницу (через faces-config)
      */
-    public String login() {
+    public String login() throws Exception {
 
         context = RequestContext.getCurrentInstance();
         msg = null;
@@ -83,7 +79,7 @@ public class UserLoginView{
         
         UsersEntity user = userDao.getUserByLogin(username);
         if(user != null)
-            if(user.getPassword().equals(password)) {
+            if(PasswordUtil.check(password,user.getPassword())) {
                 msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Добро пожаловать " + username + "!", username);
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 context.addCallbackParam("logged", logged);

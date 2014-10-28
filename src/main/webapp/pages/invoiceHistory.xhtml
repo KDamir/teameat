@@ -31,7 +31,7 @@
         <p:commandButton value="Найти"
                              update="historyTable"
                              action="#{historyService.searchInvoice()}"
-                             global="true"/>
+                             process="historyTab"/>
             <p:dataTable id="historyTable" value="#{historyService.listInvoice}" var="invoice">
                 <p:column headerText="Id">
                     <h:outputText value="#{invoice.id}"/>

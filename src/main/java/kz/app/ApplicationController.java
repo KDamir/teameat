@@ -1,13 +1,17 @@
 package kz.app;
 
 import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+
 import kz.app.dao.MeatPartDao;
+import kz.app.dao.MeatPartPurchaseDao;
 import kz.app.entity.MeatCategoryEntity;
 import kz.app.entity.MeatTypesEntity;
 import kz.app.entity.ReceiverEntity;
+import kz.app.entity.SupplierEntity;
 import kz.app.entity.UserGroupsEntity;
 
 /**
@@ -24,18 +28,31 @@ public class ApplicationController{
     
     public static MeatPartDao dao;
     
+    public static MeatPartPurchaseDao daop;
+    
     public static List<MeatTypesEntity> types;
     public static List<MeatCategoryEntity> categories;
     public static List<ReceiverEntity> receivers;
+    public static List<SupplierEntity> suppliers;
     
     private UserGroupsEntity group;
     
-    @PostConstruct
+    public static List<SupplierEntity> getSuppliers() {
+		return suppliers;
+	}
+
+	public static void setSuppliers(List<SupplierEntity> suppliers) {
+		ApplicationController.suppliers = suppliers;
+	}
+
+	@PostConstruct
     public void init() {
         dao = new MeatPartDao();
+        daop = new MeatPartPurchaseDao();
         types = dao.getTypesList();
         categories = dao.getCategoriesList();
         receivers = dao.getReceiversList();
+        suppliers = daop.getSuppliersList();
         
         /*Пустая ячейка*/
         MeatCategoryEntity blankCategory = new MeatCategoryEntity();

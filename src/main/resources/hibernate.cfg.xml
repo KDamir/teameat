@@ -21,7 +21,10 @@
       <mapping class="kz.app.entity.UserSessionsEntity"/>
       <mapping class="kz.app.entity.UsersEntity"/>
       <mapping class="kz.app.entity.MeatPartEntity"/>
+      <mapping class="kz.app.entity.MeatPartPurchaseEntity"/>
+      <mapping class="kz.app.entity.PurchaseEntity"/>
       <mapping class="kz.app.entity.CalculationEntity"/>
+      <mapping class="kz.app.entity.SupplierEntity"/>
       <!-- DB schema will be updated if needed -->
     <!-- <property name="hbm2ddl.auto">update</property> -->
   </session-factory>

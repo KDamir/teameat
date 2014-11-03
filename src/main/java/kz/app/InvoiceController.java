@@ -10,6 +10,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,11 @@ public class InvoiceController extends AbstractMeatPartController{
 
     private InvoiceEntity invoice;
     private List<ReceiverEntity> listReceiver;
+    
+    // Внесенный платеж
+    private double sumInput=0.0;
+    // сдача
+    private double renting = 0.0;
     
     private static MeatPartDao meatPartDao;
     
@@ -76,4 +82,21 @@ public class InvoiceController extends AbstractMeatPartController{
         meatPartDao.deleteMeatPart(MeatPartConverter.convertMeatPartToEntity(meatParts.get(idx), invoice, null));
         meatParts.remove(idx);
     }
+
+	public double getSumInput() {
+		return sumInput;
+	}
+
+	public void setSumInput(double sumInput) {
+		this.sumInput = sumInput;
+	}
+	
+	
+	 /*Сдача*/
+    public Double getRenting() {
+        return ( sumInput - meatParts.stream().mapToDouble(MeatPart::getRevenue).sum() );
+    }
+    
+    
+    
 }

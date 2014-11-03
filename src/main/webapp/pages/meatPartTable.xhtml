@@ -81,4 +81,15 @@
             </p:row>
         </p:columnGroup>
     </p:dataTable>
+    
+    <br/>
+    <p:panelGrid columns="2">   
+        <h:outputText value="Внесено:"/>
+        <p:inputText id="sumInput" value="#{invoiceController.sumInput}">
+        	<p:ajax event="keyup" update="renting"/>
+        </p:inputText>
+        
+        <h:outputText value="Сдача:"/>
+        <h:outputText id = "renting" value="#{invoiceController.renting}"/>
+    </p:panelGrid>	
 </ui:composition>

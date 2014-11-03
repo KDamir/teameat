@@ -1,0 +1,26 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:f="http://xmlns.jcp.org/jsf/core"
+        id="invoiceFragment">
+        <p:panelGrid columns="2">
+            <h:outputText value="Поставщик:"/>
+            <p:selectOneMenu value="#{purchaseController.purchase.supplierId}" >
+                <f:selectItem itemValue="" itemLabel=""/>
+                <f:selectItems value="#{purchaseController.listSupplier}" 
+                               var="supplier" 
+                               itemValue="#{supplier}" 
+                               itemLabel="#{supplier.companyName}"/>
+            </p:selectOneMenu>          
+            <h:outputText value="Получатель:"/>
+            <p:inputText id="receiverInput" value="#{purchaseController.purchase.receiver}"/>
+            <h:outputText value="Дата:"/>
+            <p:calendar value="#{purchaseController.purchase.date}" />
+        </p:panelGrid>
+        <br/>
+        <ui:include src="/pages/meatPartTable.xhtml">
+            <ui:param name="tableController" value="${purchaseController}"/>
+        </ui:include>
+        
+</ui:fragment>

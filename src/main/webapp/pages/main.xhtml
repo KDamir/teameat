@@ -12,18 +12,21 @@
         <h:form id="appForm">
             <p:growl id="growl" showDetail="true" life="7000"/>
             <p:tabView orientation="left" id="tabs">
+            	<p:tab id="zakupTab" title="Заполнение накладных на поставку" rendered="#{appBean.group.groupname eq 'admin'}">
+                    <ui:include src="zakup.xhtml"/>
+                </p:tab>
                 <p:tab id="invoiceTab" title="Заполнение накладных на продажу" rendered="#{appBean.group.groupname eq 'vendor'}">
                     <ui:include src="invoice.xhtml"/>
+                </p:tab>   
+                <p:tab id="historyTab" title="Просмотр накладных на продажу" >
+                    <ui:include src="invoiceHistory.xhtml"/>
+                </p:tab>
+                <p:tab id="historyTab" title="Просмотр проданных товаров" rendered="#{appBean.group.groupname eq 'admin'}">
+                    <ui:include src="meatPartHistory.xhtml"/>
                 </p:tab>
                 <p:tab id="calcTab" title="Рассчитать остатки" rendered="#{appBean.group.groupname eq 'admin'}">
                     <ui:include src="calculation.xhtml"/>
-                </p:tab>
-                <p:tab id="historyTab" title="Просмотр накладных" rendered="#{appBean.group.groupname eq 'admin'}">
-                    <ui:include src="invoiceHistory.xhtml"/>
-                </p:tab>
-                <p:tab id="zakupTab" title="Заполнение накладных на поставку" rendered="#{appBean.group.groupname eq 'admin'}">
-                    <ui:include src="zakup.xhtml"/>
-                </p:tab>
+                </p:tab>                                
             </p:tabView>
             <p:commandLink value="Выйти"
                              action="#{userLoginView.logout()}"

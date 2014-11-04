@@ -3,7 +3,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-       <p:dialog widgetVar="invoiceDlg" id="panelDlg" styleClass="invoiceClass">
+<!--      <p:dialog widgetVar="invoiceDlg" id="panelDlg" styleClass="invoiceClass">
             <p:panelGrid columns="2" rendered="#{not empty historyService.selectedInvoice}">
                 <h:outputText value="Отправитель:"/>
                 <p:inputText id="senderInput" value="#{historyService.selectedInvoice.sender}" style="width: 400px"/>
@@ -21,7 +21,9 @@
             <ui:include src="/pages/meatPartTable.xhtml">
                 <ui:param name="tableController" value="${historyService}"/>
             </ui:include>
-        </p:dialog>                                                  
+        </p:dialog>
+        
+-->        
         <p:panelGrid columns="2">
             <p:outputLabel value="Дата начала:" for="beginDate"/>
             <p:calendar id="beginDate" value="#{historyService.begin}"/>
@@ -47,13 +49,13 @@
                         <f:convertDateTime pattern="dd.MM.yyyy"/>
                     </h:outputText>
                 </p:column>
-                <p:column>
+ <!--           <p:column>
                     <p:commandButton update=":appForm:tabs:panelDlg"
                                      oncomplete="PF('invoiceDlg').show()"
                                      value="edit" 
                                      action="#{historyService.onEdit(invoice)}"
                                      process="historyTable"/>
-                </p:column>
+                </p:column>															-->
             </p:dataTable>
             <p:commandButton value="Обновить" update="historyTable">
             </p:commandButton>

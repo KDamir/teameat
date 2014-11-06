@@ -3,60 +3,45 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-<!--      <p:dialog widgetVar="invoiceDlg" id="panelDlg" styleClass="invoiceClass">
-            <p:panelGrid columns="2" rendered="#{not empty historyService.selectedInvoice}">
-                <h:outputText value="Отправитель:"/>
-                <p:inputText id="senderInput" value="#{historyService.selectedInvoice.sender}" style="width: 400px"/>
-                <h:outputText value="Получатель:"/>
-                <p:selectOneMenu value="#{historyService.selectedInvoice.receiverId}" style="width: 100%">
-                    <f:selectItems value="#{invoiceController.listReceiver}"
-                                   var="receiver"
-                                   itemValue="#{receiver}"
-                                   itemLabel="#{receiver.companyName}"/>
-                </p:selectOneMenu>
-                <h:outputText value="Дата:"/>
-                <p:calendar value="#{historyService.selectedInvoice.date}"/>
-            </p:panelGrid>
-            <br/>
-            <ui:include src="/pages/meatPartTable.xhtml">
-                <ui:param name="tableController" value="${historyService}"/>
-            </ui:include>
-        </p:dialog>
-        
--->        
         <p:panelGrid columns="2">
             <p:outputLabel value="Дата начала:" for="beginDate"/>
-            <p:calendar id="beginDate" value="#{historyService.begin}"/>
+            <p:calendar id="beginDateP" value="#{goodsHistoryService.begin}"/>
             <p:outputLabel value="Дата окончания:" for="endDate"/>
-            <p:calendar id="endDate" value="#{historyService.end}"/>
+            <p:calendar id="endDateP" value="#{goodsHistoryService.end}"/>
         </p:panelGrid>
         <p:commandButton value="Найти"
-                             update="historyTable"
-                             action="#{historyService.searchInvoice()}"
-                             process="historyTab"/>
-            <p:dataTable id="historyTable" value="#{historyService.listInvoice}" var="invoice">
+                             update="historyTableP"
+                             action="#{goodsHistoryService.searchGoods()}"
+                             process="historyTabP"/>
+            <p:dataTable id="historyTableP" value="#{goodsHistoryService.listGoods}" var="goods">
                 <p:column headerText="Id">
-                    <h:outputText value="#{invoice.id}"/>
+                    <h:outputText value="#{goods.id}"/>
+                </p:column>
+                 <p:column headerText="Категория">
+                    <h:outputText value="#{goods.category}"/>
+                </p:column>
+                 <p:column headerText="Тип">
+                    <h:outputText value="#{goods.type}"/>
+                </p:column>
+                <p:column headerText="Вес">
+                    <h:outputText value="#{goods.weight}"/>
+                </p:column>
+                <p:column headerText="Цена">
+                    <h:outputText value="#{goods.price}"/>
                 </p:column>
                 <p:column headerText="Отправитель">
-                    <h:outputText value="#{invoice.sender}"/>
+                    <h:outputText value="#{goods.sender}"/>
                 </p:column>
                 <p:column headerText="Получатель">
-                    <h:outputText value="#{invoice.receiverId.companyName}"/>
+                    <h:outputText value="#{goods.company_Name}"/>
                 </p:column>
                 <p:column headerText="Дата">
-                    <h:outputText value="#{invoice.date}">
+                    <h:outputText value="#{goods.date}">
                         <f:convertDateTime pattern="dd.MM.yyyy"/>
                     </h:outputText>
-                </p:column>
- <!--           <p:column>
-                    <p:commandButton update=":appForm:tabs:panelDlg"
-                                     oncomplete="PF('invoiceDlg').show()"
-                                     value="edit" 
-                                     action="#{historyService.onEdit(invoice)}"
-                                     process="historyTable"/>
-                </p:column>															-->
+                </p:column> 												
             </p:dataTable>
-            <p:commandButton value="Обновить" update="historyTable">
+            
+            <p:commandButton value="Обновить" update="historyTableP">
             </p:commandButton>
 </ui:composition>

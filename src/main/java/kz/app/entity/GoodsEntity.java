@@ -117,6 +117,18 @@ public class GoodsEntity implements Serializable {
         this.id = id;
     }
 
+    public GoodsEntity(Integer id, String category, String type, double weight, double price, String sender, String company_name, Date date){
+    	this.id = id;
+    	this.category = category;
+    	this.type=type;
+    	this.weight=weight;
+    	this.price=price;
+    	this.sender=sender;
+    	this.company_name=company_name;
+    	this.date=date;
+    	
+    }
+    
     public Integer getId() {
         return id;
     }

@@ -29,6 +29,8 @@ import kz.app.utils.Constants;
 @SessionScoped
 public class GoodsHistoryService extends AbstractMeatPartController{
     private List<GoodsEntity> listGoods;
+    private List<GoodsEntity> filteredGoods;
+    
     private Date begin;
     private Date end;
     private static GoodsDao dao;
@@ -72,5 +74,13 @@ public class GoodsHistoryService extends AbstractMeatPartController{
 
 	public void setListGoods(List<GoodsEntity> listGoods) {
 		this.listGoods = listGoods;
+	}
+
+	public List<GoodsEntity> getFilteredGoods() {
+		return filteredGoods;
+	}
+
+	public void setFilteredGoods(List<GoodsEntity> filteredGoods) {
+		this.filteredGoods = filteredGoods;
 	}
 }

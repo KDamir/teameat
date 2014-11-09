@@ -89,8 +89,9 @@ public class ColumnsView implements Serializable {
      
     public void updateColumns() {
         //reset table state
-        UIComponent table = FacesContext.getCurrentInstance().getViewRoot().findComponent(":form:historyTableP");
-        table.setValueExpression("sortBy", null);
+ //       UIComponent table = FacesContext.getCurrentInstance().getViewRoot().findComponent(":form:historyTableP");
+ //       table.setValueExpression("sortBy", null);
+        
          
         //update columns
         createDynamicColumns();

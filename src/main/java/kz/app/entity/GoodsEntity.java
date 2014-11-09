@@ -6,8 +6,10 @@
 package kz.app.entity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Collection;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -146,10 +148,13 @@ public class GoodsEntity implements Serializable {
     }
 
     public Date getDate() {
+    	
         return date;
     }
 
     public void setDate(Date date) {
+
+    	
         this.date = date;
     }
 

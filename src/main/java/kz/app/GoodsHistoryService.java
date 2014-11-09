@@ -38,6 +38,9 @@ public class GoodsHistoryService extends AbstractMeatPartController{
     @PostConstruct
     public void init() {
         dao = new GoodsDao();
+        begin = new Date();
+        end = new Date();
+        searchGoods();
     }
     
     public void searchGoods() {

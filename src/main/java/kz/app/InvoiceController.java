@@ -12,6 +12,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @ManagedBean
@@ -48,6 +49,7 @@ public class InvoiceController extends AbstractMeatPartController{
     public void init() {
         meatPartDao = ApplicationController.dao;
         invoice = new InvoiceEntity();
+        invoice.setDate(new Date());
         meatParts = new ArrayList<>();
         for(int i = 0; i < 3; i++) {
             meatParts.add(new MeatPart());

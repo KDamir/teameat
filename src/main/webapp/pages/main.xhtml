@@ -21,7 +21,7 @@
                 <p:tab id="historyTab" title="Просмотр накладных на продажу" >
                     <ui:include src="invoiceHistory.xhtml"/>
                 </p:tab>
-                <p:tab id="historyTab" title="Просмотр проданных товаров" rendered="#{appBean.group.groupname eq 'admin'}">
+                <p:tab id="historyTabP" title="Просмотр проданных товаров" rendered="#{appBean.group.groupname eq 'admin'}">
                     <ui:include src="meatPartHistory.xhtml"/>
                 </p:tab>
                 <p:tab id="calcTab" title="Рассчитать остатки" rendered="#{appBean.group.groupname eq 'admin'}">

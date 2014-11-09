@@ -49,6 +49,10 @@ public class InvoiceHistoryService extends AbstractMeatPartController{
         selectedInvoice = null;
         categories = ApplicationController.categories;
         types = ApplicationController.types;
+
+        begin = new Date();
+        end = new Date();
+        searchInvoice();
     }
     
     public void onEdit(InvoiceEntity invoiceS) {

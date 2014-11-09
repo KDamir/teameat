@@ -32,6 +32,7 @@
       <mapping class="kz.app.entity.PurchaseEntity"/>
       <mapping class="kz.app.entity.CalculationEntity"/>
       <mapping class="kz.app.entity.SupplierEntity"/>
+      <mapping class="kz.app.entity.GoodsEntity"/>
       <!-- DB schema will be updated if needed -->
     <!-- <property name="hbm2ddl.auto">update</property> -->
   </session-factory>

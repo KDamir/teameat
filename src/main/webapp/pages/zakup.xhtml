@@ -16,7 +16,8 @@
             <h:outputText value="Получатель:"/>
             <p:inputText id="receiverInput" value="#{purchaseController.purchase.receiver}"/>
             <h:outputText value="Дата:"/>
-            <p:calendar value="#{purchaseController.purchase.date}" />
+            <p:calendar value="#{purchaseController.purchase.date}" 
+                        readonlyInput="true"/>
         </p:panelGrid>
         <br/>
         <ui:include src="/pages/meatPartTable.xhtml">

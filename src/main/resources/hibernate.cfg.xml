@@ -8,7 +8,7 @@
         <property name="show_sql">
             false
         </property>
-    <property name="connection.url">jdbc:mysql://46.8.27.144:3306/teameat</property>
+    <property name="connection.url">jdbc:mysql://46.8.27.144:3306/teameat?autoReconnect=true</property>
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="connection.username">root</property>
     <property name="connection.password">123</property>
@@ -18,7 +18,7 @@
     <property name="hibernate.c3p0.timeout">300</property>
     <property name="hibernate.c3p0.max_statements">50</property>
     <property name="hibernate.c3p0.idle_test_period">3000</property>
-    
+
       <mapping class="kz.app.entity.InvoiceEntity"/>
       <mapping class="kz.app.entity.MeatCategoryEntity"/>
       <mapping class="kz.app.entity.MeatTypesEntity"/>

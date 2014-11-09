@@ -92,8 +92,9 @@ body {
     background-color: #FCA9A9!important;
 }
 .invoiceClass {
-    width: 1000px!important;
-    left: 150px!important;
+    width: 600px!important;
+    left: 0px!important;
+    top: 0%!important;
     height: auto!important;
 }
 

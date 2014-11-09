@@ -15,7 +15,8 @@
                                    itemLabel="#{receiver.companyName}"/>
                 </p:selectOneMenu>
                 <h:outputText value="Дата:"/>
-                <p:calendar value="#{historyService.selectedInvoice.date}"/>
+                <p:calendar value="#{historyService.selectedInvoice.date}"
+                            readonlyInput="true"/>
             </p:panelGrid>
             <br/>
             <ui:include src="/pages/meatPartTable.xhtml">
@@ -24,9 +25,9 @@
         </p:dialog>                                                  
         <p:panelGrid columns="2">
             <p:outputLabel value="Дата начала:" for="beginDate"/>
-            <p:calendar id="beginDate" value="#{historyService.begin}"/>
+            <p:calendar id="beginDate" value="#{historyService.begin}" readonlyInput="true"/>
             <p:outputLabel value="Дата окончания:" for="endDate"/>
-            <p:calendar id="endDate" value="#{historyService.end}"/>
+            <p:calendar id="endDate" value="#{historyService.end}" readonlyInput="true"/>
         </p:panelGrid>
         <p:commandButton value="Найти"
                              update="historyTable"

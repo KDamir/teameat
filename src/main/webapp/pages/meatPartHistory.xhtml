@@ -5,9 +5,9 @@
       xmlns:p="http://primefaces.org/ui">
         <p:panelGrid columns="2">
             <p:outputLabel value="Дата начала:" for="beginDate"/>
-            <p:calendar id="beginDateP" value="#{goodsHistoryService.begin}"/>
+            <p:calendar id="beginDateP" value="#{goodsHistoryService.begin}" readonlyInput="true"/>
             <p:outputLabel value="Дата окончания:" for="endDate"/>
-            <p:calendar id="endDateP" value="#{goodsHistoryService.end}"/>
+            <p:calendar id="endDateP" value="#{goodsHistoryService.end}" readonlyInput="true"/>
         </p:panelGrid>
         <p:commandButton value="Найти"
                              update="historyTableP"
@@ -19,7 +19,13 @@
         <h:panelGrid columns="3" style="margin:10px 0">
         	<p:outputLabel for="template" value="Шаблон:" style="font-weight:bold"/>
         	<p:inputText id="template" value="#{dtColumnsView.columnTemplate}" size="50"/>
-        	<p:commandButton update="historyTableP" actionListener="#{dtColumnsView.updateColumns}" value="Изменить" process="@parent" icon="ui-icon-refresh" oncomplete="PF('goodsTable').clearFilters()"/>
+        	<p:commandButton update="historyTableP" 
+                                 actionListener="#{dtColumnsView.updateColumns}" 
+                                 value="Изменить" 
+                                 process="@parent" 
+                                 icon="ui-icon-refresh" 
+                                 oncomplete="PF('goodsTable').clearFilters()"
+                                 ajax="false"/>
     	</h:panelGrid>                     
                              
         <p:dataTable id="historyTableP" value="#{goodsHistoryService.listGoods}" var="goods" widgetVar="goodsTable" filteredValue="#{goodsHistoryService.filteredGoods}">
@@ -51,7 +57,11 @@
                     </h:outputText>
                 </p:column> 		
 -->									
-			<p:columns value="#{dtColumnsView.columns}" var="column" columnIndexVar="colIndex" sortBy="#{goods[column.property]}" filterBy="#{goods[column.property]}">
+			<p:columns value="#{dtColumnsView.columns}" 
+                                   var="column" 
+                                   columnIndexVar="colIndex" 
+                                   sortBy="#{goods[column.property]}" 
+                                   filterBy="#{goods[column.property]}">
             	<f:facet name="header">
                 	<h:outputText value="#{column.header}" />
             	</f:facet>

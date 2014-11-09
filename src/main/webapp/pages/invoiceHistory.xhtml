@@ -6,10 +6,10 @@
        <p:dialog widgetVar="invoiceDlg" id="panelDlg" styleClass="invoiceClass">
             <p:panelGrid columns="2" rendered="#{not empty historyService.selectedInvoice}">
                 <h:outputText value="Отправитель:"/>
-                <p:inputText id="senderInput" value="#{historyService.selectedInvoice.sender}" style="width: 400px"/>
+                <p:inputText id="senderInput1" value="#{historyService.selectedInvoice.sender}" style="width: 400px"/>
                 <h:outputText value="Получатель:"/>
                 <p:selectOneMenu value="#{historyService.selectedInvoice.receiverId}" style="width: 100%">
-                    <f:selectItems value="#{invoiceController.listReceiver}"
+                    <f:selectItems value="#{historyService.listReceiver}"
                                    var="receiver"
                                    itemValue="#{receiver}"
                                    itemLabel="#{receiver.companyName}"/>

@@ -2,7 +2,6 @@ package kz.app.dao;
 
 import java.util.Date;
 import kz.app.entity.InvoiceEntity;
-import kz.app.MeatPart;
 
 import java.util.List;
 import kz.app.entity.MeatPartEntity;

@@ -86,7 +86,7 @@
     <p:panelGrid columns="2">   
         <h:outputText value="Внесено:"/>
         <p:inputText id="sumInput" value="#{invoiceController.sumInput}">
-        	<p:ajax event="keyup" update="renting"/>
+        	<p:ajax event="change" update="renting"/>
         </p:inputText>
         
         <h:outputText value="Сдача:"/>

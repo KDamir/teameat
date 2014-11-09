@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import kz.app.entity.ReceiverEntity;
 import kz.app.utils.Constants;
 
 /**
@@ -30,6 +31,7 @@ import kz.app.utils.Constants;
 public class InvoiceHistoryService extends AbstractMeatPartController{
     private List<InvoiceEntity> listInvoice;
     private InvoiceEntity selectedInvoice;
+    private List<ReceiverEntity> listReceiver;
 
     private Date begin;
     private Date end;
@@ -49,6 +51,7 @@ public class InvoiceHistoryService extends AbstractMeatPartController{
         selectedInvoice = null;
         categories = ApplicationController.categories;
         types = ApplicationController.types;
+        listReceiver = ApplicationController.receivers;
 
         begin = new Date();
         end = new Date();
@@ -73,6 +76,14 @@ public class InvoiceHistoryService extends AbstractMeatPartController{
     }
     
     //<editor-fold defaultstate="collapsed" desc="Getter/Setter">
+    public List<ReceiverEntity> getListReceiver() {
+        return listReceiver;
+    }
+
+    public void setListReceiver(List<ReceiverEntity> listReceiver) {
+        this.listReceiver = listReceiver;
+    }
+    
     public List<InvoiceEntity> getListInvoice() {
         return listInvoice;
     }

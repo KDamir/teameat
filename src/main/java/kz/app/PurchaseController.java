@@ -13,6 +13,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @ManagedBean
@@ -49,6 +50,7 @@ public class PurchaseController extends AbstractMeatPartController{
     public void init() {
         meatPartPurchaseDao = ApplicationController.daop;
         purchase = new PurchaseEntity();
+        purchase.setDate(new Date());
         meatParts = new ArrayList<>();
         for(int i = 0; i < 3; i++) {
             meatParts.add(new MeatPart());

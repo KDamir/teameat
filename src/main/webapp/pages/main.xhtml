@@ -4,12 +4,46 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 template="/template/default.xhtml">
+    <ui:define name="menu">
+        <h:form id="menuForm">
+            <p:growl id="growl" showDetail="true" life="7000"/>
+            <p:menu>
+                <p:submenu label="Меню">
+                    <p:menuitem value="Заполнение накладных на поставку" 
+                                rendered="#{appBean.group.groupname eq 'admin'}"
+                                actionListener="#{appBean.setPageToDisplay('zakup')}"
+                                update=":tabs :menuForm"/>
+                    <p:menuitem value="Заполнение накладных на продажу" 
+                                rendered="#{appBean.group.groupname eq 'vendor'}"
+                                actionListener="#{appBean.setPageToDisplay('invoice')}"
+                                update=":tabs :menuForm"/>
+                    <p:menuitem value="Просмотр накладных на продажу" 
+                                rendered="true"
+                                actionListener="#{appBean.setPageToDisplay('invoiceHistory')}"
+                                update=":tabs :menuForm"/>
+                    <p:menuitem value="Просмотр проданных товаров" 
+                                rendered="#{appBean.group.groupname eq 'admin'}"
+                                actionListener="#{appBean.setPageToDisplay('meatPartHistory')}"
+                                update=":tabs :menuForm"/>
+                    <p:menuitem value="Рассчитать остатки" 
+                                rendered="#{appBean.group.groupname eq 'admin'}"
+                                actionListener="#{appBean.setPageToDisplay('calculation')}"
+                                update=":tabs :menuForm"/>
+                </p:submenu>
+            </p:menu>
+            <p:commandLink value="Выйти"
+                             action="#{userLoginView.logout()}"
+                             ajax="false"/>
+        </h:form>
+    </ui:define>
+    
     <ui:define name="content">
-        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
-        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-            <p:graphicImage value="/images/ajax-loader.gif" />
-        </p:dialog>
-        <h:form id="appForm">
+        <p:panel id="tabs">
+            <ui:include src="#{appBean.pageToDisplay}.xhtml"/>
+        </p:panel>
+        
+        
+<!--        <h:form id="appForm">
             <p:growl id="growl" showDetail="true" life="7000"/>
             <p:tabView orientation="left" id="tabs">
             	<p:tab id="zakupTab" title="Заполнение накладных на поставку" rendered="#{appBean.group.groupname eq 'admin'}">
@@ -28,9 +62,6 @@
                     <ui:include src="calculation.xhtml"/>
                 </p:tab>                                
             </p:tabView>
-            <p:commandLink value="Выйти"
-                             action="#{userLoginView.logout()}"
-                             ajax="false"/>
-        </h:form>
+        </h:form>-->
     </ui:define>
 </ui:composition>

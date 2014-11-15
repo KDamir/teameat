@@ -4,6 +4,7 @@
              xmlns:p="http://primefaces.org/ui"
              xmlns:ui="http://java.sun.com/jsf/facelets"
              id="calculationFragment">
+    <h:form id="calcForm">
             <p:panelGrid id="infoTable" columns="2">
                 <p:panelGrid id="carcassInfo" columns="3">
                     <p:outputLabel value="Информация по туше:" for="calcInfo"/>
@@ -48,7 +49,7 @@
             <br/>
             <p:commandButton value="Добавить" action="#{calculationController.addNewMeatPart}" update="mainTable"/>
             <p:commandButton value="Удалить" action="#{calculationController.deleteLastMeatPart}" update="mainTable"/>
-            <p:commandButton value="Сохранить" action="#{calculationController.updateOrder}" update=":appForm:growl"/>
+            <p:commandButton value="Сохранить" action="#{calculationController.updateOrder}" update=":menuForm:growl"/>
 			<p:dataTable id="mainTable" value="#{calculationController.meatParts}" var="meatPart" varStatus="status" editable="true" editMode="cell" draggableRows="true"  onkeypress="{
                                       if (event.keyCode == 13) {
                                           document.getElementById('calculationFragment:saveOrder').click();
@@ -82,7 +83,7 @@
 						<f:facet name="input">
                                                     <p:inputText value="#{meatPart.weight}">
                                                         <f:validateDoubleRange minimum="0.00001"/>
-                                                        <p:ajax event="change" update="mainTable, :appForm:tabs:infoTable"/>
+                                                        <p:ajax event="change" update="mainTable, :calcForm:infoTable"/>
                                                     </p:inputText>
 						</f:facet>
 					</p:cellEditor>
@@ -98,7 +99,7 @@
 						<f:facet name="input">
 							<p:inputText value="#{meatPart.price}">
                                                             <f:validateDoubleRange minimum="0.000001"/>
-								<p:ajax event="change" update="mainTable, :appForm:tabs:infoTable"/>
+								<p:ajax event="change" update="mainTable, :calcForm:infoTable"/>
 							</p:inputText>
 						</f:facet>
 					</p:cellEditor>
@@ -148,4 +149,5 @@
                     </p:row>
                 </p:columnGroup>
 			</p:dataTable>
-	</ui:fragment>
+        </h:form>
+</ui:fragment>

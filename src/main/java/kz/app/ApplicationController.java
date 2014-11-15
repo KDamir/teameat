@@ -37,6 +37,8 @@ public class ApplicationController{
     
     private UserGroupsEntity group;
     
+    private String pageToDisplay;
+    
     public static List<SupplierEntity> getSuppliers() {
 		return suppliers;
 	}
@@ -58,9 +60,19 @@ public class ApplicationController{
         MeatCategoryEntity blankCategory = new MeatCategoryEntity();
         blankCategory.setName("");
         categories.add(0, blankCategory);
+        
+            setPageToDisplay("invoiceHistory");
+    }
+    
+    //<editor-fold defaultstate="collapsed" desc="Getter/Setter">
+    public String getPageToDisplay() {
+        return pageToDisplay;
+    }
+    
+    public void setPageToDisplay(String pageToDisplay) {    
+        this.pageToDisplay = pageToDisplay;
     }
 
-    //<editor-fold defaultstate="collapsed" desc="Getter/Setter">
     public UserGroupsEntity getGroup() {
         return group;
     }

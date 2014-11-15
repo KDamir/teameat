@@ -93,7 +93,7 @@ body {
 }
 .invoiceClass {
     width: 600px!important;
-    left: 0px!important;
+    left: 250px!important;
     top: 0%!important;
     height: auto!important;
 }
@@ -102,4 +102,11 @@ body {
     position: fixed!important;
     top: 40%!important;
     left: 5%!important;
+}
+.selected-menu-style-text .ui-menuitem-text {
+color:yellow !important;	//its working fine
+}
+
+.selected-menu-style-background .ui-menuitem {
+color:yellow !important;	//but this is not working properly
 }

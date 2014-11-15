@@ -10,23 +10,28 @@
             <p:menu>
                 <p:submenu label="Меню">
                     <p:menuitem value="Заполнение накладных на поставку" 
-                                rendered="#{appBean.group.groupname eq 'admin'}"
+                                style="#{appBean.getItemCss('zakup')}"
+                                rendered="#{appBean.admin}"
                                 actionListener="#{appBean.setPageToDisplay('zakup')}"
                                 update=":tabs :menuForm"/>
                     <p:menuitem value="Заполнение накладных на продажу" 
-                                rendered="#{appBean.group.groupname eq 'vendor'}"
+                                style="#{appBean.getItemCss('invoice')}"
+                                rendered="#{appBean.vendor}"
                                 actionListener="#{appBean.setPageToDisplay('invoice')}"
                                 update=":tabs :menuForm"/>
-                    <p:menuitem value="Просмотр накладных на продажу" 
+                    <p:menuitem value="Просмотр накладных на продажу"
+                                style="#{appBean.getItemCss('invoiceHistory')}"
                                 rendered="true"
                                 actionListener="#{appBean.setPageToDisplay('invoiceHistory')}"
                                 update=":tabs :menuForm"/>
                     <p:menuitem value="Просмотр проданных товаров" 
-                                rendered="#{appBean.group.groupname eq 'admin'}"
+                                style="#{appBean.getItemCss('meatPartHistory')}"
+                                rendered="#{appBean.admin}"
                                 actionListener="#{appBean.setPageToDisplay('meatPartHistory')}"
                                 update=":tabs :menuForm"/>
                     <p:menuitem value="Рассчитать остатки" 
-                                rendered="#{appBean.group.groupname eq 'admin'}"
+                                style="#{appBean.getItemCss('calculation')}"
+                                rendered="#{appBean.admin}"
                                 actionListener="#{appBean.setPageToDisplay('calculation')}"
                                 update=":tabs :menuForm"/>
                 </p:submenu>
@@ -41,27 +46,5 @@
         <p:panel id="tabs">
             <ui:include src="#{appBean.pageToDisplay}.xhtml"/>
         </p:panel>
-        
-        
-<!--        <h:form id="appForm">
-            <p:growl id="growl" showDetail="true" life="7000"/>
-            <p:tabView orientation="left" id="tabs">
-            	<p:tab id="zakupTab" title="Заполнение накладных на поставку" rendered="#{appBean.group.groupname eq 'admin'}">
-                    <ui:include src="zakup.xhtml"/>
-                </p:tab>
-                <p:tab id="invoiceTab" title="Заполнение накладных на продажу" rendered="#{appBean.group.groupname eq 'vendor'}">
-                    <ui:include src="invoice.xhtml"/>
-                </p:tab>   
-                <p:tab id="historyTab" title="Просмотр накладных на продажу" >
-                    <ui:include src="invoiceHistory.xhtml"/>
-                </p:tab>
-                <p:tab id="historyTabP" title="Просмотр проданных товаров" rendered="#{appBean.group.groupname eq 'admin'}">
-                    <ui:include src="meatPartHistory.xhtml"/>
-                </p:tab>
-                <p:tab id="calcTab" title="Рассчитать остатки" rendered="#{appBean.group.groupname eq 'admin'}">
-                    <ui:include src="calculation.xhtml"/>
-                </p:tab>                                
-            </p:tabView>
-        </h:form>-->
     </ui:define>
 </ui:composition>

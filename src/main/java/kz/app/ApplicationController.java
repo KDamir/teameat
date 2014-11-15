@@ -64,6 +64,26 @@ public class ApplicationController{
             setPageToDisplay("invoiceHistory");
     }
     
+    public boolean isAdmin() {
+        if("admin".equals(group.getGroupname()))
+            return true;
+        else
+            return false;
+    }
+    
+    public boolean  isVendor() {
+        if("vendor".equals(group.getGroupname()))
+            return true;
+        else 
+            return false;
+    }
+    
+    public String getItemCss(String item) {
+        if(item.equals(getPageToDisplay()))
+            return "font-weight: bold;";
+        return "";
+    }
+    
     //<editor-fold defaultstate="collapsed" desc="Getter/Setter">
     public String getPageToDisplay() {
         return pageToDisplay;

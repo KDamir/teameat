@@ -26,7 +26,10 @@
                 </p:tab>
                 <p:tab id="calcTab" title="Рассчитать остатки" rendered="#{appBean.group.groupname eq 'admin'}">
                     <ui:include src="calculation.xhtml"/>
-                </p:tab>                                
+                </p:tab>
+                <p:tab id="adminTab" title="Добавить элементы" rendered="#{appBean.group.groupname eq 'admin'}">
+                    <ui:include src="adminForm.xhtml"/>
+                </p:tab>
             </p:tabView>
             <p:commandLink value="Выйти"
                              action="#{userLoginView.logout()}"

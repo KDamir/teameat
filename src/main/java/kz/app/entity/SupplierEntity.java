@@ -41,6 +41,20 @@ public class SupplierEntity implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "company_name")
     private String companyName;
+    @Basic(optional = true)
+    @Size(max = 10)
+    @Column(name = "phone_number")
+    private String phoneNumber;
+    @Basic(optional = true)
+    @NotNull
+    @Size(max = 50)
+    @Column(name = "address")
+    private String address;
+    @Basic(optional = true)
+    @NotNull
+    @Size(max = 1000)
+    @Column(name = "note")
+    private String note;
     @Basic(optional = false)
     @Column(name = "id")
     private int id;
@@ -74,15 +88,6 @@ public class SupplierEntity implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
-
-//    @XmlTransient
-//    public Collection<Invoice> getInvoiceCollection() {
-//        return invoiceCollection;
-//    }
-//
-//    public void setInvoiceCollection(Collection<Invoice> invoiceCollection) {
-//        this.invoiceCollection = invoiceCollection;
-//    }
 
     @Override
     public int hashCode() {
@@ -118,5 +123,28 @@ public class SupplierEntity implements Serializable {
     public void setPurchaseEntityCollection(Collection<PurchaseEntity> purchaseEntityCollection) {
         this.purchaseEntityCollection = purchaseEntityCollection;
     }
-    
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
 }

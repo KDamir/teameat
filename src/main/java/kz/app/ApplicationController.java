@@ -57,6 +57,7 @@ public class ApplicationController{
         /*Пустая ячейка*/
         MeatCategoryEntity blankCategory = new MeatCategoryEntity();
         blankCategory.setName("");
+        // TODO: Нахрена? Где-то она нужна, где-то - нет. Не легче добавлять где надо, а не добавлять всем, а потом удалять?
         categories.add(0, blankCategory);
     }
 

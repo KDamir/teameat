@@ -18,7 +18,7 @@
         <artifactId>primefaces</artifactId>
         <version>5.0</version>
     </dependency>
-		
+    
     <dependency>
         <groupId>com.sun.faces</groupId>
         <artifactId>jsf-api</artifactId>
@@ -129,5 +129,6 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+        <finalName>teameat</finalName>
     </build>
 </project>

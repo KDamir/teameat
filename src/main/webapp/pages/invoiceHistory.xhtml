@@ -4,18 +4,27 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:form id="historyForm">
-        <p:dialog>
-        <p:panelGrid columns="2">
-                <h:outputText value="Внесено:"/>
-                <p:inputText id="sumInputHis" value="#{invoiceController.sumInput}">
-                        <p:ajax event="change" update="rentingHis"/>
-                </p:inputText>
-
-                <h:outputText value="Сдача:"/>
-                <h:outputText id = "rentingHis" value="#{invoiceController.renting}"/>
+        <p:dialog widgetVar="invoiceDlg" id="panelDlg" styleClass="invoiceClass">
+            <p:panelGrid columns="2" rendered="#{not empty historyService.selectedInvoice}">
+                <h:outputText value="Отправитель:"/>
+                <p:inputText id="senderInput1" value="#{historyService.selectedInvoice.sender}" style="width: 400px"/>
+                <h:outputText value="Получатель:"/>
+                <p:selectOneMenu value="#{historyService.selectedInvoice.receiverId}" style="width: 100%">
+                    <f:selectItems value="#{historyService.listReceiver}"
+                                   var="receiver"
+                                   itemValue="#{receiver}"
+                                   itemLabel="#{receiver.companyName}"/>
+                </p:selectOneMenu>
+                <h:outputText value="Дата:"/>
+                <p:calendar value="#{historyService.selectedInvoice.date}"
+                            readonlyInput="true"/>
             </p:panelGrid>
-        </p:dialog>                                                  
-        <p:panelGrid columns="2">
+            <br/>
+            <ui:include src="/pages/meatPartTable.xhtml">
+                <ui:param name="tableController" value="${historyService}"/>
+            </ui:include>
+           </p:dialog>                                               
+        <p:panelGrid columns="2" style="background-color: #D9D0CC;">
             <p:outputLabel value="Дата начала:" for="beginDate"/>
             <p:calendar id="beginDate" value="#{historyService.begin}" readonlyInput="true"/>
             <p:outputLabel value="Дата окончания:" for="endDate"/>
@@ -25,9 +34,13 @@
                              update="historyTable"
                              action="#{historyService.searchInvoice()}"
                              process=":tabs"/>
-            <p:dataTable id="historyTable" value="#{historyService.listInvoice}" var="invoice">
-                <p:column headerText="Id">
-                    <h:outputText value="#{invoice.id}"/>
+        <p:dataTable id="historyTable" 
+                     value="#{historyService.listInvoice}" 
+                     var="invoice" 
+                     rowIndexVar="rowIndex"
+                     style="background-color: #D9D0CC;">
+                <p:column headerText="#" style="width: 20px;">
+                    <h:outputText value="#{rowIndex+1}"/>
                 </p:column>
                 <p:column headerText="Отправитель">
                     <h:outputText value="#{invoice.sender}"/>
@@ -40,12 +53,14 @@
                         <f:convertDateTime pattern="dd.MM.yyyy"/>
                     </h:outputText>
                 </p:column>
-                <p:column>
+                <p:column style="width: 100px;">
                     <p:commandButton update=":historyForm:panelDlg"
                                      oncomplete="PF('invoiceDlg').show()"
                                      value="edit" 
                                      action="#{historyService.onEdit(invoice)}"
-                                     process="historyTable"/>
+                                     process="historyTable"
+                                     style="width: 70px;"
+                                     icon="ui-icon-pencil"/>
                 </p:column>
             </p:dataTable>
             <p:commandButton value="Обновить" update="historyTable">

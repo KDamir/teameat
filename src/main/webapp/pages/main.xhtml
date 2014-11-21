@@ -2,12 +2,11 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:f="http://xmlns.jcp.org/jsf/core"
                 template="/template/default.xhtml">
     <ui:define name="menu">
         <h:form id="menuForm">
             <p:growl id="growl" showDetail="true" life="7000"/>
-            <p:menu>
+            <p:menu style="background-color: white;">
                 <p:submenu label="Меню">
                     <p:menuitem value="Заполнение накладных на поставку" 
                                 style="#{appBean.getItemCss('zakup')}"

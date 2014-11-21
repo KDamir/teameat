@@ -1,18 +1,24 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:h="http://java.sun.com/jsf/html"
 	  xmlns:f="http://java.sun.com/jsf/core"
 	  xmlns:p="http://primefaces.org/ui"
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
 	  template="/template/default.xhtml">
-<ui:define name="content">
 <f:view>
-	<h:head></h:head>
+	<h:head>
+            <title>Расчет Teameat</title>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <h:outputStylesheet library="css" name="style.css"/>
+            <ui:insert name="head">
+
+            </ui:insert>
+        </h:head>
 	
 	<h:body>
 	<div id="container">
 		<div id="header">
-            <h1><ui:insert name="header" /></h1>
-        </div>
+                    <h1><ui:insert name="header" /></h1>
+                </div>
         <div id="content">
 		<h:form styleClass="loginform">
                     <p:messages/>
@@ -44,5 +50,4 @@
 	</div>
 	</h:body>
 </f:view>
-</ui:define>
-</ui:composition>
+</html>

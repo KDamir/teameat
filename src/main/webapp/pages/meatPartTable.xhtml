@@ -9,7 +9,8 @@
     <p:commandButton value="Сохранить" 
                      action="#{tableController.updateOrder}" 
                      update="@form"
-                     oncomplete="PF('invoiceDlg').hide()"/>
+                     oncomplete="PF('invoiceDlg').hide()"
+                     ajax="false"/>
     <p:dataTable id="table" value="#{tableController.meatParts}" var="meatPart" editable="true"
                  editMode="cell" rendered="#{tableController.meatParts ne null}">
         <p:column headerText="Категория" sortBy="#{meatPart.category.name}">

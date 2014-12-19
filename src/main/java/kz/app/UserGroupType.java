@@ -21,8 +21,4 @@ public enum UserGroupType {
          this.code = code;
     }
 
-
-
-
-
 }

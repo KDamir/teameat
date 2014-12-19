@@ -16,7 +16,7 @@ import kz.app.entity.MeatPartEntity;
  * @author Дамир
  */
 public class MeatPartConverter {
-    private static MeatPartDao dao = new MeatPartDao();
+    private static final MeatPartDao dao = new MeatPartDao();
     public static MeatPartEntity convertMeatPartToEntity(MeatPart meatPart, InvoiceEntity invoice, CalculationEntity calc) {
         if(meatPart == null) {
             return null;

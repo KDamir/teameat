@@ -2,7 +2,6 @@ package kz.app;
 
 import kz.app.dao.MeatPartPurchaseDao;
 import kz.app.entity.PurchaseEntity;
-import kz.app.entity.ReceiverEntity;
 import kz.app.entity.SupplierEntity;
 import kz.app.utils.MeatPartPurchaseConverter;
 
@@ -26,7 +25,7 @@ public class PurchaseController extends AbstractMeatPartController{
     // Внесенный платеж
     private double sumInput=0.0;
     // сдача
-    private double renting = 0.0;
+    private final double renting = 0.0;
     
     private static MeatPartPurchaseDao meatPartPurchaseDao;
     

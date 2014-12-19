@@ -21,13 +21,15 @@ public class InvoiceController extends AbstractMeatPartController{
 
     private InvoiceEntity invoice;
     private List<ReceiverEntity> listReceiver;
-    
-    // Внесенный платеж
-    private double sumInput=0.0;
-    // сдача
-    private double renting = 0.0;
+    private double sumInput;
+    private final double renting;
     
     private static MeatPartDao meatPartDao;
+
+    public InvoiceController() {
+        this.sumInput = 0.0;
+        this.renting = 0.0;
+    }
     
     public List<ReceiverEntity> getListReceiver() {
         return listReceiver;

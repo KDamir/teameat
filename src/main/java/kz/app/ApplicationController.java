@@ -65,17 +65,11 @@ public class ApplicationController{
     }
     
     public boolean isAdmin() {
-        if("admin".equals(group.getGroupname()))
-            return true;
-        else
-            return false;
+        return "admin".equals(group.getGroupname());
     }
     
     public boolean  isVendor() {
-        if("vendor".equals(group.getGroupname()))
-            return true;
-        else 
-            return false;
+        return "vendor".equals(group.getGroupname());
     }
     
     public String getItemCss(String item) {

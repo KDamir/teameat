@@ -27,12 +27,17 @@
                     <ui:include src="calculation.xhtml"/>
                 </p:tab>
                 <p:tab id="adminTab" title="Добавить элементы" rendered="#{appBean.group.groupname eq 'admin'}">
-                    <ui:include src="adminForm.xhtml"/>
+                    <ui:include src="adminForm1.xhtml"/>
                 </p:tab>
             </p:tabView>
             <p:commandLink value="Выйти"
                              action="#{userLoginView.logout()}"
                              ajax="false"/>
         </h:form>
+    </ui:define>
+    <ui:define name="other-dialogs">
+        <ui:include src="dialogs/addPostavshikDialog.xhtml"/>
+        <ui:include src="dialogs/addCategoryDialog.xhtml"/>
+        <ui:include src="dialogs/addTypeDialog.xhtml"/>
     </ui:define>
 </ui:composition>

@@ -9,6 +9,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import kz.app.dao.SupplierDao;
+import kz.app.utils.Constants;
 
 /**
  * Created by Vlad Zheltovskiy.
@@ -28,9 +32,13 @@ public class AdminFormController {
     private MeatCategoryEntity category;
     private MeatCategoryEntity selectedCategory;
     private MeatTypesEntity type;
+    
+    private SupplierDao supplierDao;
 
     @PostConstruct
     private void init() {
+        supplierDao = new SupplierDao();
+        
         categories   = ApplicationController.categories;
         categories.remove(0);
         selectedCategory = categories.get(0);
@@ -52,52 +60,62 @@ public class AdminFormController {
     public void resetType() {
 
     }
+    
+    public void addSupplier() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        supplierDao.saveSupplier(supplier);
+        context.addMessage(null, new FacesMessage(Constants.UPDATE_SUCCESSFUL));
+        /*для создания след. объекта*/
+        supplier = new SupplierEntity();
+    }
 
+    //<editor-fold defaultstate="collapsed" desc="getter/setter">
     public List<MeatTypesEntity> getTypes() {
         return types;
     }
-
+    
     public void setTypes(List<MeatTypesEntity> types) {
         this.types = types;
     }
-
+    
     public List<MeatCategoryEntity> getCategories() {
         return categories;
     }
-
+    
     public void setCategories(List<MeatCategoryEntity> categories) {
         this.categories = categories;
     }
-
+    
     public SupplierEntity getSupplier() {
         return supplier;
     }
-
+    
     public void setSupplier(SupplierEntity supplier) {
         this.supplier = supplier;
     }
-
+    
     public MeatCategoryEntity getCategory() {
         return category;
     }
-
+    
     public void setCategory(MeatCategoryEntity category) {
         this.category = category;
     }
-
+    
     public MeatCategoryEntity getSelectedCategory() {
         return selectedCategory;
     }
-
+    
     public void setSelectedCategory(MeatCategoryEntity selectedCategory) {
         this.selectedCategory = selectedCategory;
     }
-
+    
     public MeatTypesEntity getType() {
         return type;
     }
-
+    
     public void setType(MeatTypesEntity type) {
         this.type = type;
     }
+//</editor-fold>
 }

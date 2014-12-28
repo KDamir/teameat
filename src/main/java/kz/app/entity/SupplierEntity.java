@@ -105,7 +105,7 @@ public class SupplierEntity implements Serializable {
         SupplierEntity other = (SupplierEntity) object;
         if ((this.companyName == null && other.companyName != null) || (this.companyName != null && !this.companyName.equals(other.companyName))) {
             return false;
-        }
+    }
         return true;
     }
 

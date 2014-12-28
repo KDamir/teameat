@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:ui="http://java.sun.com/jsf/facelets">
+    <p:dialog id="addpostDlg" 
+              widgetVar="apd">
+        <h:form id="apdform">
+            <p:panelGrid id="addSupplier" columns="4">
+            <p:outputLabel value="Наименование:" for="companyName" style="text-align: center"/>
+            <p:outputLabel value="Адрес:" for="address" style="text-align: center"/>
+            <p:outputLabel value="Телефон:" for="phoneNumber" style="text-align: center"/>
+            <p:outputLabel value="Примечание:" for="note" style="text-align: center"/>
+            <p:inputText id="companyName"
+                         value="#{adminFormController.supplier.companyName}"
+                         immediate="true"/>
+            <p:inputText id="address"
+                         value="#{adminFormController.supplier.address}">
+            </p:inputText>
+            <p:inputText id="phoneNumber"
+                         value="#{adminFormController.supplier.phoneNumber}"/>
+            <p:inputText id="note" value="#{adminFormController.supplier.note}"/>
+            <p:message for="companyName" display="icon"/>
+            <p:message for="address" display="icon"/>
+            <p:message for="phoneNumber" display="icon"/>
+            <p:commandButton value="Добавить" 
+                             actionListener="#{adminFormController.addSupplier}" 
+                             update="addSupplier"
+                             oncomplete="PF('apd').hide()"
+                             process="@this"/>
+        </p:panelGrid>
+        </h:form>
+    </p:dialog>
+</ui:composition>

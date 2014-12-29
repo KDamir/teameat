@@ -5,6 +5,7 @@
     <p:dialog id="addpostDlg" 
               widgetVar="apd">
         <h:form id="apdform">
+            <p:growl id="growlPost" showDetail="true" life="7000"/>
             <p:panelGrid id="addSupplier" columns="4">
             <p:outputLabel value="Наименование:" for="companyName" style="text-align: center"/>
             <p:outputLabel value="Адрес:" for="address" style="text-align: center"/>
@@ -24,9 +25,8 @@
             <p:message for="phoneNumber" display="icon"/>
             <p:commandButton value="Добавить" 
                              actionListener="#{adminFormController.addSupplier}" 
-                             update="addSupplier"
-                             oncomplete="PF('apd').hide()"
-                             process="@this"/>
+                             update="addSupplier,growlPost"
+                             oncomplete="PF('apd').hide()"/>
         </p:panelGrid>
         </h:form>
     </p:dialog>

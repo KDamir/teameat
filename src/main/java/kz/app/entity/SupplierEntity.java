@@ -35,7 +35,6 @@ public class SupplierEntity implements Serializable {
     @OneToMany(mappedBy = "supplierId")
     private Collection<PurchaseEntity> purchaseEntityCollection;
     private static final long serialVersionUID = 1L;
-    @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -55,6 +54,7 @@ public class SupplierEntity implements Serializable {
     @Size(max = 1000)
     @Column(name = "note")
     private String note;
+    @Id
     @Basic(optional = false)
     @Column(name = "id")
     private int id;

@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import kz.app.dao.MeatCategoryDao;
+import kz.app.dao.MeatTypeDao;
 import kz.app.dao.SupplierDao;
 import kz.app.utils.Constants;
 
@@ -36,11 +37,13 @@ public class AdminFormController {
     
     private SupplierDao supplierDao;
     private MeatCategoryDao categoryDao;
+    private MeatTypeDao typeDao;
 
     @PostConstruct
     private void init() {
         supplierDao = new SupplierDao();
         categoryDao = new MeatCategoryDao();
+        typeDao     = new MeatTypeDao();
         
         categories   = ApplicationController.categories;
         categories.remove(0);
@@ -78,6 +81,15 @@ public class AdminFormController {
         context.addMessage(null, new FacesMessage(Constants.UPDATE_SUCCESSFUL));
         /*для создания след. объекта*/
         category = new MeatCategoryEntity();
+    }
+    
+    public void addType() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        type.setCategoryId(selectedCategory);
+        typeDao.saveType(type);
+        context.addMessage(null, new FacesMessage(Constants.UPDATE_SUCCESSFUL));
+        /*для создания след. объекта*/
+        type = new MeatTypesEntity();
     }
 
     //<editor-fold defaultstate="collapsed" desc="getter/setter">

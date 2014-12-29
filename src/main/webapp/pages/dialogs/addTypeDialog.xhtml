@@ -6,7 +6,16 @@
     <p:dialog id="addtypeDlg" 
               widgetVar="atd">
         <h:form id="atdform">
-            
+            <p:growl id="growlType" showDetail="true" life="7000"/>
+            <p:panelGrid id="newType" columns="1">
+                <p:outputLabel value="Наименование:" for="typeName"/>
+                <p:inputText id="typeName" value="#{adminFormController.type.name}" immediate="true"/>
+                <p:message for="typeName" display="icon"/>
+                <p:commandButton value="Добавить" 
+                                 actionListener="#{adminFormController.addType}" 
+                                 update="newType,growlType"
+                                 oncomplete="PF('atd').hide()"/>
+            </p:panelGrid>
         </h:form>
     </p:dialog>
 </ui:composition>

@@ -46,7 +46,6 @@ public class AdminFormController {
         typeDao     = new MeatTypeDao();
         
         categories   = ApplicationController.categories;
-        categories.remove(0);
         selectedCategory = categories.get(0);
         types        = ApplicationController.types;
 

@@ -98,7 +98,7 @@ public class InvoiceController extends AbstractMeatPartController{
     public Double getRenting() {
         return ( sumInput - meatParts.stream().mapToDouble(MeatPart::getRevenue).sum() );
     }
-    
-    
+
+        
     
 }

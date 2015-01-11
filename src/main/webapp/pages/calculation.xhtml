@@ -60,7 +60,11 @@
                         <f:facet name="output"><h:outputText value="#{meatPart.category.name}"/></f:facet>
                         <f:facet name="input">
                             <p:selectOneMenu value="#{meatPart.category}" style="width:100%">
-                                <f:selectItems value="#{calculationController.categories}" var="category" itemLabel="#{category.name}" itemValue="#{category}"/>
+                                <f:selectItem itemValue="" itemLabel=""/>
+                                <f:selectItems value="#{calculationController.categories}" 
+                                               var="category" 
+                                               itemLabel="#{category.name}" 
+                                               itemValue="#{category}"/>
                                 <p:ajax event="change" update="mainTable" listener="#{calculationController.resetType(meatPart)}"/>
                             </p:selectOneMenu>
                         </f:facet>

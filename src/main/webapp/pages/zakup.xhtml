@@ -34,6 +34,7 @@
                         <f:facet name="output"><h:outputText value="#{meatPart.category.name}"/></f:facet>
                         <f:facet name="input">
                             <p:selectOneMenu value="#{meatPart.category}" style="width:100%">
+                                <f:selectItem itemValue="" itemLabel=""/>
                                 <f:selectItems value="#{purchaseController.categories}" var="category"
                                                itemLabel="#{category.name}" itemValue="#{category}"/>
                                 <p:ajax event="change" update="tableZak"

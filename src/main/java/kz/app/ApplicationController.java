@@ -53,12 +53,6 @@ public class ApplicationController{
         categories = dao.getCategoriesList();
         receivers = dao.getReceiversList();
         suppliers = daop.getSuppliersList();
-        
-        /*Пустая ячейка*/
-        MeatCategoryEntity blankCategory = new MeatCategoryEntity();
-        blankCategory.setName("");
-        // TODO: Нахрена? Где-то она нужна, где-то - нет. Не легче добавлять где надо, а не добавлять всем, а потом удалять?
-        categories.add(0, blankCategory);
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getter/Setter">

@@ -1,5 +1,7 @@
 package kz.app;
 
+import java.math.BigInteger;
+
 import kz.app.entity.MeatCategoryEntity;
 import kz.app.entity.MeatTypesEntity;
 
@@ -7,11 +9,21 @@ public class MeatPart {
     private Integer id;
     private MeatTypesEntity type;
     private MeatCategoryEntity category;
+    
     // Вес
 	private Double weight = 0.0;
     // Продажная цена
 	private Double price = 0.0;
 
+	public BigInteger getBarcode() {
+		return barcode;
+	}
+
+	public void setBarcode(BigInteger barcode) {
+		this.barcode = barcode;
+	}
+
+	private BigInteger barcode;
     //<editor-fold defaultstate="collapsed" desc="Getter/Setter">
     public MeatTypesEntity getType() {
         return type;

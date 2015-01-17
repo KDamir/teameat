@@ -14,7 +14,7 @@
             	<p:tab id="zakupTab" title="Заполнение накладных на поставку" rendered="#{appBean.group.groupname eq 'admin'}">
                     <ui:include src="zakup.xhtml"/>
                 </p:tab>
-                <p:tab id="invoiceTab" title="Заполнение накладных на продажу" rendered="#{appBean.group.groupname eq 'vendor'}">
+                <p:tab id="invoiceTab" title="Заполнение накладных на продажу" >
                     <ui:include src="invoice.xhtml"/>
                 </p:tab>   
                 <p:tab id="historyTab" title="Просмотр накладных на продажу" >

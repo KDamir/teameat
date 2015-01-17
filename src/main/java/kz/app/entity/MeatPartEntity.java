@@ -6,6 +6,8 @@
 package kz.app.entity;
 
 import java.io.Serializable;
+import java.math.BigInteger;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,7 +34,15 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "MeatPart.findByWeight", query = "SELECT m FROM MeatPartEntity m WHERE m.weight = :weight"),
     @NamedQuery(name = "MeatPart.findByPrice", query = "SELECT m FROM MeatPartEntity m WHERE m.price = :price")})
 public class MeatPartEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
+    public BigInteger getBarcode() {
+		return barcode;
+	}
+
+	public void setBarcode(BigInteger barcode) {
+		this.barcode = barcode;
+	}
+
+	private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -55,6 +65,8 @@ public class MeatPartEntity implements Serializable {
     @JoinColumn(name = "calculation_id", referencedColumnName = "id")
     @ManyToOne(optional = true)
     private CalculationEntity calculationId;
+    @Column(name = "barcode")
+    private BigInteger barcode;
 
     public MeatPartEntity() {
     }

@@ -6,6 +6,8 @@
 package kz.app.entity;
 
 import java.io.Serializable;
+import java.math.BigInteger;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,6 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "MeatTypes.findAll", query = "SELECT m FROM MeatTypesEntity m"),
     @NamedQuery(name = "MeatTypes.findById", query = "SELECT m FROM MeatTypesEntity m WHERE m.id = :id"),
+    @NamedQuery(name = "MeatTypes.findByBarcode", query = "SELECT m FROM MeatTypesEntity m WHERE m.barcode = :barcode"),
     @NamedQuery(name = "MeatTypes.findByName", query = "SELECT m FROM MeatTypesEntity m WHERE m.name = :name")})
 public class MeatTypesEntity implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -44,13 +47,33 @@ public class MeatTypesEntity implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "name")
     private String name;
+    @Column(name = "barcode")
+    private BigInteger barcode;
+    @Column(name = "price_std")
+    private Double price_std;
 //    @OneToMany(mappedBy = "typeId")
 //    private Collection<MeatPart> meatPartCollection;
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     @ManyToOne
     private MeatCategoryEntity categoryId;
 
-    public MeatTypesEntity() {
+    public BigInteger getBarcode() {
+		return barcode;
+	}
+
+	public void setBarcode(BigInteger barcode) {
+		this.barcode = barcode;
+	}
+
+	public Double getPrice_std() {
+		return price_std;
+	}
+
+	public void setPrice_std(Double price_std) {
+		this.price_std = price_std;
+	}
+
+	public MeatTypesEntity() {
     }
 
     public MeatTypesEntity(Integer id) {

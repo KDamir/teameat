@@ -51,7 +51,7 @@ public class InvoiceController extends AbstractMeatPartController{
         invoice = new InvoiceEntity();
         invoice.setDate(new Date());
         meatParts = new ArrayList<>();
-        for(int i = 0; i < 3; i++) {
+        for(int i = 0; i < 5; i++) {
             meatParts.add(new MeatPart());
         }        
         categories   = ApplicationController.categories;
@@ -69,7 +69,7 @@ public class InvoiceController extends AbstractMeatPartController{
         });
         invoice = new InvoiceEntity();
         meatParts = new ArrayList<>();
-        for(int i = 0; i < 3; i++) {
+        for(int i = 0; i < 5; i++) {
             meatParts.add(new MeatPart());
         }
         FacesMessage msg = null;

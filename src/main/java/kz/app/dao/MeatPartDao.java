@@ -3,12 +3,15 @@ package kz.app.dao;
 import kz.app.entity.MeatCategoryEntity;
 import kz.app.entity.MeatTypesEntity;
 
+import java.math.BigInteger;
 import java.util.List;
+
 import kz.app.entity.CalculationEntity;
 import kz.app.entity.InvoiceEntity;
 import kz.app.entity.MeatPartEntity;
 import kz.app.entity.ReceiverEntity;
 import kz.app.utils.HibernateUtil;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -165,6 +168,48 @@ public class MeatPartDao {
             if(list.isEmpty())
                 return null;
             return list.get(0);
+        } catch (RuntimeException e) {
+            sess.getTransaction().rollback();
+            throw e;
+        } finally {
+            if(sess.isOpen())
+                sess.close();
+        }
+    }
+    
+    public MeatTypesEntity getMeatTypeByBarcode(BigInteger barcode) {
+        Session sess = HibernateUtil.getSessionfactory().getCurrentSession();
+        try {
+            sess.beginTransaction();
+            Query query = HibernateUtil.getSessionfactory().getCurrentSession().createQuery("from MeatTypesEntity where barcode = :barcode");
+            List<MeatTypesEntity> list = query.setParameter("barcode", barcode).list();
+            sess.getTransaction().commit();
+            if(list.isEmpty())
+                return null;
+            return list.get(0);
+        } catch (RuntimeException e) {
+            sess.getTransaction().rollback();
+            throw e;
+        } finally {
+            if(sess.isOpen())
+                sess.close();
+        }
+    }
+    
+    public MeatCategoryEntity getMeatCategoryByBarcode(BigInteger barcode) {
+        Session sess = HibernateUtil.getSessionfactory().getCurrentSession();
+        try {
+            sess.beginTransaction();
+            Query query = HibernateUtil.getSessionfactory().getCurrentSession().createQuery("from MeatTypesEntity where barcode = :barcode");
+            List<MeatTypesEntity> list = query.setParameter("barcode", barcode).list();
+            sess.getTransaction().commit();
+            if(list.isEmpty())
+                return null;
+            
+            
+            return getMeatCategoryById(list.get(0).getCategoryId().toString());
+            
+            
         } catch (RuntimeException e) {
             sess.getTransaction().rollback();
             throw e;

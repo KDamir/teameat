@@ -10,7 +10,7 @@ public class Invoice {
     }
     private String sender;
     private int receiver;
-    private Date date = java.util.Calendar.getInstance().getTime();;
+    private Date date;
 
     public String getSender() {
         return sender;

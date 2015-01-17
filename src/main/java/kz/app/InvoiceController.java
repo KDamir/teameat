@@ -68,6 +68,7 @@ public class InvoiceController extends AbstractMeatPartController{
                 meatPartDao.saveMeatPart(MeatPartConverter.convertMeatPartToEntity(e, invoice, null));
         });
         invoice = new InvoiceEntity();
+        invoice.setDate(new Date());
         meatParts = new ArrayList<>();
         for(int i = 0; i < 5; i++) {
             meatParts.add(new MeatPart());

@@ -15,9 +15,6 @@
                                itemValue="#{receiver}" 
                                itemLabel="#{receiver.companyName}"/>
             </p:selectOneMenu>
-            <h:outputText value="Дата:"/>
-            <p:calendar value="#{invoiceController.invoice.date}" 
-                        readonlyInput="true"/>
         </p:panelGrid>
         <br/>
         <ui:include src="/pages/meatPartTable.xhtml">

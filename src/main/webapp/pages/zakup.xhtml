@@ -1,9 +1,9 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
              xmlns:h="http://xmlns.jcp.org/jsf/html"
              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
              xmlns:p="http://primefaces.org/ui"
-             xmlns:f="http://xmlns.jcp.org/jsf/core"
-        id="invoiceFragment">
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:form>
         <p:panelGrid columns="2">
             <h:outputText value="Поставщик:"/>
             <p:selectOneMenu value="#{purchaseController.purchase.supplierId}" >
@@ -22,10 +22,10 @@
         <br/>
         <p:commandButton value="Добавить" action="#{purchaseController.addNewMeatPart}" update="tableZak"/>
             <p:commandButton value="Удалить" action="#{purchaseController.deleteLastMeatPart}"
-                             update="tableHis"/>
+                             />
             <p:commandButton value="Сохранить" 
                              action="#{purchaseController.updateOrder}" 
-                             update=":appForm"
+                             update="@form"
                              oncomplete="PF('invoiceDlg').hide()"/>
             <p:dataTable id="tableZak" value="#{purchaseController.meatParts}" var="meatPart" editable="true"
                          editMode="cell" rendered="#{purchaseController.meatParts ne null}">
@@ -110,5 +110,5 @@
                 <h:outputText value="Сдача:"/>
                 <h:outputText id = "rentingZak" value="#{purchaseController.renting}"/>
             </p:panelGrid>
-        
-</ui:fragment>
+    </h:form>
+</ui:composition>

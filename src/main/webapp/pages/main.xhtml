@@ -14,14 +14,23 @@
         <h:form id="menuForm">
             <p:panelMenu id="pan" style="width: 200px">
                 <p:submenu label="Меню">
+                    <p:menuitem value="Заполнение накладных на поставку"
+                                actionListener="#{sessionPref.setPageToDisplay('zakup')}"
+                                rendered="#{appBean.admin}"
+                                update=":tabs :menuForm:pan"/>
                     <p:menuitem value="Заполнение накладных на продажу"
                                 actionListener="#{sessionPref.setPageToDisplay('invoice')}"
                                 update=":tabs :menuForm:pan"/>
                     <p:menuitem value="Просмотр накладных на продажу"
                                 actionListener="#{sessionPref.setPageToDisplay('invoiceHistory')}"
                                 update=":tabs :menuForm:pan"/>
+                    <p:menuitem value="Рассчитать остатки"
+                                actionListener="#{sessionPref.setPageToDisplay('calculation')}"
+                                rendered="#{appBean.admin}"
+                                update=":tabs :menuForm:pan"/>
                     <p:menuitem value="Добавить элементы"
                                 actionListener="#{sessionPref.setPageToDisplay('adminForm')}"
+                                rendered="#{appBean.admin}"
                                 update=":tabs :menuForm:pan"/>
                 </p:submenu>
             </p:panelMenu>

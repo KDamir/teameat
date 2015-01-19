@@ -30,6 +30,9 @@
                     <ui:include src="adminForm.xhtml"/>
                 </p:tab>
             </p:tabView>
+            <p:outputLabel value="Версия:"/>
+            <p:outputLabel value="#{appBean.buildNumber}"/>
+            <br/>
             <p:commandLink value="Выйти"
                              action="#{userLoginView.logout()}"
                              ajax="false"/>

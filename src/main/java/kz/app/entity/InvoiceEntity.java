@@ -1,5 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
+* To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -43,18 +43,17 @@ import javax.xml.bind.annotation.XmlTransient;
 public class InvoiceEntity implements Serializable {
     @Basic(optional = false)
     @NotNull
+    @Column(name = "totalReward")
+    private double totalReward;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "totalAmount")
     private double totalAmount;
     @Basic(optional = false)
     @NotNull
     @Column(name = "paidAmount")
     private double paidAmount;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "totalReward")
-    private double totalReward;
-    
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -102,15 +101,6 @@ public class InvoiceEntity implements Serializable {
         this.date = date;
     }
 
-    public double getTotalReward() {
-		return totalReward;
-	}
-
-	public void setTotalReward(double totalReward) {
-		this.totalReward = totalReward;
-	}
-
-    
 //    @XmlTransient
 //    public Collection<MeatPart> getMeatPartCollection() {
 //        return meatPartCollection;
@@ -167,6 +157,14 @@ public class InvoiceEntity implements Serializable {
 
     public void setPaidAmount(double paidAmount) {
         this.paidAmount = paidAmount;
+    }
+
+    public double getTotalReward() {
+        return totalReward;
+    }
+
+    public void setTotalReward(double totalReward) {
+        this.totalReward = totalReward;
     }
     
 }

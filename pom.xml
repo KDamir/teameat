@@ -150,20 +150,12 @@
                 </configuration>
             </plugin>
         </plugins>
-        <filters>
-            <filter>${basedir}/src/main/filters/${filter.name}</filter>
-        </filters>
         <finalName>teameat</finalName>
+        <resources>
+            <resource>
+              <directory>src/main/resources</directory>
+              <filtering>true</filtering>
+            </resource>
+      </resources>  
     </build>
-    <profiles>
-        <profile>
-            <id>prod</id>
-            <properties>
-                <filter.name>production.properties</filter.name>
-            </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-    </profiles>
 </project>

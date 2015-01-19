@@ -34,6 +34,9 @@
                                 update=":tabs :menuForm:pan"/>
                 </p:submenu>
             </p:panelMenu>
+            <p:outputLabel value="Версия:"/>
+            <p:outputLabel value="#{appBean.buildNumber}"/>
+            <br/>
             <p:commandLink value="Выйти"
                              action="#{userLoginView.logout()}"
                              ajax="false"/>

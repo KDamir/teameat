@@ -13,6 +13,7 @@ import kz.app.entity.MeatTypesEntity;
 import kz.app.entity.ReceiverEntity;
 import kz.app.entity.SupplierEntity;
 import kz.app.entity.UserGroupsEntity;
+import kz.app.utils.PropUtil;
 
 /**
  * Created by Vlad Zheltovskiy.
@@ -45,7 +46,7 @@ public class ApplicationController{
 		ApplicationController.suppliers = suppliers;
 	}
 
-	@PostConstruct
+    @PostConstruct
     public void init() {
         dao = new MeatPartDao();
         daop = new MeatPartPurchaseDao();
@@ -62,6 +63,10 @@ public class ApplicationController{
         return "vendor".equals(group.getGroupname());
     }
 
+    public String getBuildNumber() {
+        return PropUtil.getProps().getProperty("buildNumber");
+    }
+    
     //<editor-fold defaultstate="collapsed" desc="Getter/Setter">
     public UserGroupsEntity getGroup() {
         return group;

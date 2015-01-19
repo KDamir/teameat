@@ -43,6 +43,10 @@ import javax.xml.bind.annotation.XmlTransient;
 public class InvoiceEntity implements Serializable {
     @Basic(optional = false)
     @NotNull
+    @Column(name = "totalReward")
+    private double totalReward;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "totalAmount")
     private double totalAmount;
     @Basic(optional = false)
@@ -153,6 +157,14 @@ public class InvoiceEntity implements Serializable {
 
     public void setPaidAmount(double paidAmount) {
         this.paidAmount = paidAmount;
+    }
+
+    public double getTotalReward() {
+        return totalReward;
+    }
+
+    public void setTotalReward(double totalReward) {
+        this.totalReward = totalReward;
     }
     
 }

@@ -61,6 +61,9 @@ public class InvoiceController extends AbstractMeatPartController{
     
     @Override
     public void updateOrder() {
+    	
+    	invoice.setTotalReward(meatParts.stream().mapToDouble(MeatPart::getItemReward).sum());
+    	invoice.setTotalAmount(meatParts.stream().mapToDouble(MeatPart::getRevenue).sum());
         meatPartDao.saveInvoice(invoice);
         // TODO: Должна быть валидация на заполнение нужных полей
         meatParts.forEach(e -> {

@@ -11,8 +11,9 @@ public class Invoice {
     private String sender;
     private int receiver;
     private Date date;
+   
 
-    public String getSender() {
+	public String getSender() {
         return sender;
     }
 

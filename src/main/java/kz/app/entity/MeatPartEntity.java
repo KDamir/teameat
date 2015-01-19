@@ -67,6 +67,7 @@ public class MeatPartEntity implements Serializable {
     private CalculationEntity calculationId;
     @Column(name = "barcode")
     private BigInteger barcode;
+    
 
     public MeatPartEntity() {
     }

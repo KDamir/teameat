@@ -49,7 +49,12 @@ public class InvoiceEntity implements Serializable {
     @NotNull
     @Column(name = "paidAmount")
     private double paidAmount;
-    private static final long serialVersionUID = 1L;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "totalReward")
+    private double totalReward;
+    
+	private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -97,6 +102,15 @@ public class InvoiceEntity implements Serializable {
         this.date = date;
     }
 
+    public double getTotalReward() {
+		return totalReward;
+	}
+
+	public void setTotalReward(double totalReward) {
+		this.totalReward = totalReward;
+	}
+
+    
 //    @XmlTransient
 //    public Collection<MeatPart> getMeatPartCollection() {
 //        return meatPartCollection;

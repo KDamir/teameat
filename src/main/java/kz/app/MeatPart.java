@@ -24,6 +24,9 @@ public class MeatPart {
 	}
 
 	private BigInteger barcode;
+	
+	
+	
     //<editor-fold defaultstate="collapsed" desc="Getter/Setter">
     public MeatTypesEntity getType() {
         return type;
@@ -45,6 +48,10 @@ public class MeatPart {
         return weight * price;
     }
 
+    public Double getItemReward(){
+    	return weight * type.getReward();
+    }
+    
     // TODO: Возможно, имеет смысл отрефакторить: хранить в митпарте ссылку на его митсервис. Или хранить общий вес туши в каждом митпарте.
     public Double calculateWeightPercent(Double carcassWeight) {
         return carcassWeight==0 ? weight : weight/carcassWeight*100;

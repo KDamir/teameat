@@ -51,7 +51,11 @@ public class MeatTypesEntity implements Serializable {
     private BigInteger barcode;
     @Column(name = "price_std")
     private Double price_std;
-//    @OneToMany(mappedBy = "typeId")
+    @Column(name = "reward")
+    private Double reward;
+
+
+	//    @OneToMany(mappedBy = "typeId")
 //    private Collection<MeatPart> meatPartCollection;
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     @ManyToOne
@@ -101,6 +105,14 @@ public class MeatTypesEntity implements Serializable {
         this.name = name;
     }
 
+    public Double getReward() {
+		return reward;
+	}
+
+	public void setReward(Double reward) {
+		this.reward = reward;
+	}
+    
 //    @XmlTransient
 //    public Collection<MeatPart> getMeatPartCollection() {
 //        return meatPartCollection;

@@ -1,5 +1,5 @@
 body {
-	background-color: appworkspace;
+	/* background-color: appworkspace; */
 }
 #mylab {
 	color: Black;
@@ -114,4 +114,7 @@ body {
 }
 #northLayout {
     visibility: hidden!important;
+}
+.ui-layout-unit .ui-layout-unit-content {
+    overflow: hidden!important;
 }

@@ -49,6 +49,8 @@ public class MeatPart {
     }
 
     public Double getItemReward(){
+    	if (type == null)
+    		return 0.0;
     	return weight * type.getReward();
     }
     

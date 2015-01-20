@@ -3,6 +3,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
+    <h:form id="historyForm">
        <p:dialog widgetVar="invoiceDlg" id="panelDlg" styleClass="invoiceClass">
             <p:panelGrid columns="2" rendered="#{not empty historyService.selectedInvoice}">
                 <h:outputText value="Отправитель:"/>
@@ -24,7 +25,7 @@
                              update="tableHis"/>
             <p:commandButton value="Сохранить" 
                              action="#{historyService.updateOrder}" 
-                             update=":appForm"
+                             update=":historyForm"
                              oncomplete="PF('invoiceDlg').hide()"/>
             <p:dataTable id="tableHis" value="#{historyService.meatParts}" var="meatPart" editable="true"
                          editMode="cell" rendered="#{historyService.meatParts ne null}">
@@ -119,7 +120,7 @@
         <p:commandButton value="Найти"
                              update="historyTable"
                              action="#{historyService.searchInvoice()}"
-                             process="historyTab"/>
+                             process="@form"/>
             <p:dataTable id="historyTable" value="#{historyService.listInvoice}" var="invoice">
                 <p:column headerText="Id">
                     <h:outputText value="#{invoice.id}"/>
@@ -136,7 +137,7 @@
                     </h:outputText>
                 </p:column>
                 <p:column>
-                    <p:commandButton update=":appForm:tabs:panelDlg"
+                    <p:commandButton update=":historyForm:panelDlg"
                                      oncomplete="PF('invoiceDlg').show()"
                                      value="edit" 
                                      action="#{historyService.onEdit(invoice)}"
@@ -145,4 +146,5 @@
             </p:dataTable>
             <p:commandButton value="Обновить" update="historyTable">
             </p:commandButton>
+    </h:form>
 </ui:composition>

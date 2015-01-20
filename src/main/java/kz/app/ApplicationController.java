@@ -55,6 +55,13 @@ public class ApplicationController{
         receivers = dao.getReceiversList();
         suppliers = daop.getSuppliersList();
     }
+    public boolean isAdmin() {
+        return "admin".equals(group.getGroupname());
+    }
+    
+    public boolean  isVendor() {
+        return "vendor".equals(group.getGroupname());
+    }
 
     public String getBuildNumber() {
         return PropUtil.getProps().getProperty("buildNumber");

@@ -64,13 +64,15 @@ public class InvoiceController extends AbstractMeatPartController{
     public void updateOrder() {
     	
     	// подсчет вознаграждения одного инвойса
+  /*
     	totalRwd = 0.0;
     	meatParts.forEach(e -> {
             if (e.getCategory() != null && e.getType() != null)
                 totalRwd = totalRwd + e.getItemReward();
         });
     	invoice.setTotalReward(totalRwd);
-    	
+    	*/
+    	invoice.setTotalReward(meatParts.stream().mapToDouble(MeatPart::getItemReward).sum());
     	invoice.setTotalAmount(meatParts.stream().mapToDouble(MeatPart::getRevenue).sum());
         invoice.setDate(new Date());
         meatPartDao.saveInvoice(invoice);

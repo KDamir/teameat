@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 body {
 	background-color: #D9D0CC;
 }
@@ -221,5 +222,127 @@ body {
 }
 #northLayout {
     visibility: hidden!important;
+}
+>>>>>>> branch 'master' of https://github.com/KDamir/teameat.git
+=======
+body {
+	/* background-color: appworkspace; */
+}
+#mylab {
+	color: Black;
+	font-family: Arial TUR;
+	border-color: Olive;
+	border-style: outset;
+}
+
+#mytext {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+#mytab {
+	margin-top: 50px;
+}
+#mybtn {
+	margin-right: 150px;
+}
+.loginform {
+    padding-left: 20px;
+    padding-top: 40px;
+}
+
+#container {
+        width: 100%;
+        height: 90%;
+        /* margin: 50px auto; */
+        box-shadow: 2px 2px 10px #888;
+        font-family: Verdana;
+        font-size: 12px;
+        font-weight: normal; 
+        font-style : normal;
+        border-radius: 7px 7px 7px 7px;
+	
+        color: Silver;
+	background-color: #D7DAD3
+}
+
+#header {
+        height: 60px;
+        text-align: center;
+		background-size: 58px;
+        color: white;
+        padding: 5px;
+        text-shadow: 0px 0px 2px white;
+        border-radius: 7px 7px 0 0;
+		background-color: #B3ABF3;
+}
+
+#line {
+        width: 100%;
+        height: 10px;
+        background: #ea5e0d;    
+}
+
+.ui-messages {
+	margin-right: 300px;
+}
+.ui-button {
+	height: 30px;
+	width: 100px;
+}
+.ui-button-text {
+	font-size: 13px;
+	color: black;
+}
+#info {
+	text-align: left;
+	margin-bottom: 50px;
+}
+.infoName {
+	background: #ffffff;
+	box-shadow: inset 0 1px 1px #8f8f8f;
+	color: #313131;
+	padding: 4px;
+	font-style: italic;
+	font-weight: bold;
+	width: 300px;
+	margin-left: 20px;
+}
+.cellDouble {
+	width: 150px;
+}
+#proc_ves {
+	font-weight: bold;
+}
+
+.unchangeable {
+    background-color: #FCA9A9!important;
+}
+.invoiceClass {
+    width: 600px!important;
+    left: 0px!important;
+    top: 0%!important;
+    height: auto!important;
+    background-color: lightgrey;
+}
+
+.ui-growl {
+    position: fixed!important;
+    top: 40%!important;
+    left: 5%!important;
+}
+.ui-panelgrid .ui-panelgrid-cell {
+    background-color: #D7DAD3;
+}
+#tabs {
+    background-color: #ffffff;
+}
+.headerClass {
+    background-color: cadetblue;
+}
+#northLayout {
+    visibility: hidden!important;
+}
+.ui-layout-unit .ui-layout-unit-content {
+    overflow: hidden!important;
 }
 >>>>>>> branch 'master' of https://github.com/KDamir/teameat.git

@@ -10,31 +10,29 @@
 	
 	<h:body>
 	<div id="container">
-        <div id="content">
-		<h:form styleClass="loginform">
-                    <p:messages/>
-                    <h:panelGrid columns="2" cellpadding="5" style="outline: 1px solid #8f8f8f">
-                        <p:outputLabel for="username" value="Логин:" />
-                        <p:inputText id="username" 
-                                     value="#{userLoginView.username}" 
-                                     required="true" 
-                                     label="username"
-                                     requiredMessage="Введите логин"/>
-                        <p:outputLabel for="password" value="Пароль:" />
-                        <p:password id="password" 
-                                    value="#{userLoginView.password}" 
-                                    required="true" 
-                                    label="password" 
-                                    requiredMessage="Введите пароль"/>
-                        <f:facet name="footer">
-                            <p:commandButton value="Вход" 
-                                             action="#{userLoginView.login}" 
-                                             ajax="false" 
-                                             update="@form"/>
-                        </f:facet>
-                    </h:panelGrid>
-		</h:form>
-        </div>
+            <h:form styleClass="loginform">
+                <p:messages/>
+                <h:panelGrid columns="2" cellpadding="5" style="outline: 1px solid #8f8f8f">
+                    <p:outputLabel for="username" value="Логин:" />
+                    <p:inputText id="username" 
+                                 value="#{userLoginView.username}" 
+                                 required="true" 
+                                 label="username"
+                                 requiredMessage="Введите логин"/>
+                    <p:outputLabel for="password" value="Пароль:" />
+                    <p:password id="password" 
+                                value="#{userLoginView.password}" 
+                                required="true" 
+                                label="password" 
+                                requiredMessage="Введите пароль"/>
+                    <f:facet name="footer">
+                        <p:commandButton value="Вход" 
+                                         action="#{userLoginView.login}" 
+                                         ajax="false" 
+                                         update="@form"/>
+                    </f:facet>
+                </h:panelGrid>
+            </h:form>
         <div id="footer">
             <ui:insert name="footer" />
         </div>

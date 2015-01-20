@@ -11,7 +11,7 @@ public class MeatPart {
     private MeatCategoryEntity category;
     
     // Вес
-	private Double weight = 0.0;
+	private Double weight = 1.0;
     // Продажная цена
 	private Double price = 0.0;
 

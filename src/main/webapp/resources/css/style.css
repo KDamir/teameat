@@ -116,5 +116,5 @@ body {
     visibility: hidden!important;
 }
 .ui-layout-unit .ui-layout-unit-content {
-    overflow: hidden!important;
+    /*overflow: hidden!important;*/
 }

@@ -8,8 +8,6 @@
             <h:outputText value="Отправитель:"/>
             <p:inputText id="senderInput" value="#{invoiceController.invoice.sender}"/>
             <h:outputText value="Получатель:"/>
-            <p:inputText value="#{invoiceController.invoice.receiverId}"/>
-<!--  
            <p:selectOneMenu value="#{invoiceController.invoice.receiverId}" >
                 <f:selectItem itemValue="" itemLabel=""/>
                 <f:selectItems value="#{invoiceController.listReceiver}" 
@@ -17,7 +15,6 @@
                                itemValue="#{receiver}" 
                                itemLabel="#{receiver.companyName}"/>
             </p:selectOneMenu>
-            -->
         </p:panelGrid>
         <br/>
         <ui:include src="/pages/meatPartTable.xhtml">

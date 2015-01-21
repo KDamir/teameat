@@ -10,6 +10,7 @@
                 <p:inputText id="senderInput1" value="#{historyService.selectedInvoice.sender}" style="width: 400px"/>
                 <h:outputText value="Получатель:"/>
                 <p:selectOneMenu value="#{historyService.selectedInvoice.receiverId}" style="width: 100%">
+                    <f:selectItem itemValue="" itemLabel=""/>
                     <f:selectItems value="#{historyService.listReceiver}"
                                    var="receiver"
                                    itemValue="#{receiver}"

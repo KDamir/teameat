@@ -1,7 +1,13 @@
 /target/
+
 .settings
+
 .idea
+
 .project
+
 .classpath
+
 nbactions.xml
+
 nb-configuration.xml

@@ -1,5 +1,7 @@
 package kz.app.beans;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -17,7 +19,8 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @SessionScoped
 public class UserLoginView{
-	
+    private static final Logger logger = Logger.getLogger(UserLoginView.class.getName());
+    
     private String username;
     
     private String password;
@@ -83,6 +86,8 @@ public class UserLoginView{
                 msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Добро пожаловать " + username + "!", username);
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 context.addCallbackParam("logged", logged);
+                this.logged = true;
+                logger.log(Level.INFO,"user={0}; Login.",new Object[]{username});
                 appBean =(ApplicationController) fc.getApplication().getELResolver().getValue(fc.getELContext(), null, "appBean");
                 appBean.setGroup(user.getGroupId());
                 return "success";
@@ -117,6 +122,7 @@ public class UserLoginView{
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         if(session != null)
             session.invalidate();
+        logger.log(Level.INFO,"user={0}; Logout.",new Object[]{username});
         return "go_to_login";
     }
 }

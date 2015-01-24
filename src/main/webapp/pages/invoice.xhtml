@@ -4,18 +4,29 @@
              xmlns:p="http://primefaces.org/ui"
              xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:form id="invoiceForm">
-        <p:panelGrid columns="2">
+        <p:panelGrid columns="3">
+        
             <h:outputText value="Отправитель:"/>
-            <p:inputText id="senderInput" value="#{invoiceController.invoice.sender}"/>
+            <p:inputText id="senderInput" value="#{invoiceController.invoice.sender}" style="height: 30px; width: 300px;"/>
+            <p:commandButton value="Количество баллов клиента:" action="#{invoiceController.showTotalReward(invoiceController.invoice.receiverId)}"
+                     update="totalClReward"/>
+            
+                        
             <h:outputText value="Получатель:"/>
-           <p:selectOneMenu value="#{invoiceController.invoice.receiverId}" >
-                <f:selectItem itemValue="" itemLabel=""/>
-                <f:selectItems value="#{invoiceController.listReceiver}" 
+            <p:autoComplete  value="#{invoiceController.invoice.receiverId}" 
+                			   completeMethod="#{invoiceController.completeReceiver}"	
                                var="receiver" 
                                itemValue="#{receiver}" 
-                               itemLabel="#{receiver.companyName}"/>
-            </p:selectOneMenu>
+                               itemLabel="#{receiver.companyName}"
+                               converter="ReceiverConverter" forceSelection="true" >                               
+            </p:autoComplete>
+            <h:outputText id = "totalClReward" value="#{invoiceController.totalClientRwd}"  styleClass="unchangeable"/>                     
+                         
+                                        
         </p:panelGrid>
+        <br/>
+        
+        
         <br/>
         <ui:include src="/pages/meatPartTable.xhtml">
             <ui:param name="tableController" value="${invoiceController}"/>

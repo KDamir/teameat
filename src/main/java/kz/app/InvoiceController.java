@@ -1,6 +1,7 @@
 package kz.app;
 
 import kz.app.dao.MeatPartDao;
+import kz.app.dao.Registered_clientsDao;
 import kz.app.entity.InvoiceEntity;
 import kz.app.entity.ReceiverEntity;
 import kz.app.utils.MeatPartConverter;
@@ -29,7 +30,10 @@ public class InvoiceController extends AbstractMeatPartController{
     
     private double totalRwd = 0.0;
     
+    private double totalClientRwd = 0.0;
+    
     private static MeatPartDao meatPartDao;
+ 
     
     public List<ReceiverEntity> getListReceiver() {
         return listReceiver;
@@ -47,7 +51,54 @@ public class InvoiceController extends AbstractMeatPartController{
         this.invoice = invoice;
     }
 
-    @PostConstruct
+    public List<ReceiverEntity> completeReceiver(String query) {
+        List<ReceiverEntity> filteredThemes = new ArrayList<ReceiverEntity>();
+         
+        for (int i = 0; i < listReceiver.size(); i++) {
+        	ReceiverEntity skin = listReceiver.get(i);
+            if(skin.getCompanyName().toLowerCase().startsWith(query)) {
+                filteredThemes.add(skin);
+            }
+        }
+         
+        return filteredThemes;
+    }
+    
+    public void showTotalReward(ReceiverEntity receiver){
+
+    	
+    	if (receiver != null)
+    	{
+    		Registered_clientsDao rcd = new Registered_clientsDao();
+//    		System.out.println(receiver.getId()+"  "+receiver.getCompanyName());
+    		totalClientRwd = rcd.getClientReward(receiver.getId());
+    	}
+    	else 
+    		totalClientRwd = 0.0;
+    }
+    
+    
+    public double getTotalRwd() {
+		return totalRwd;
+	}
+
+	public void setTotalRwd(double totalRwd) {
+		this.totalRwd = totalRwd;
+	}
+
+	public double getTotalClientRwd() {
+		return totalClientRwd;
+	}
+
+	public void setTotalClientRwd(double totalClientRwd) {
+		this.totalClientRwd = totalClientRwd;
+	}
+
+	public void setRenting(double renting) {
+		this.renting = renting;
+	}
+
+	@PostConstruct
     public void init() {
         meatPartDao = ApplicationController.dao;
         invoice = new InvoiceEntity();
@@ -63,15 +114,11 @@ public class InvoiceController extends AbstractMeatPartController{
     @Override
     public void updateOrder() {
     	
-    	// подсчет вознаграждения одного инвойса
-  /*
-    	totalRwd = 0.0;
-    	meatParts.forEach(e -> {
-            if (e.getCategory() != null && e.getType() != null)
-                totalRwd = totalRwd + e.getItemReward();
-        });
-    	invoice.setTotalReward(totalRwd);
-    	*/
+    	double sumBall = 0.0;
+    	
+    	
+    	
+    	// подсчет вознаграждения одного инвойса    	
     	invoice.setTotalReward(meatParts.stream().mapToDouble(MeatPart::getItemReward).sum());
     	invoice.setTotalAmount(meatParts.stream().mapToDouble(MeatPart::getRevenue).sum());
         invoice.setDate(new Date());

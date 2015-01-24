@@ -68,6 +68,16 @@ public class MeatPartEntity implements Serializable {
     @Column(name = "barcode")
     private BigInteger barcode;
     
+    public boolean isBall() {
+		return ball;
+	}
+
+	public void setBall(boolean ball) {
+		this.ball = ball;
+	}
+
+	@Column(name = "ball")
+    private boolean ball;
 
     public MeatPartEntity() {
     }

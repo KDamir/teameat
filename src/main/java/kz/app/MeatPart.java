@@ -10,6 +10,16 @@ public class MeatPart {
     private MeatTypesEntity type;
     private MeatCategoryEntity category;
     
+    private boolean ball;
+    
+    public boolean isBall(){
+    	return ball;
+    }
+    
+    public void setBall(boolean ball) {
+        this.ball = ball;
+    }
+    
     // Вес
 	private Double weight = 1.0;
     // Продажная цена

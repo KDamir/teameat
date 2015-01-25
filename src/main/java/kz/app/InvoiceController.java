@@ -14,6 +14,7 @@ import javax.faces.context.FacesContext;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 @ManagedBean
@@ -36,6 +37,7 @@ public class InvoiceController extends AbstractMeatPartController{
     
     private static MeatPartDao meatPartDao;
  
+    FacesMessage msg = null;
     
     public List<ReceiverEntity> getListReceiver() {
         return listReceiver;
@@ -112,10 +114,23 @@ public class InvoiceController extends AbstractMeatPartController{
     
     @Override
     public void updateOrder() {
-    	double sumBall = 0.0;
-    	
+    	double sum = 0.0;
+        for(MeatPart part : meatParts) {
+            if(part.getBarcode() != null)
+                sum = sum + part.getRevenue();
+        }
+        if(sum > selectedReceiver.getReward()) {
+            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Действие отменено",
+                    "Недостаточно баллов");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return;
+        }
+        meatParts.stream().forEach((part) -> {
+            selectedReceiver.setReward(selectedReceiver.getReward() - part.getRevenue());
+        });
     	// подсчет вознаграждения одного инвойса    	
-    	invoice.setTotalReward(meatParts.stream().mapToDouble(MeatPart::getItemReward).sum());
+    	invoice.setTotalReward(meatParts.stream().filter((part) -> (!part.isBall()))
+                                                 .mapToDouble(MeatPart::getItemReward).sum());
     	invoice.setTotalAmount(meatParts.stream().mapToDouble(MeatPart::getRevenue).sum());
         selectedReceiver.setReward(selectedReceiver.getReward() + invoice.getTotalReward());
         meatPartDao.saveReceiver(selectedReceiver);
@@ -132,10 +147,6 @@ public class InvoiceController extends AbstractMeatPartController{
         for(int i = 0; i < 5; i++) {
             meatParts.add(new MeatPart());
         }
-        FacesMessage msg = null;
-        msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Накладная сохранена",
-                "Информация о новой накладной сохранена в базе данных");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     @Override

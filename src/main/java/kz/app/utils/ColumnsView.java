@@ -26,9 +26,9 @@ public class ColumnsView implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private final static List<String> VALID_COLUMN_KEYS = Arrays.asList("id", "category", "type", "weight", "price", "sender", "company_name", "date");
+	private final static List<String> VALID_COLUMN_KEYS = Arrays.asList("id", "category", "type", "weight", "price", "sender", "company_name", "date","sum");
      
-    private String columnTemplate = "category type weight price sender date";
+    private String columnTemplate = "category type weight price sum date sender company_name";
      
     private List<ColumnModel> columns;
      

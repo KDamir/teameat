@@ -9,9 +9,9 @@
     <p:commandButton value="Удалить" action="#{tableController.deleteLastMeatPart}"
                      update="table"/>
     <p:commandButton value="Сохранить" 
-                     action="#{tableController.updateOrder}" 
-                     update=":#{formid} :growl"
-                     oncomplete="PF('invoiceDlg').hide()"/>
+                     action="#{tableController.updateOrder}"  
+                      update=":#{formid} :growl"                  
+                    oncomplete="PF('invoiceDlg').hide()"     />
     <p:dataTable id="table" value="#{tableController.meatParts}" var="meatPart" editable="true"
                  editMode="cell" rendered="#{tableController.meatParts ne null}" >
                  

@@ -119,21 +119,25 @@ public class InvoiceController extends AbstractMeatPartController{
             if(part.getBarcode() != null)
                 sum = sum + part.getRevenue();
         }
-        if(sum > selectedReceiver.getReward()) {
-            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Действие отменено",
-                    "Недостаточно баллов");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            return;
+        if (selectedReceiver != null) {
+            if (sum > selectedReceiver.getReward()) {
+                msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Действие отменено",
+                        "Недостаточно баллов");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                return;
+            }
+            meatParts.stream().forEach((part) -> {
+                selectedReceiver.setReward(selectedReceiver.getReward() - part.getRevenue());
+            });
         }
-        meatParts.stream().forEach((part) -> {
-            selectedReceiver.setReward(selectedReceiver.getReward() - part.getRevenue());
-        });
     	// подсчет вознаграждения одного инвойса    	
     	invoice.setTotalReward(meatParts.stream().filter((part) -> (!part.isBall()))
                                                  .mapToDouble(MeatPart::getItemReward).sum());
     	invoice.setTotalAmount(meatParts.stream().mapToDouble(MeatPart::getRevenue).sum());
-        selectedReceiver.setReward(selectedReceiver.getReward() + invoice.getTotalReward());
-        meatPartDao.saveReceiver(selectedReceiver);
+        if (selectedReceiver != null) {
+            selectedReceiver.setReward(selectedReceiver.getReward() + invoice.getTotalReward());
+            meatPartDao.saveReceiver(selectedReceiver);
+        }
         invoice.setDate(new Date());
         meatPartDao.saveInvoice(invoice);
         // TODO: Должна быть валидация на заполнение нужных полей

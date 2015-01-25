@@ -52,53 +52,48 @@ public class InvoiceController extends AbstractMeatPartController{
     }
 
     public List<ReceiverEntity> completeReceiver(String query) {
-        List<ReceiverEntity> filteredThemes = new ArrayList<ReceiverEntity>();
+        List<ReceiverEntity> filteredThemes = new ArrayList<>();
          
-        for (int i = 0; i < listReceiver.size(); i++) {
-        	ReceiverEntity skin = listReceiver.get(i);
-            if(skin.getCompanyName().toLowerCase().startsWith(query)) {
-                filteredThemes.add(skin);
-            }
-        }
+        listReceiver.stream().filter((skin) -> (skin.getCompanyName().toLowerCase().startsWith(query)))
+                             .forEach((skin) -> {
+            filteredThemes.add(skin);
+        });
          
         return filteredThemes;
     }
     
     public void showTotalReward(ReceiverEntity receiver){
-
-    	
-    	if (receiver != null)
-    	{
-    		Registered_clientsDao rcd = new Registered_clientsDao();
+    	if (receiver != null) {
+            Registered_clientsDao rcd = new Registered_clientsDao();
 //    		System.out.println(receiver.getId()+"  "+receiver.getCompanyName());
-    		totalClientRwd = rcd.getClientReward(receiver.getId());
+            totalClientRwd = rcd.getClientReward(receiver.getId());
     	}
     	else 
-    		totalClientRwd = 0.0;
+            totalClientRwd = 0.0;
     }
-    
+
     
     public double getTotalRwd() {
-		return totalRwd;
-	}
+        return totalRwd;
+    }
 
-	public void setTotalRwd(double totalRwd) {
-		this.totalRwd = totalRwd;
-	}
+    public void setTotalRwd(double totalRwd) {
+        this.totalRwd = totalRwd;
+    }
 
-	public double getTotalClientRwd() {
-		return totalClientRwd;
-	}
+    public double getTotalClientRwd() {
+        return totalClientRwd;
+    }
 
-	public void setTotalClientRwd(double totalClientRwd) {
-		this.totalClientRwd = totalClientRwd;
-	}
+    public void setTotalClientRwd(double totalClientRwd) {
+        this.totalClientRwd = totalClientRwd;
+    }
 
-	public void setRenting(double renting) {
-		this.renting = renting;
-	}
+    public void setRenting(double renting) {
+        this.renting = renting;
+    }
 
-	@PostConstruct
+    @PostConstruct
     public void init() {
         meatPartDao = ApplicationController.dao;
         invoice = new InvoiceEntity();
@@ -113,10 +108,7 @@ public class InvoiceController extends AbstractMeatPartController{
     
     @Override
     public void updateOrder() {
-    	
     	double sumBall = 0.0;
-    	
-    	
     	
     	// подсчет вознаграждения одного инвойса    	
     	invoice.setTotalReward(meatParts.stream().mapToDouble(MeatPart::getItemReward).sum());
@@ -146,13 +138,13 @@ public class InvoiceController extends AbstractMeatPartController{
         meatParts.remove(idx);
     }
 
-	public double getSumInput() {
-		return sumInput;
-	}
+    public double getSumInput() {
+        return sumInput;
+    }
 
-	public void setSumInput(double sumInput) {
-		this.sumInput = sumInput;
-	}
+    public void setSumInput(double sumInput) {
+        this.sumInput = sumInput;
+    }
 	
 	
 	 /*Сдача*/

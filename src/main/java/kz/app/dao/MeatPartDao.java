@@ -101,6 +101,21 @@ public class MeatPartDao {
         }
     }
     
+    public void saveReceiver(ReceiverEntity entity) {
+        Session sess = HibernateUtil.getSessionfactory().getCurrentSession();
+        try {
+            sess.beginTransaction();
+            sess.update(entity);
+            sess.getTransaction().commit();
+        } catch (RuntimeException e) {
+            sess.getTransaction().rollback();
+            throw e;
+        } finally {
+            if(sess.isOpen())
+                sess.close();
+        }
+    }
+    
     public ReceiverEntity getReceiverById(String id) {
         Session sess = HibernateUtil.getSessionfactory().getCurrentSession();
         try {

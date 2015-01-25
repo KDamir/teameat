@@ -23,6 +23,8 @@ public class InvoiceController extends AbstractMeatPartController{
     private InvoiceEntity invoice;
     private List<ReceiverEntity> listReceiver;
     
+    private ReceiverEntity selectedReceiver;
+    
     // Внесенный платеж
     private double sumInput=0.0;
     // сдача
@@ -64,12 +66,14 @@ public class InvoiceController extends AbstractMeatPartController{
     
     public void showTotalReward(ReceiverEntity receiver){
     	if (receiver != null) {
-            Registered_clientsDao rcd = new Registered_clientsDao();
+//            Registered_clientsDao rcd = new Registered_clientsDao();
 //    		System.out.println(receiver.getId()+"  "+receiver.getCompanyName());
-            totalClientRwd = rcd.getClientReward(receiver.getId());
+//            totalClientRwd = rcd.getClientReward(receiver.getId());
+            totalClientRwd = receiver.getReward();
     	}
     	else 
             totalClientRwd = 0.0;
+        this.selectedReceiver = receiver;
     }
 
     
@@ -113,6 +117,8 @@ public class InvoiceController extends AbstractMeatPartController{
     	// подсчет вознаграждения одного инвойса    	
     	invoice.setTotalReward(meatParts.stream().mapToDouble(MeatPart::getItemReward).sum());
     	invoice.setTotalAmount(meatParts.stream().mapToDouble(MeatPart::getRevenue).sum());
+        selectedReceiver.setReward(selectedReceiver.getReward() + invoice.getTotalReward());
+        meatPartDao.saveReceiver(selectedReceiver);
         invoice.setDate(new Date());
         meatPartDao.saveInvoice(invoice);
         // TODO: Должна быть валидация на заполнение нужных полей
@@ -120,6 +126,7 @@ public class InvoiceController extends AbstractMeatPartController{
             if (e.getCategory() != null && e.getType() != null)
                 meatPartDao.saveMeatPart(MeatPartConverter.convertMeatPartToEntity(e, invoice, null));
         });
+        
         invoice = new InvoiceEntity();
         meatParts = new ArrayList<>();
         for(int i = 0; i < 5; i++) {

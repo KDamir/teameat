@@ -67,17 +67,16 @@ public class MeatPartEntity implements Serializable {
     private CalculationEntity calculationId;
     @Column(name = "barcode")
     private BigInteger barcode;
+    @Column(name = "ball")
+    private boolean ball;
     
     public boolean isBall() {
-		return ball;
-	}
+        return ball;
+    }
 
-	public void setBall(boolean ball) {
-		this.ball = ball;
-	}
-
-	@Column(name = "ball")
-    private boolean ball;
+    public void setBall(boolean ball) {
+        this.ball = ball;
+    }
 
     public MeatPartEntity() {
     }
@@ -158,10 +157,7 @@ public class MeatPartEntity implements Serializable {
             return false;
         }
         MeatPartEntity other = (MeatPartEntity) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
 
     @Override

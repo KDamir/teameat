@@ -21,19 +21,19 @@ public class MeatPart {
     }
     
     // Вес
-	private Double weight = 1.0;
+    private Double weight = 1.0;
     // Продажная цена
-	private Double price = 0.0;
+    private Double price = 0.0;
 
-	public BigInteger getBarcode() {
-		return barcode;
-	}
+    public BigInteger getBarcode() {
+            return barcode;
+    }
 
-	public void setBarcode(BigInteger barcode) {
-		this.barcode = barcode;
-	}
+    public void setBarcode(BigInteger barcode) {
+            this.barcode = barcode;
+    }
 
-	private BigInteger barcode;
+    private BigInteger barcode;
 	
 	
 	

@@ -24,8 +24,18 @@ public class Goods implements Serializable{
     private String sender;
 
     private String company_name;
+    
+    private double sum;
 
-    public Integer getId() {
+    public double getSum() {
+		return sum;
+	}
+
+	public void setSum(double sum) {
+		this.sum = sum;
+	}
+
+	public Integer getId() {
 		return id;
 	}
 

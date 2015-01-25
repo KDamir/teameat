@@ -40,7 +40,7 @@ public class GoodsHistoryService extends AbstractMeatPartController{
         dao = new GoodsDao();
         begin = new Date();
         end = new Date();
-        searchGoods();
+      //  searchGoods();
     }
     
     public void searchGoods() {

@@ -36,6 +36,10 @@
                                 actionListener="#{sessionPref.setPageToDisplay('adminForm')}"
                                 rendered="#{appBean.admin}"
                                 update=":tabs :menuForm:pan"/>
+                     <p:menuitem value="Установка параметров товаров/услуг(цена,штрих-код,вознаграждение)"
+                                actionListener="#{sessionPref.setPageToDisplay('setGoods')}"
+                                rendered="#{appBean.admin}"
+                                update=":tabs :menuForm:pan"/>
                 </p:submenu>
             </p:panelMenu>
             <p:outputLabel value="Версия:"/>

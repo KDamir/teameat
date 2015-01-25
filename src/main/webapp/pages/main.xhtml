@@ -28,6 +28,10 @@
                                 actionListener="#{sessionPref.setPageToDisplay('calculation')}"
                                 rendered="#{appBean.admin}"
                                 update=":tabs :menuForm:pan"/>
+                     <p:menuitem value="Список проданных товаров/услуг"
+                                actionListener="#{sessionPref.setPageToDisplay('meatPartHistory')}"
+                                rendered="#{appBean.admin}"
+                                update=":tabs :menuForm:pan"/>
                     <p:menuitem value="Добавить элементы"
                                 actionListener="#{sessionPref.setPageToDisplay('adminForm')}"
                                 rendered="#{appBean.admin}"

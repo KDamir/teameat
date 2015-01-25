@@ -38,10 +38,10 @@ public class ReceiverEntity implements Serializable {
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "company_name")
-    private String companyName;
+    private String companyName ;
     @Basic(optional = false)
     @Column(name = "id")
-    private int id;
+    private int id ;
 //    @OneToMany(mappedBy = "receiverId")
 //    private Collection<Invoice> invoiceCollection;
 

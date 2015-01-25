@@ -65,11 +65,20 @@ public class GoodsEntity implements Serializable {
     private String company_name;
     @Column(name = "date")
     private Date date;
+    @Column(name = "sum")
+    private double sum;
+    
+    
+    
+    public double getSum() {
+		return sum;
+	}
 
-    
-    
-    
-    public String getCategory() {
+	public void setSum(double sum) {
+		this.sum = sum;
+	}
+
+	public String getCategory() {
 		return category;
 	}
 
@@ -119,7 +128,7 @@ public class GoodsEntity implements Serializable {
         this.id = id;
     }
 
-    public GoodsEntity(Integer id, String category, String type, double weight, double price, String sender, String company_name, Date date){
+    public GoodsEntity(Integer id, String category, String type, double weight, double price, String sender, String company_name, Date date, double sum){
     	this.id = id;
     	this.category = category;
     	this.type=type;
@@ -128,6 +137,7 @@ public class GoodsEntity implements Serializable {
     	this.sender=sender;
     	this.company_name=company_name;
     	this.date=date;
+    	this.sum = sum;
     	
     }
     

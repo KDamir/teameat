@@ -4,11 +4,11 @@
     "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-  	<property name="hibernate.current_session_context_class">thread</property>
-        <property name="show_sql">
-            false
-        </property>
-    <property name="connection.url">jdbc:mysql://46.8.27.144:3306/teameat?autoReconnect=true</property>
+    <property name="hibernate.current_session_context_class">thread</property>
+    <property name="show_sql">
+        false
+    </property>
+    <property name="connection.url">jdbc:mysql://46.8.27.144:3306/teameat?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8</property>
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="connection.username">root</property>
     <property name="connection.password">123</property>

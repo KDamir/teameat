@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Consumer;
 
 @ManagedBean
 @SessionScoped
@@ -116,7 +117,7 @@ public class InvoiceController extends AbstractMeatPartController{
     public void updateOrder() {
     	double sum = 0.0;
         for(MeatPart part : meatParts) {
-            if(part.getBarcode() != null)
+            if(part.getBarcode() != null && part.isBall())
                 sum = sum + part.getRevenue();
         }
         if (selectedReceiver != null) {
@@ -126,7 +127,7 @@ public class InvoiceController extends AbstractMeatPartController{
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 return;
             }
-            meatParts.stream().forEach((part) -> {
+            meatParts.stream().filter((part) -> (part.getBarcode() != null && part.isBall())).forEach((part) -> {
                 selectedReceiver.setReward(selectedReceiver.getReward() - part.getRevenue());
             });
         }

@@ -112,6 +112,10 @@ public class InvoiceController extends AbstractMeatPartController{
         categories   = ApplicationController.categories;
         listReceiver = ApplicationController.receivers;
         types        = ApplicationController.types;
+        
+        /*TODO: Потом переделать
+        */
+        invoice.setReceiverId(listReceiver.get(1));
     }
     
     @Override
@@ -159,6 +163,9 @@ public class InvoiceController extends AbstractMeatPartController{
         });
         
         invoice = new InvoiceEntity();
+        /*TODO: Потом переделать
+        */
+        invoice.setReceiverId(listReceiver.get(1));
         meatParts = new ArrayList<>();
         for(int i = 0; i < 5; i++) {
             meatParts.add(new MeatPart());

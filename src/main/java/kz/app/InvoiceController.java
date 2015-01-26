@@ -35,6 +35,8 @@ public class InvoiceController extends AbstractMeatPartController{
     private double totalClientRwd = 0.0;
     
     private static MeatPartDao meatPartDao;
+    
+    private List<String> buf;
  
     FacesMessage msg = null;
     
@@ -100,6 +102,7 @@ public class InvoiceController extends AbstractMeatPartController{
 
     @PostConstruct
     public void init() {
+        buf = new ArrayList<>();
         meatPartDao = ApplicationController.dao;
         invoice = new InvoiceEntity();
         meatParts = new ArrayList<>();
@@ -113,10 +116,19 @@ public class InvoiceController extends AbstractMeatPartController{
     
     @Override
     public void updateOrder() {
+        buf.clear();
     	double sum = 0.0;/* Общая сумма товаров, которые будут оплачены баллами*/
         for(MeatPart part : meatParts) {
+            if(null != part.getCategory())
+                buf.add(part.getCategory().getName());
             if(part.getBarcode() != null && part.isBall())
                 sum = sum + part.getRevenue();
+        }
+        if(buf.isEmpty()) {
+            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Действие отменено",
+                    "Для сохранения необходим хотя бы один товар");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return;
         }
         if (selectedReceiver != null) {
             if (sum > selectedReceiver.getReward()) {

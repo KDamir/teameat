@@ -9,6 +9,18 @@
             <param-value>userLoginView</param-value>
         </init-param>
     </filter>
+    <filter>
+        <filter-name>EndocingFilter</filter-name>
+        <filter-class>kz.app.beans.EncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>EndocingFilter</filter-name>
+        <servlet-name>Faces Servlet</servlet-name>
+    </filter-mapping>
     <filter-mapping>
         <filter-name>AuthFilter</filter-name>
         <servlet-name>Faces Servlet</servlet-name>

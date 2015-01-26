@@ -8,18 +8,21 @@
         
             <h:outputText value="Отправитель:"/>
             <p:inputText id="senderInput" value="#{invoiceController.invoice.sender}" style="height: 30px; width: 300px;"/>
-            <p:commandButton value="Количество баллов клиента:" action="#{invoiceController.showTotalReward(invoiceController.invoice.receiverId)}"
-                     update="totalClReward"/>
-            
+            <p:commandButton value="Количество баллов клиента:" 
+                             action="#{invoiceController.showTotalReward(invoiceController.invoice.receiverId)}"
+                             update="totalClReward"
+                             style="width: 250px;"/>
                         
             <h:outputText value="Получатель:"/>
-            <p:autoComplete  value="#{invoiceController.invoice.receiverId}" 
-                			   completeMethod="#{invoiceController.completeReceiver}"	
+            <p:selectOneMenu  value="#{invoiceController.invoice.receiverId}"
+                              filter="true"
+                              filterMatchMode="startsWith">
+                <f:selectItem itemValue="" itemLabel=""/>
+                <f:selectItems value="#{invoiceController.listReceiver}" 
                                var="receiver" 
                                itemValue="#{receiver}" 
-                               itemLabel="#{receiver.companyName}"
-                               converter="ReceiverConverter" forceSelection="true" >                               
-            </p:autoComplete>
+                               itemLabel="#{receiver.companyName}"/>      
+            </p:selectOneMenu>
             <h:outputText id = "totalClReward" value="#{invoiceController.totalClientRwd}"  styleClass="unchangeable"/>                     
                          
                                         

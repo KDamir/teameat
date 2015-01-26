@@ -16,7 +16,7 @@ import kz.app.entity.ReceiverEntity;
  *
  * @author damir.keldibekov
  */
-@FacesConverter("ReceiverConverter")
+@FacesConverter(forClass = ReceiverEntity.class)
 public class ReceiverConverter implements Converter{
 
     MeatPartDao dao = new MeatPartDao();

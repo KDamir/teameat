@@ -30,6 +30,7 @@ public class MeatPartConverter {
         entity.setTypeId(meatPart.getType());
         entity.setInvoiceId(invoice);
         entity.setCalculationId(calc);
+        entity.setBall(meatPart.isBall());
         return entity;
     }
 
@@ -43,6 +44,7 @@ public class MeatPartConverter {
         meatPart.setWeight(entity.getWeight());
         meatPart.setCategory(entity.getCategoryId());
         meatPart.setType(entity.getTypeId());
+        meatPart.setBall(entity.isBall());
         return meatPart;
        }
 }

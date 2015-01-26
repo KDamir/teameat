@@ -6,19 +6,16 @@
 package kz.app.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -32,8 +29,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Receiver.findByCompanyName", query = "SELECT r FROM ReceiverEntity r WHERE r.companyName = :companyName"),
     @NamedQuery(name = "Receiver.findById", query = "SELECT r FROM ReceiverEntity r WHERE r.id = :id")})
 public class ReceiverEntity implements Serializable {
-    @OneToMany(mappedBy = "receiverId")
-    private Collection<InvoiceEntity> invoiceEntityCollection;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "reward")
+    private Double reward;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -75,15 +73,6 @@ public class ReceiverEntity implements Serializable {
         this.id = id;
     }
 
-//    @XmlTransient
-//    public Collection<Invoice> getInvoiceCollection() {
-//        return invoiceCollection;
-//    }
-//
-//    public void setInvoiceCollection(Collection<Invoice> invoiceCollection) {
-//        this.invoiceCollection = invoiceCollection;
-//    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -100,7 +89,7 @@ public class ReceiverEntity implements Serializable {
         ReceiverEntity other = (ReceiverEntity) object;
         if ((this.companyName == null && other.companyName != null) || (this.companyName != null && !this.companyName.equals(other.companyName))) {
             return false;
-        }
+    }
         return true;
     }
 
@@ -110,13 +99,12 @@ public class ReceiverEntity implements Serializable {
         return String.valueOf(id);
     }
 
-    @XmlTransient
-    public Collection<InvoiceEntity> getInvoiceEntityCollection() {
-        return invoiceEntityCollection;
+    public Double getReward() {
+        return reward;
     }
 
-    public void setInvoiceEntityCollection(Collection<InvoiceEntity> invoiceEntityCollection) {
-        this.invoiceEntityCollection = invoiceEntityCollection;
+    public void setReward(Double reward) {
+        this.reward = reward;
     }
     
 }

@@ -14,9 +14,7 @@ import javax.faces.context.FacesContext;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.function.Consumer;
 
 @ManagedBean
 @SessionScoped
@@ -115,7 +113,7 @@ public class InvoiceController extends AbstractMeatPartController{
     
     @Override
     public void updateOrder() {
-    	double sum = 0.0;
+    	double sum = 0.0;/* Общая сумма товаров, которые будут оплачены баллами*/
         for(MeatPart part : meatParts) {
             if(part.getBarcode() != null && part.isBall())
                 sum = sum + part.getRevenue();
@@ -127,13 +125,14 @@ public class InvoiceController extends AbstractMeatPartController{
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 return;
             }
+            /*Оплата баллами*/
             meatParts.stream().filter((part) -> (part.getBarcode() != null && part.isBall())).forEach((part) -> {
                 selectedReceiver.setReward(selectedReceiver.getReward() - part.getRevenue());
             });
         }
     	// подсчет вознаграждения одного инвойса    	
     	invoice.setTotalReward(meatParts.stream().filter((part) -> (!part.isBall()))
-                                                 .mapToDouble(MeatPart::getItemReward).sum());
+                                                 .mapToDouble(MeatPart::getItemReward).sum());//Товары, оплаченные баллами не входят в вознагрождение
     	invoice.setTotalAmount(meatParts.stream().mapToDouble(MeatPart::getRevenue).sum());
         if (selectedReceiver != null) {
             selectedReceiver.setReward(selectedReceiver.getReward() + invoice.getTotalReward());

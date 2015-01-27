@@ -24,8 +24,10 @@
                     </p:inputText>
                 </f:facet>
             </p:cellEditor>
+
         </p:column>         
              
+        
         <p:column headerText="Вес" sortBy="#{meatPart.weight}" style="height: 30px; width: 100px;">
     
             <p:cellEditor>
@@ -37,7 +39,8 @@
                 </f:facet>
             </p:cellEditor>
 
-        </p:column>       
+        </p:column>
+
                  
         <p:column headerText="Категория" sortBy="#{meatPart.category.name}" rendered="#{appBean.group.groupname eq 'vendor'}" styleClass="unchangeable" >
 			<h:outputText value="#{meatPart.category.name}"/>
@@ -113,7 +116,7 @@
                 </f:facet>
             </p:cellEditor>
         </p:column>
-        
+
         
         <p:column headerText="Сумма" sortBy="#{meatPart.price}" style="height: 30px;" styleClass="unchangeable">        
             <h:outputText value="#{meatPart.revenue}"/>

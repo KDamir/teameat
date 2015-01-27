@@ -5,10 +5,18 @@
     <p:dialog id="addtypeDlg" 
               widgetVar="atd">
         <h:form id="atdform">
-            <p:panelGrid id="newType" columns="1">
-                <p:outputLabel value="Наименование:" for="typeName"/>
-                <p:inputText id="typeName" value="#{adminFormController.type.name}" immediate="true"/>
+            <p:panelGrid id="newType" columns="4">
+                <p:outputLabel value="Наименование:" for="typeName" style="text-align: center"/>
+                <p:outputLabel value="Баркод:" for="typeBarcode" style="text-align: center"/>
+                <p:outputLabel value="Цена:" for="typePrice" style="text-align: center"/>
+                <p:outputLabel value="Вознаграждение:" for="typeBall" style="text-align: center"/>
+                <p:inputText id="typeName" value="#{adminFormController.type.name}" required="true"/>
+                <p:inputText id="typeBarcode" value="#{adminFormController.type.barcode}" required="true"/>
+                <p:inputText id="typePrice" value="#{adminFormController.type.price_std}" required="true"/>
+                <p:inputText id="typeBall" value="#{adminFormController.type.reward}"/>
                 <p:message for="typeName" display="icon"/>
+                <p:message for="typeBarcode" display="icon"/>
+                <p:message for="typePrice" display="icon"/>
                 <p:commandButton value="Добавить" 
                                  actionListener="#{adminFormController.addType}" 
                                  update="newType"

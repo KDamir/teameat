@@ -46,6 +46,8 @@ public abstract class AbstractMeatPartController {
     public Double getTotalSalesAmount() {
         return meatParts.stream().mapToDouble(MeatPart::getRevenue).sum();
     }
+    
+    
 
     public List<MeatTypesEntity> filterTypes(MeatCategoryEntity selectedCategory) {
         List<MeatTypesEntity> filteredTypes = types.stream()

@@ -52,9 +52,10 @@ public class ReceiverEntity implements Serializable {
         this.companyName = companyName;
     }
 
-    public ReceiverEntity(String companyName, int id) {
+    public ReceiverEntity(String companyName, int id, Double reward) {
         this.companyName = companyName;
         this.id = id;
+        this.reward = reward;
     }
 
     public String getCompanyName() {

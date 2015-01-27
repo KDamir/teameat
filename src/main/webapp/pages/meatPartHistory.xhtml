@@ -33,34 +33,7 @@
                      value="#{goodsHistoryService.listGoods}" 
                      var="goods" widgetVar="goodsTable" 
                      filteredValue="#{goodsHistoryService.filteredGoods}">
- <!--  
-                <p:column headerText="Id">
-                    <h:outputText value="#{goods.id}"/>
-                </p:column>
-                 <p:column headerText="Категория">
-                    <h:outputText value="#{goods.category}"/>
-                </p:column>
-                 <p:column headerText="Тип">
-                    <h:outputText value="#{goods.type}"/>
-                </p:column>
-                <p:column headerText="Вес">
-                    <h:outputText value="#{goods.weight}"/>
-                </p:column>
-                <p:column headerText="Цена">
-                    <h:outputText value="#{goods.price}"/>
-                </p:column>
-                <p:column headerText="Отправитель">
-                    <h:outputText value="#{goods.sender}"/>
-                </p:column>
-                <p:column headerText="Получатель">
-                    <h:outputText value="#{goods.company_name}"/>
-                </p:column>
-                <p:column headerText="Дата">
-                    <h:outputText value="#{goods.date}">
-                        <f:convertDateTime pattern="dd.MM.yyyy"/>
-                    </h:outputText>
-                </p:column> 		
--->									
+		
 			<p:columns value="#{dtColumnsView.columns}" 
                                    var="column" 
                                    columnIndexVar="colIndex" 
@@ -73,7 +46,33 @@
      <!--         		<f:convertDateTime type="both" pattern="dd.MM.yyyy"/>     -->
             	</h:outputText>
         	</p:columns>
-	
+<!--  	
+		<p:columnGroup type="footer" id="totalsSection">
+            <p:row>
+                <p:column footerText="Итого:"/>
+                
+                <p:column footerText=""/>
+                <p:column footerText=""/>
+                <p:column footerText=""/>
+                
+                 
+  			    <p:column id="totalSalesAmount">
+                    <f:facet name="footer">
+                        <h:outputText value="#{goodsHistoryService.totalSum}">
+                            <f:convertNumber pattern="#0.00"/>
+                        </h:outputText>
+                    </f:facet>
+                </p:column>
+
+
+                <p:column footerText=""/>
+                <p:column footerText=""/>
+                <p:column footerText=""/>
+               
+            </p:row>
+        </p:columnGroup>
+   -->     
+        
          </p:dataTable>
             
             <p:commandButton value="Обновить" update=":mphForm:historyTableP">

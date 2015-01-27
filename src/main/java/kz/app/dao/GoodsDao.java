@@ -19,7 +19,7 @@ public class GoodsDao {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
-            Query query = HibernateUtil.getSessionfactory().getCurrentSession().createQuery("from GoodsEntity where date between :end and :begin");
+            Query query = HibernateUtil.getSessionfactory().getCurrentSession().createQuery("from GoodsEntity where date between :begin and :end");
             query.setParameter("begin", begin);
             query.setParameter("end", end);
             List<GoodsEntity> list = query.list();

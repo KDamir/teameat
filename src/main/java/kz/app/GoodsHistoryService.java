@@ -34,19 +34,31 @@ public class GoodsHistoryService extends AbstractMeatPartController{
     private Date begin;
     private Date end;
     private static GoodsDao dao;
+    private Double sum;
     
     @PostConstruct
     public void init() {
         dao = new GoodsDao();
         begin = new Date();
         end = new Date();
+        sum = 0.0;
       //  searchGoods();
+    }
+    
+    //SUM  списке товаров на продажу
+    public Double getTotalSum() {
+        
+
+    	listGoods.forEach(e -> {
+            sum = sum + e.getSum();
+        });
+        return sum;
     }
     
     public void searchGoods() {
         java.sql.Date beginSql = new java.sql.Date(begin.getTime());
         java.sql.Date endSql = new java.sql.Date(end.getTime());
-        setListGoods(dao.getListGoods(endSql, beginSql));
+        setListGoods(dao.getListGoods(beginSql,endSql));
     }
     
 	@Override

@@ -62,22 +62,22 @@ public class MeatTypesEntity implements Serializable {
     private MeatCategoryEntity categoryId;
 
     public BigInteger getBarcode() {
-		return barcode;
-	}
+        return barcode;
+    }
 
-	public void setBarcode(BigInteger barcode) {
-		this.barcode = barcode;
-	}
+    public void setBarcode(BigInteger barcode) {
+        this.barcode = barcode;
+    }
 
-	public Double getPrice_std() {
-		return price_std;
-	}
+    public Double getPrice_std() {
+        return price_std;
+    }
 
-	public void setPrice_std(Double price_std) {
-		this.price_std = price_std;
-	}
+    public void setPrice_std(Double price_std) {
+        this.price_std = price_std;
+    }
 
-	public MeatTypesEntity() {
+    public MeatTypesEntity() {
     }
 
     public MeatTypesEntity(Integer id) {
@@ -109,9 +109,9 @@ public class MeatTypesEntity implements Serializable {
 		return reward;
 	}
 
-	public void setReward(Double reward) {
-		this.reward = reward;
-	}
+    public void setReward(Double reward) {
+        this.reward = reward;
+    }
     
 //    @XmlTransient
 //    public Collection<MeatPart> getMeatPartCollection() {

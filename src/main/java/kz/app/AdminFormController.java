@@ -70,6 +70,7 @@ public class AdminFormController {
         FacesContext context = FacesContext.getCurrentInstance();
         supplierDao.saveSupplier(supplier);
         context.addMessage(null, new FacesMessage(Constants.UPDATE_SUCCESSFUL));
+        update();
         /*для создания след. объекта*/
         supplier = new SupplierEntity();
     }
@@ -78,6 +79,7 @@ public class AdminFormController {
         FacesContext context = FacesContext.getCurrentInstance();
         categoryDao.saveCategory(category);
         context.addMessage(null, new FacesMessage(Constants.UPDATE_SUCCESSFUL));
+        update();
         /*для создания след. объекта*/
         category = new MeatCategoryEntity();
     }
@@ -87,8 +89,15 @@ public class AdminFormController {
         type.setCategoryId(selectedCategory);
         typeDao.saveType(type);
         context.addMessage(null, new FacesMessage(Constants.UPDATE_SUCCESSFUL));
+        update();
         /*для создания след. объекта*/
         type = new MeatTypesEntity();
+    }
+    
+    public void update() {
+        categories       = ApplicationController.dao.getCategoriesList();
+        types            = ApplicationController.dao.getTypesList();
+        selectedCategory = categories.get(0);
     }
 
     //<editor-fold defaultstate="collapsed" desc="getter/setter">

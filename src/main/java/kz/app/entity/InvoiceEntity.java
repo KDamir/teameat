@@ -68,7 +68,7 @@ public class InvoiceEntity implements Serializable {
 //    private Collection<MeatPart> meatPartCollection;
     @JoinColumn(name = "receiver_id", referencedColumnName = "id")
     @ManyToOne
-    private ReceiverEntity receiverId = new ReceiverEntity("прочие", 5, 0.0);
+    private ReceiverEntity receiverId ;
 
     public InvoiceEntity() {
     }

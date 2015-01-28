@@ -115,6 +115,7 @@ public class InvoiceController extends AbstractMeatPartController{
         
         /*TODO: Потом переделать
         */
+   
         invoice.setReceiverId(listReceiver.get(1));
     }
     

@@ -8,15 +8,8 @@ import javax.faces.bean.SessionScoped;
 
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import org.primefaces.event.SelectEvent;
 import org.primefaces.model.LazyDataModel;
 
-
-import java.util.List;
 
 @ManagedBean(name="meatTypeController")
 @SessionScoped

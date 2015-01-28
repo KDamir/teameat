@@ -55,6 +55,7 @@ public class MeatTypeDataModel extends LazyDataModel<MeatTypesEntity> {
                         String filterProperty = it.next();
                         Object filterValue = filters.get(filterProperty);
                         String fieldValue = String.valueOf(car.getClass().getField(filterProperty).get(car));
+                        System.out.println( ": =" + fieldValue);
                         if(filterValue == null || fieldValue.startsWith(filterValue.toString())) {
                             match = true;
                         }

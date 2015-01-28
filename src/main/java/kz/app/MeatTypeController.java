@@ -3,7 +3,6 @@ package kz.app;
 import kz.app.dao.MeatTypeDao;
 import kz.app.entity.MeatTypesEntity;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -24,35 +23,35 @@ import java.util.List;
 public class MeatTypeController implements Serializable {
 
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private LazyDataModel<MeatTypesEntity> meatTypes;
+    * 
+    */
+    private static final long serialVersionUID = 1L;
+    private LazyDataModel<MeatTypesEntity> meatTypes;
     public static MeatTypeDao dao;
     
     private MeatTypesEntity selectedMeatType;
 
     public MeatTypesEntity getSelectedMeatType() {
-		return selectedMeatType;
-	}
-
-	public void setSelectedMeatType(MeatTypesEntity selectedMeatType) {
-		this.selectedMeatType = selectedMeatType;
-	}
-
-	@PostConstruct
-    public void init() {
-    	dao = new MeatTypeDao();
-    	meatTypes=new MeatTypeDataModel(dao.getListMeatType());
+        return selectedMeatType;
     }
 
-	public LazyDataModel<MeatTypesEntity> getMeatTypes() {
-		return meatTypes;
-	}
+    public void setSelectedMeatType(MeatTypesEntity selectedMeatType) {
+        this.selectedMeatType = selectedMeatType;
+    }
 
-	public void setMeatTypes(LazyDataModel<MeatTypesEntity> meatTypes) {
-		this.meatTypes = meatTypes;
-	}
+    @PostConstruct
+    public void init() {
+    	dao = new MeatTypeDao();
+    	meatTypes=new MeatTypeDataModel(ApplicationController.types);
+    }
+
+    public LazyDataModel<MeatTypesEntity> getMeatTypes() {
+        return meatTypes;
+    }
+
+    public void setMeatTypes(LazyDataModel<MeatTypesEntity> meatTypes) {
+        this.meatTypes = meatTypes;
+    }
 
 	
     

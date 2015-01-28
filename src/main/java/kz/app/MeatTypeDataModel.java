@@ -1,10 +1,14 @@
 package kz.app;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import kz.app.entity.MeatTypesEntity;
 
@@ -15,12 +19,12 @@ import org.primefaces.model.SortOrder;
  * Dummy implementation of LazyDataModel that uses a list to mimic a real datasource like a database.
  */
 public class MeatTypeDataModel extends LazyDataModel<MeatTypesEntity> {
-     
+     private static final Logger logger = Logger.getLogger(MeatTypeDataModel.class.getName());
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private List<MeatTypesEntity> datasource;
+    * 
+    */
+    private static final long serialVersionUID = 1L;
+    private List<MeatTypesEntity> datasource;
      
     public MeatTypeDataModel(List<MeatTypesEntity> datasource) {
         this.datasource = datasource;
@@ -43,7 +47,7 @@ public class MeatTypeDataModel extends LazyDataModel<MeatTypesEntity> {
  
     @Override
     public List<MeatTypesEntity> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String,Object> filters) {
-        List<MeatTypesEntity> data = new ArrayList<MeatTypesEntity>();
+        List<MeatTypesEntity> data = new ArrayList<>();
  
         //filter
         for(MeatTypesEntity car : datasource) {
@@ -54,15 +58,17 @@ public class MeatTypeDataModel extends LazyDataModel<MeatTypesEntity> {
                     try {
                         String filterProperty = it.next();
                         Object filterValue = filters.get(filterProperty);
-                        String fieldValue = String.valueOf(car.getClass().getField(filterProperty).get(car));
+                        Field privStrField = car.getClass().getDeclaredField(filterProperty);
+                        privStrField.setAccessible(true);
+                        String fieldValue = String.valueOf(privStrField.get(car));
                         if(filterValue == null || fieldValue.startsWith(filterValue.toString())) {
                             match = true;
                         }
                         else {
                             match = false;
-                            break;
+                        break;
                         }
-                    } catch(Exception e) {
+                    } catch(NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
                         match = false;
                     }
                 }

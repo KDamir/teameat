@@ -4,9 +4,16 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
       <h:form id="sgForm">
-      	<p:dataTable id="typeTable" var="meattype" value="#{meatTypeController.meatTypes}" paginator="true" rows="10"
-                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                 rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{meatTypeController.selectedMeatType}" lazy="true">
+      	<p:dataTable id="typeTable" 
+                     var="meattype" 
+                     value="#{meatTypeController.meatTypes}" 
+                     paginator="true" 
+                     rows="10"
+                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                     rowsPerPageTemplate="5,10,15" 
+                     selectionMode="single" 
+                     selection="#{meatTypeController.selectedMeatType}" 
+                     lazy="true">
 
         	<p:column headerText="Id" sortBy="#{meattype.id}" filterBy="#{meattype.id}">
             	<h:outputText value="#{meattype.id}" />

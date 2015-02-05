@@ -16,7 +16,7 @@ import kz.app.entity.MeatPartEntity;
  * @author Дамир
  */
 public class MeatPartConverter {
-    private static MeatPartDao dao = new MeatPartDao();
+    private static final MeatPartDao dao = new MeatPartDao();
     public static MeatPartEntity convertMeatPartToEntity(MeatPart meatPart, InvoiceEntity invoice, CalculationEntity calc) {
         if(meatPart == null) {
             return null;
@@ -31,6 +31,7 @@ public class MeatPartConverter {
         entity.setInvoiceId(invoice);
         entity.setCalculationId(calc);
         entity.setBall(meatPart.isBall());
+        entity.setBarcode(meatPart.getBarcode());
         return entity;
     }
 
@@ -45,6 +46,7 @@ public class MeatPartConverter {
         meatPart.setCategory(entity.getCategoryId());
         meatPart.setType(entity.getTypeId());
         meatPart.setBall(entity.isBall());
+        meatPart.setBarcode(entity.getBarcode());
         return meatPart;
        }
 }

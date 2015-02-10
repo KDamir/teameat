@@ -8,7 +8,7 @@
     <property name="show_sql">
         false
     </property>
-    <property name="connection.url">jdbc:mysql://46.8.27.144:3306/teameat?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8</property>
+    <property name="connection.url">jdbc:mysql://176.103.146.196:3306/teameat?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8</property>
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="connection.username">root</property>
     <property name="connection.password">123</property>
@@ -19,21 +19,21 @@
     <property name="hibernate.c3p0.max_statements">50</property>
     <property name="hibernate.c3p0.idle_test_period">3000</property>
 
-      <mapping class="kz.app.entity.InvoiceEntity"/>
-      <mapping class="kz.app.entity.MeatCategoryEntity"/>
-      <mapping class="kz.app.entity.MeatTypesEntity"/>
-      <mapping class="kz.app.entity.ReceiverEntity"/>
-      <mapping class="kz.app.entity.UserActionsEntity"/>
-      <mapping class="kz.app.entity.UserGroupsEntity"/>
-      <mapping class="kz.app.entity.UserSessionsEntity"/>
-      <mapping class="kz.app.entity.UsersEntity"/>
-      <mapping class="kz.app.entity.MeatPartEntity"/>
-      <mapping class="kz.app.entity.MeatPartPurchaseEntity"/>
-      <mapping class="kz.app.entity.PurchaseEntity"/>
-      <mapping class="kz.app.entity.CalculationEntity"/>
-      <mapping class="kz.app.entity.SupplierEntity"/>
-      <mapping class="kz.app.entity.GoodsEntity"/>
-      <mapping class="kz.app.entity.Registered_clientsEntity"/>
+    <mapping class="kz.app.entity.InvoiceEntity"/>
+    <mapping class="kz.app.entity.MeatCategoryEntity"/>
+    <mapping class="kz.app.entity.MeatTypesEntity"/>
+    <mapping class="kz.app.entity.ReceiverEntity"/>
+    <mapping class="kz.app.entity.UserActionsEntity"/>
+    <mapping class="kz.app.entity.UserGroupsEntity"/>
+    <mapping class="kz.app.entity.UserSessionsEntity"/>
+    <mapping class="kz.app.entity.UsersEntity"/>
+    <mapping class="kz.app.entity.MeatPartEntity"/>
+    <mapping class="kz.app.entity.MeatPartPurchaseEntity"/>
+    <mapping class="kz.app.entity.PurchaseEntity"/>
+    <mapping class="kz.app.entity.CalculationEntity"/>
+    <mapping class="kz.app.entity.SupplierEntity"/>
+    <mapping class="kz.app.entity.GoodsEntity"/>
+    <mapping class="kz.app.entity.Registered_clientsEntity"/>
       <!-- DB schema will be updated if needed -->
     <!-- <property name="hbm2ddl.auto">update</property> -->
   </session-factory>

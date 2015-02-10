@@ -13,27 +13,62 @@
                      rowsPerPageTemplate="5,10,15" 
                      selectionMode="single" 
                      selection="#{meatTypeController.selectedMeatType}" 
-                     lazy="true">
+                     lazy="true"
+                     editable="true"
+                     editMode="cell">
 
         	<p:column headerText="Id" sortBy="#{meattype.id}" filterBy="#{meattype.id}">
-            	<h:outputText value="#{meattype.id}" />
+        	
+            		<h:outputText value="#{meattype.id}" />
+            	
         	</p:column>
         	<p:column headerText="Имя" sortBy="#{meattype.name}" filterBy="#{meattype.name}">
-            	<h:outputText value="#{meattype.name}" />
+            	<p:cellEditor>	
+            		<f:facet name="output"><h:outputText value="#{meattype.name}" /></f:facet>
+            		<f:facet name="input">
+            			<p:inputText value="#{meattype.name}" style="width:100%"/>
+            		</f:facet>
+            	</p:cellEditor>
         	</p:column>
          	<p:column headerText="Категория" sortBy="#{meattype.categoryId.id}" filterBy="#{meattype.categoryId.id}">
-            	<h:outputText value="#{meattype.categoryId.id}" />
+            	<p:cellEditor>	
+            		<f:facet name="output"><h:outputText value="#{meattype.categoryId.id}" /></f:facet>
+            		<f:facet name="input">
+            			<p:inputText value="#{meattype.categoryId.id}" style="width:100%"/>
+            		</f:facet>
+        		</p:cellEditor>
         	</p:column>                                                                                         
         	<p:column headerText="Штрих-код" sortBy="#{meattype.barcode}" filterBy="#{meattype.barcode}">
-            	<h:outputText value="#{meattype.barcode}" />
+            	<p:cellEditor>	
+            		<f:facet name="output"><h:outputText value="#{meattype.barcode}" /></f:facet>
+            		<f:facet name="input">
+            			<p:inputText value="#{meattype.barcode}" style="width:100%"/>
+            		</f:facet>
+        		</p:cellEditor>
         	</p:column>
         	<p:column headerText="Цена" sortBy="#{meattype.price_std}" filterBy="#{meattype.price_std}">
-            	<h:outputText value="#{meattype.price_std}" />
+            	<p:cellEditor>	
+            		<f:facet name="output"><h:outputText value="#{meattype.price_std}" /></f:facet>
+            		<f:facet name="input">
+            			<p:inputText value="#{meattype.price_std}" style="width:100%"/>
+            		</f:facet>
+        		</p:cellEditor>
         	</p:column>
         	<p:column headerText="Вознаграждение" sortBy="#{meattype.reward}" filterBy="#{meattype.reward}">
-            	<h:outputText value="#{meattype.reward}" />
+            	<p:cellEditor>	
+            		<f:facet name="output"><h:outputText value="#{meattype.reward}" /></f:facet>
+            		<f:facet name="input">
+            			<p:inputText value="#{meattype.reward}" style="width:100%"/>
+            		</f:facet>
+        		</p:cellEditor>
         	</p:column>
-        	
+        	<p:column>
+                 <p:commandButton 
+                                     value="сохранить" 
+                                     action="#{meatTypeController.onEdit(meattype)}"
+                                     process="typeTable"
+                  />
+            </p:column>
         
     </p:dataTable>  
       </h:form>

@@ -52,7 +52,7 @@ public class PurchaseController extends AbstractMeatPartController{
         purchase = new PurchaseEntity();
         purchase.setDate(new Date());
         meatParts = new ArrayList<>();
-        for(int i = 0; i < 3; i++) {
+        for(int i = 0; i < 5; i++) {
             meatParts.add(new MeatPart());
         }        
         categories   = ApplicationController.categories;

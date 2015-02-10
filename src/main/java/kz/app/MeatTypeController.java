@@ -46,7 +46,10 @@ public class MeatTypeController implements Serializable {
         this.meatTypes = meatTypes;
     }
 
-	
+	public void onEdit(MeatTypesEntity meattype){
+			dao.saveType(meattype);
+		return ;
+	}
     
    
 }

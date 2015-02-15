@@ -67,6 +67,13 @@ public class ApplicationController{
         return PropUtil.getProps().getProperty("buildNumber");
     }
     
+    public static void refreshFromDB() {
+        types = dao.getTypesList();
+        categories = dao.getCategoriesList();
+        receivers = dao.getReceiversList();
+        suppliers = daop.getSuppliersList();
+    }
+    
     //<editor-fold defaultstate="collapsed" desc="Getter/Setter">
     public UserGroupsEntity getGroup() {
         return group;

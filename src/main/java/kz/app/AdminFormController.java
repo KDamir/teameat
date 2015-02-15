@@ -95,8 +95,9 @@ public class AdminFormController {
     }
     
     public void update() {
-        categories       = ApplicationController.dao.getCategoriesList();
-        types            = ApplicationController.dao.getTypesList();
+        ApplicationController.refreshFromDB();
+        categories       = ApplicationController.categories;
+        types            = ApplicationController.types;
         selectedCategory = categories.get(0);
     }
 

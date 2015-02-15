@@ -126,6 +126,12 @@
             <p:inputSwitch value="#{meatPart.ball}" />         
         </p:column>
         
+        <p:column style="width: 10%;">
+            <p:commandButton icon="ui-icon-close" 
+                             actionListener="#{tableController.deleteRow(meatPart)}"
+                             update="table"/>
+        </p:column>
+        
         <p:columnGroup type="footer" id="totalsSection">
             <p:row>
                 <p:column footerText="Итого:"/>

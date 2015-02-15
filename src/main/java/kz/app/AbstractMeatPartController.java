@@ -87,4 +87,8 @@ public abstract class AbstractMeatPartController {
     	selectedPart.setType( mtd.getMeatTypeByBarcode(selectedPart.getBarcode()));
     	selectedPart.setPrice( mtd.getMeatTypeByBarcode(selectedPart.getBarcode()).getPrice_std());
     }
+    
+    public void deleteRow(MeatPart part) {
+        meatParts.remove(part);
+    }
 }

@@ -5,6 +5,9 @@
  */
 package kz.app;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Calendar;
 import kz.app.dao.InvoiceDao;
 import kz.app.dao.MeatPartDao;
 import kz.app.entity.InvoiceEntity;
@@ -39,6 +42,13 @@ public class InvoiceHistoryService extends AbstractMeatPartController{
     
     private static InvoiceDao dao;
     private static MeatPartDao meatPartDao;
+    
+    LocalDate beginLoc;
+    LocalDate endLoc;
+    Date beginD;
+    Date endD;
+    java.sql.Date beginSql;
+    java.sql.Date endSql;
 
     public boolean isAfterEditPressed() {
         return afterEditPressed;
@@ -55,7 +65,14 @@ public class InvoiceHistoryService extends AbstractMeatPartController{
 
         begin = new Date();
         end = new Date();
-        searchInvoice();
+        //searchInvoice();
+        beginLoc = LocalDate.now();
+        endLoc = LocalDate.now().plusDays(1);
+        beginD = Date.from(beginLoc.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+        endD = Date.from(endLoc.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+        beginSql = new java.sql.Date(beginD.getTime());
+        endSql = new java.sql.Date(endD.getTime());
+        currentInvoice();
     }
     
     public void onEdit(InvoiceEntity invoiceS) {
@@ -70,8 +87,12 @@ public class InvoiceHistoryService extends AbstractMeatPartController{
     }
     
     public void searchInvoice() {
-        java.sql.Date beginSql = new java.sql.Date(begin.getTime());
-        java.sql.Date endSql = new java.sql.Date(end.getTime());
+        beginSql = new java.sql.Date(begin.getTime());
+        endSql = new java.sql.Date(end.getTime());
+        //listInvoice = dao.getListInvoice(endSql, beginSql);
+    }
+    
+    public void currentInvoice() {
         listInvoice = dao.getListInvoice(endSql, beginSql);
     }
     

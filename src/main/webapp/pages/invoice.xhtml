@@ -7,7 +7,10 @@
         <p:panelGrid columns="3">
         
             <h:outputText value="Отправитель:"/>
-            <p:inputText id="senderInput" value="#{invoiceController.invoice.sender}" style="height: 30px; width: 300px;"/>
+            <p:inputText id="senderInput" 
+                         value="#{invoiceController.invoice.sender}" 
+                         style="height: 30px; width: 300px;"
+                         disabled="true"/>
             <p:outputLabel value="Количество баллов клиента:" 
                            style="width: 250px;"/>
                         

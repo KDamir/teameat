@@ -15,6 +15,7 @@ import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import kz.app.beans.UserLoginView;
 
 @ManagedBean
 @SessionScoped
@@ -39,6 +40,9 @@ public class InvoiceController extends AbstractMeatPartController{
     private List<String> buf;
  
     FacesMessage msg = null;
+    FacesContext fc;
+    
+    UserLoginView user;
     
     public List<ReceiverEntity> getListReceiver() {
         return listReceiver;
@@ -102,9 +106,12 @@ public class InvoiceController extends AbstractMeatPartController{
 
     @PostConstruct
     public void init() {
+        fc = FacesContext.getCurrentInstance();
+        user = (UserLoginView) fc.getApplication().getELResolver().getValue(fc.getELContext(), null, "userLoginView");
         buf = new ArrayList<>();
         meatPartDao = ApplicationController.dao;
         invoice = new InvoiceEntity();
+        invoice.setSender(user.getUsername());
         meatParts = new ArrayList<>();
         for(int i = 0; i < 5; i++) {
             meatParts.add(new MeatPart());
@@ -168,6 +175,7 @@ public class InvoiceController extends AbstractMeatPartController{
         });
         
         invoice = new InvoiceEntity();
+        invoice.setSender(user.getUsername());
         /*TODO: Потом переделать
          */
         for (ReceiverEntity recItem : listReceiver) {

@@ -1,5 +1,7 @@
 package kz.app.utils;
 
+import java.util.TimeZone;
+
 /**
  * Created by Vlad Zheltovskiy.
  * E-mail: vladislav.zheltovsky@inessoft.kz
@@ -10,4 +12,5 @@ package kz.app.utils;
  */
 public class Constants {
     public static final String UPDATE_SUCCESSFUL = "Данные сохранены";
+    public static TimeZone astanaTimeZone = TimeZone.getTimeZone("GMT+06:00");
 }

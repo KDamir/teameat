@@ -7,11 +7,12 @@
         <p:panelGrid columns="3">
         
             <h:outputText value="Отправитель:"/>
-            <p:inputText id="senderInput" value="#{invoiceController.invoice.sender}" style="height: 30px; width: 300px;"/>
-            <p:commandButton value="Количество баллов клиента:" 
-                             action="#{invoiceController.showTotalReward(invoiceController.invoice.receiverId)}"
-                             update="totalClReward"
-                             style="width: 250px;"/>
+            <p:inputText id="senderInput" 
+                         value="#{invoiceController.invoice.sender}" 
+                         style="height: 30px; width: 300px;"
+                         disabled="true"/>
+            <p:outputLabel value="Количество баллов клиента:" 
+                           style="width: 250px;"/>
                         
             <h:outputText value="Получатель:"/>
             <p:selectOneMenu  value="#{invoiceController.invoice.receiverId}"
@@ -20,7 +21,10 @@
                 <f:selectItems value="#{invoiceController.listReceiver}" 
                                var="receiver" 
                                itemValue="#{receiver}" 
-                               itemLabel="#{receiver.companyName}"/>      
+                               itemLabel="#{receiver.companyName}"/>     
+                <p:ajax event="change" 
+                        listener="#{invoiceController.showTotalReward(invoiceController.invoice.receiverId)}"
+                        update="totalClReward"/>
             </p:selectOneMenu>
             <h:outputText id = "totalClReward" value="#{invoiceController.totalClientRwd}"  styleClass="unchangeable"/>                     
                          

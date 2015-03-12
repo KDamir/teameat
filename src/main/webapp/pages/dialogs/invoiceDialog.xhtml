@@ -3,7 +3,10 @@
              xmlns:p="http://primefaces.org/ui"
              xmlns:ui="http://java.sun.com/jsf/facelets"
              xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <p:dialog widgetVar="invoiceDlg" id="panelDlg" styleClass="invoiceClass">
+    <p:dialog widgetVar="invoiceDlg" 
+              id="panelDlg" 
+              styleClass="invoiceClass"
+              modal="true">
         <h:form>
             <p:panelGrid columns="2" rendered="#{not empty historyService.selectedInvoice}">
                 <h:outputText value="Отправитель:"/>
@@ -30,28 +33,13 @@
                              oncomplete="PF('invoiceDlg').hide()"/>
             <p:dataTable id="tableHis" value="#{historyService.meatParts}" var="meatPart" editable="true"
                          editMode="cell" rendered="#{historyService.meatParts ne null}">
-                <p:column headerText="Категория" sortBy="#{meatPart.category.name}">
+                <p:column headerText="Штрих-код" sortBy="#{meatPart.barcode}">
                     <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{meatPart.category.name}"/></f:facet>
+                        <f:facet name="output"><h:outputText value="#{meatPart.barcode}"/></f:facet>
                         <f:facet name="input">
-                            <p:selectOneMenu value="#{meatPart.category}" style="width:100%">
-                                <f:selectItem itemValue="" itemLabel=""/>
-                                <f:selectItems value="#{historyService.categories}" var="category"
-                                               itemLabel="#{category.name}" itemValue="#{category}"/>
-                                <p:ajax event="change" update="tableHis"
-                                        listener="#{historyService.resetType(meatPart)}"/>
-                            </p:selectOneMenu>
-                        </f:facet>
-                    </p:cellEditor>
-                </p:column>
-                <p:column headerText="Тип" sortBy="#{meatPart.type.name}">
-                    <p:cellEditor rendered="#{not empty meatPart.category}">
-                        <f:facet name="output"><h:outputText value="#{meatPart.type.name}"/></f:facet>
-                        <f:facet name="input">
-                            <p:selectOneMenu value="#{meatPart.type}" style="width:100%">
-                                <f:selectItems value="#{historyService.filterTypes(meatPart.category)}" var="type"
-                                               itemLabel="#{type.name}" itemValue="#{type}"/>
-                            </p:selectOneMenu>
+                            <p:inputText value="#{meatPart.barcode}">
+                                <p:ajax event="change" update="tableHis" listener="#{historyService.resetCategoryTypePrice(meatPart)}"/>
+                            </p:inputText>
                         </f:facet>
                     </p:cellEditor>
                 </p:column>
@@ -65,15 +53,14 @@
                         </f:facet>
                     </p:cellEditor>
                 </p:column>
-                <p:column headerText="Цена" sortBy="#{meatPart.price}" style="height: 30px;">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{meatPart.price}"/></f:facet>
-                        <f:facet name="input">
-                            <p:inputText value="#{meatPart.price}" style="width:100%">
-                                <p:ajax event="change" update="tableHis"/>
-                            </p:inputText>
-                        </f:facet>
-                    </p:cellEditor>
+                <p:column headerText="Категория" sortBy="#{meatPart.category.name}" styleClass="unchangeable">
+                    <h:outputText value="#{meatPart.category.name}"/>
+                </p:column>
+                <p:column headerText="Тип" sortBy="#{meatPart.type.name}" styleClass="unchangeable">
+                    <h:outputText value="#{meatPart.type.name}"/>
+                </p:column>
+                <p:column headerText="Цена" sortBy="#{meatPart.price}" style="height: 30px;" styleClass="unchangeable">
+                    <h:outputText value="#{meatPart.price}"/>
                 </p:column>
                 <p:column headerText="Сумма" sortBy="#{meatPart.price}" style="height: 30px;" styleClass="unchangeable">
                     <h:outputText value="#{meatPart.revenue}"/>
@@ -81,7 +68,6 @@
                 <p:columnGroup type="footer" id="totalsSectionHis">
                     <p:row>
                         <p:column footerText="Итого:"/>
-                        <p:column footerText=""/>
                         <p:column id="totalWeightHis">
                             <f:facet name="footer">
                                 <h:outputText value="#{historyService.totalWeight}">
@@ -89,6 +75,8 @@
                                 </h:outputText>
                             </f:facet>
                         </p:column>
+                        <p:column footerText=""/>
+                        <p:column footerText=""/>
                         <p:column footerText=""/>
                         <p:column id="totalSalesAmountHis">
                             <f:facet name="footer">

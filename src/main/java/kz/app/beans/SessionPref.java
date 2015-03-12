@@ -3,6 +3,8 @@ package kz.app.beans;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import kz.app.InvoiceHistoryService;
 
 /**
  *
@@ -16,11 +18,17 @@ public class SessionPref {
     private String password;
     private String pageToDisplay;
     
+    FacesContext fc;
+    InvoiceHistoryService historyService;
+    
     @PostConstruct
     public void init() {
         login = null;
         password = null;
         pageToDisplay = "invoice";
+        fc = FacesContext.getCurrentInstance();
+        historyService = 
+                    (InvoiceHistoryService) fc.getApplication().getELResolver().getValue(fc.getELContext(), null, "historyService");
     }
 
     //<editor-fold defaultstate="collapsed" desc="getter/setter">
@@ -45,6 +53,9 @@ public class SessionPref {
     }
     
     public void setPageToDisplay(String pageToDisplay) {
+        if("invoiceHistory".equals(pageToDisplay)) {
+            historyService.currentInvoice();
+        }
         this.pageToDisplay = pageToDisplay;
     }
 //</editor-fold>

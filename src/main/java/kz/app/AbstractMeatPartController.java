@@ -1,11 +1,9 @@
 package kz.app;
 
 import kz.app.dao.MeatPartDao;
-import kz.app.dao.MeatTypeDao;
 import kz.app.entity.MeatCategoryEntity;
 import kz.app.entity.MeatTypesEntity;
 
-import java.math.BigInteger;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +20,8 @@ public abstract class AbstractMeatPartController {
     protected List<MeatPart> meatParts;
     protected List<MeatTypesEntity> types;
     protected List<MeatCategoryEntity> categories;
+    
+    private static final MeatPartDao mtd = new MeatPartDao();
 
     public List<MeatPart> getMeatParts() {
         return meatParts;
@@ -83,9 +83,12 @@ public abstract class AbstractMeatPartController {
     }
     
     public void resetCategoryTypePrice(MeatPart selectedPart){
-    	MeatPartDao mtd = new MeatPartDao();
     	selectedPart.setCategory(mtd.getMeatCategoryByBarcode(selectedPart.getBarcode()));
     	selectedPart.setType( mtd.getMeatTypeByBarcode(selectedPart.getBarcode()));
     	selectedPart.setPrice( mtd.getMeatTypeByBarcode(selectedPart.getBarcode()).getPrice_std());
+    }
+    
+    public void deleteRow(MeatPart part) {
+        meatParts.remove(part);
     }
 }

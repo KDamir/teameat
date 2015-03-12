@@ -33,7 +33,7 @@ public class GoodsHistoryService extends AbstractMeatPartController{
     
     private Date begin;
     private Date end;
-    private static GoodsDao dao;
+	private static GoodsDao dao;
     private Double sum;
     
     @PostConstruct

@@ -59,13 +59,25 @@ body {
 	margin-right: 300px;
 }
 .ui-button {
-	height: 30px;
-	width: 100px;
+	height: 50px;
+	width: 200px;
+
+	
 }
 .ui-button-text {
-	font-size: 13px;
+	font-size: 25px;
 	color: black;
+	
 }
+.ui-column-title{
+	font-size: 23px;
+	
+}
+.ui-state-default{
+	height: 60px;
+	width: 250px;
+}
+
 #info {
 	text-align: left;
 	margin-bottom: 50px;
@@ -89,7 +101,11 @@ body {
 
 .unchangeable {
     background-color: #FCA9A9!important;
+    
+
+	
 }
+
 .invoiceClass {
     width: 600px!important;
     left: 0px!important;

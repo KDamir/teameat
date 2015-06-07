@@ -15,7 +15,7 @@
     <p:dataTable id="table" value="#{tableController.meatParts}" var="meatPart" editable="true"
                  editMode="cell" rendered="#{tableController.meatParts ne null}" >
                  
-        <p:column headerText="Штрих-код" sortBy="#{meatPart.barcode}" style="height: 30px; width: 10%;" rendered="#{appBean.group.groupname eq 'vendor'}">
+        <p:column headerText="Штрих-код" sortBy="#{meatPart.barcode}" style="height: 30px; width: 17%; border: 1px double black;" rendered="#{appBean.group.groupname eq 'vendor'}">
             <p:cellEditor>
                 <f:facet name="output"><h:outputText value="#{meatPart.barcode}"/></f:facet>
                 <f:facet name="input">
@@ -28,7 +28,7 @@
         </p:column>         
              
         
-        <p:column headerText="Вес" sortBy="#{meatPart.weight}" style="height: 30px; width: 10%;">
+        <p:column headerText="Вес" sortBy="#{meatPart.weight}" style="height: 30px; width: 9%; border: 1px double black;font-size: 150%; ">
     
             <p:cellEditor>
                 <f:facet name="output"><h:outputText value="#{meatPart.weight}"/></f:facet>
@@ -42,7 +42,7 @@
         </p:column>
 
                  
-        <p:column headerText="Категория" sortBy="#{meatPart.category.name}" rendered="#{appBean.group.groupname eq 'vendor'}" styleClass="unchangeable" >
+        <p:column headerText="Категория" sortBy="#{meatPart.category.name}" rendered="#{appBean.group.groupname eq 'vendor'}" styleClass="unchangeable" style="width: 15%;border: 1px double black; font-size: 120%;" >
 			<h:outputText value="#{meatPart.category.name}"/>
 <!--        <p:cellEditor>
                 <f:facet name="output"><h:outputText value="#{meatPart.category.name}"/></f:facet>  
@@ -54,7 +54,7 @@
             </p:cellEditor>
 -->
         </p:column>         
-        <p:column headerText="Тип" sortBy="#{meatPart.type.name}" rendered="#{appBean.group.groupname eq 'vendor'}" styleClass="unchangeable">
+        <p:column headerText="Тип" sortBy="#{meatPart.type.name}" rendered="#{appBean.group.groupname eq 'vendor'}" styleClass="unchangeable" style="border: 1px double black; font-size: 120%;">
  			<h:outputText value="#{meatPart.type.name}"/>
  <!--       <p:cellEditor >
                 <f:facet name="output"><h:outputText value="#{meatPart.type.name}"/></f:facet>
@@ -67,7 +67,7 @@
 -->           
         </p:column>
         
-        <p:column headerText="Цена" sortBy="#{meatPart.price}" rendered="#{appBean.group.groupname eq 'vendor'}" style="height: 30px;  width: 10%;" styleClass="unchangeable">
+        <p:column headerText="Цена" sortBy="#{meatPart.price}" rendered="#{appBean.group.groupname eq 'vendor'}" style="height: 30px;  width: 10%;border: 1px double black;font-size: 150%;" styleClass="unchangeable" >
 			<h:outputText value="#{meatPart.price}"/>
 <!--        <p:cellEditor>
                 <f:facet name="output"><h:outputText value="#{meatPart.price}"/></f:facet>
@@ -110,7 +110,7 @@
             <p:cellEditor>
                 <f:facet name="output"><h:outputText value="#{meatPart.price}"/></f:facet>
                 <f:facet name="input">
-                    <p:inputText value="#{meatPart.price}" style="width:100%">
+                    <p:inputText value="#{meatPart.price}" style="width:100% ">
                         <p:ajax event="change"/>
                     </p:inputText>
                 </f:facet>
@@ -118,43 +118,43 @@
         </p:column>
 
         
-        <p:column headerText="Сумма" sortBy="#{meatPart.price}" style="width: 10%;" styleClass="unchangeable">        
+        <p:column headerText="Сумма" sortBy="#{meatPart.price}" style="width: 15%;border: 1px double black;font-size: 150%;" styleClass="unchangeable">        
             <h:outputText value="#{meatPart.revenue}"/>
         </p:column>
          
-        <p:column headerText="Баллы"  style="width: 10%;" >             
+        <p:column headerText="Балл"  style="width: 7.5%;border: 1px double black;" >             
             <p:inputSwitch value="#{meatPart.ball}" />         
         </p:column>
         
-        <p:column style="width: 10%;">
+        <p:column style="width: 4.5%;border: 1px double black;">
             <p:commandButton icon="ui-icon-close" 
                              actionListener="#{tableController.deleteRow(meatPart)}"
                              update="table"/>
         </p:column>
         
-        <p:columnGroup type="footer" id="totalsSection">
+        <p:columnGroup type="footer" id="totalsSection" >
             <p:row>
-                <p:column footerText="Итого:"/>
-                <p:column id="totalWeight">
+                <p:column footerText="Итого:" style="border: 1px double black;"/>
+                <p:column id="totalWeight" style="border: 1px double black;">
                     <f:facet name="footer">
                         <h:outputText value="#{tableController.totalWeight}">
                             <f:convertNumber pattern="#0.00"/>
                         </h:outputText>
                     </f:facet>
                 </p:column>
-                <p:column footerText=""   rendered="#{appBean.group.groupname eq 'vendor'}"/>
-                <p:column footerText=""/>
-                <p:column footerText=""/>
+                <p:column footerText=""   rendered="#{appBean.group.groupname eq 'vendor'}" style="border: 1px double black;"/>
+                <p:column footerText="" style="border: 1px double black;"/>
+                <p:column footerText="" style="border: 1px double black;"/>
                 
-                <p:column id="totalSalesAmount">
+                <p:column id="totalSalesAmount" style="border: 1px double black;">
                     <f:facet name="footer">
                         <h:outputText value="#{tableController.totalSalesAmount}">
                             <f:convertNumber pattern="#0.00"/>
                         </h:outputText>
                     </f:facet>
                 </p:column>
-                <p:column footerText="" rendered="#{appBean.group.groupname eq 'vendor'}"/>
-                <p:column footerText="" rendered="#{appBean.group.groupname eq 'vendor'}"/>
+                <p:column footerText="" rendered="#{appBean.group.groupname eq 'vendor'}" style="border: 1px double black;"/>
+                <p:column footerText="" rendered="#{appBean.group.groupname eq 'vendor'}" style="border: 1px double black;"/>
             </p:row>
         </p:columnGroup>
     </p:dataTable>

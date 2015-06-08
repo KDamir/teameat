@@ -35,7 +35,7 @@ body {
         border-radius: 7px 7px 7px 7px;
 	
         color: Silver;
-	background-color: #D7DAD3
+	    background-color: #D7DAD3
 }
 
 #header {
@@ -121,6 +121,8 @@ body {
 }
 .ui-panelgrid .ui-panelgrid-cell {
     background-color: #D7DAD3;
+   
+    
 }
 #tabs {
     background-color: #ffffff;

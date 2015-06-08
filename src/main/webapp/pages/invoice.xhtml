@@ -4,7 +4,7 @@
              xmlns:p="http://primefaces.org/ui"
              xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:form id="invoiceForm">
-        <p:panelGrid columns="3">
+        <p:panelGrid columns="5">
         
             <h:outputText value="Отправитель:"/>
             <p:inputText id="senderInput" 
@@ -13,7 +13,9 @@
                          disabled="true"/>
             <p:outputLabel value="Количество баллов клиента:" 
                            style="width: 250px;"/>
-                        
+            <h:outputText value="Внесено:"/>            
+            <h:outputText value="Сдача:"/>
+            
             <h:outputText value="Получатель:"/>
             <p:selectOneMenu  value="#{invoiceController.invoice.receiverId}"
                               filter="true"
@@ -27,9 +29,20 @@
                         update="totalClReward"/>
             </p:selectOneMenu>
             <h:outputText id = "totalClReward" value="#{invoiceController.totalClientRwd}"  styleClass="unchangeable"/>                     
-                         
+            <p:inputText id="sumInput" value="#{invoiceController.sumInput}">
+        		<p:ajax event="change" update="renting"/>
+        	</p:inputText>
+        
+        
+        <h:outputText id = "renting" value="#{invoiceController.renting}"/>             
                                         
         </p:panelGrid>
+        
+           
+        
+        
+    	
+        
         <br/>
         
         

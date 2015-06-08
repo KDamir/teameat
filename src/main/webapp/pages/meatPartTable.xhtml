@@ -4,7 +4,8 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
          
-                
+             
+     
     <p:commandButton value="Добавить" action="#{tableController.addNewMeatPart}" update="table"/>
     <p:commandButton value="Удалить" action="#{tableController.deleteLastMeatPart}"
                      update="table"/>
@@ -12,6 +13,7 @@
                      action="#{tableController.updateOrder}"  
                       update=":#{formid} :growl"                  
                     oncomplete="PF('invoiceDlg').hide()"     />
+   	  
     <p:dataTable id="table" value="#{tableController.meatParts}" var="meatPart" editable="true"
                  editMode="cell" rendered="#{tableController.meatParts ne null}" >
                  
@@ -134,8 +136,8 @@
         
         <p:columnGroup type="footer" id="totalsSection" >
             <p:row>
-                <p:column footerText="Итого:" style="border: 1px double black;"/>
-                <p:column id="totalWeight" style="border: 1px double black;">
+                <p:column footerText="Итого:" style="border: 1px double black; font-size: 150% "/>
+                <p:column id="totalWeight" style="border: 1px double black; font-size: 150%;">
                     <f:facet name="footer">
                         <h:outputText value="#{tableController.totalWeight}">
                             <f:convertNumber pattern="#0.00"/>
@@ -146,7 +148,7 @@
                 <p:column footerText="" style="border: 1px double black;"/>
                 <p:column footerText="" style="border: 1px double black;"/>
                 
-                <p:column id="totalSalesAmount" style="border: 1px double black;">
+                <p:column id="totalSalesAmount" style="border: 1px double black; font-size: 150%;">
                     <f:facet name="footer">
                         <h:outputText value="#{tableController.totalSalesAmount}">
                             <f:convertNumber pattern="#0.00"/>
@@ -159,14 +161,8 @@
         </p:columnGroup>
     </p:dataTable>
     
+    
+       
     <br/>
-    <p:panelGrid columns="2">   
-        <h:outputText value="Внесено:"/>
-        <p:inputText id="sumInput" value="#{invoiceController.sumInput}">
-        	<p:ajax event="change" update="renting"/>
-        </p:inputText>
-        
-        <h:outputText value="Сдача:"/>
-        <h:outputText id = "renting" value="#{invoiceController.renting}"/>
-    </p:panelGrid>	
+    
 </ui:composition>

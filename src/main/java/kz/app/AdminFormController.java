@@ -98,7 +98,7 @@ public class AdminFormController {
         ApplicationController.refreshFromDB();
         categories       = ApplicationController.categories;
         types            = ApplicationController.types;
-        selectedCategory = categories.get(0);
+        //selectedCategory = categories.get(0);
     }
 
     //<editor-fold defaultstate="collapsed" desc="getter/setter">

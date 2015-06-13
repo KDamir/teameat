@@ -20,7 +20,7 @@
                 <p:message for="typePrice" display="icon"/>
                 <p:commandButton value="Добавить" 
                                  actionListener="#{adminFormController.addType}" 
-                                 update="newType"
+                                 update=":tabs :menuForm:pan, :atdform"
                                  oncomplete="PF('atd').hide()"/>
             </p:panelGrid>
         </h:form>

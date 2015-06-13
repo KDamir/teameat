@@ -11,22 +11,22 @@
                      paginatorPosition="top"
                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                      rowsPerPageTemplate="5,10,25,50">
-            <p:column headerText="Id">
+            <p:column headerText="Id" style="height: 30px; width: 17%; border: 1px double black;">
                 <h:outputText value="#{invoice.id}"/>
             </p:column>
-            <p:column headerText="Отправитель">
+            <p:column headerText="Отправитель" style="height: 30px; width: 17%; border: 1px double black;">
                 <h:outputText value="#{invoice.sender}"/>
             </p:column>
-            <p:column headerText="Получатель">
+            <p:column headerText="Получатель" style="height: 30px; width: 17%; border: 1px double black;">
                 <h:outputText value="#{invoice.receiverId.companyName}"/>
             </p:column>
-            <p:column headerText="Дата">
+            <p:column headerText="Дата" style="height: 30px; width: 17%; border: 1px double black;">
                 <h:outputText value="#{invoice.date}">
                     <f:convertDateTime pattern="dd.MM.yyyy, HH:mm" 
                                        timeZone="#{appBean.timeZone}"/>
                 </h:outputText>
             </p:column>
-            <p:column>
+            <p:column style="height: 30px; width: 17%; border: 1px double black;">
                 <p:commandButton update=":panelDlg"
                                  oncomplete="PF('invoiceDlg').show()"
                                  value="edit" 

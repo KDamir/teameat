@@ -29,11 +29,11 @@
                         update="totalClReward"/>
             </p:selectOneMenu>
             <h:outputText id = "totalClReward" value="#{invoiceController.totalClientRwd}"  styleClass="unchangeable"/>                     
-            <f:facet name="input">
+            
             	<p:inputText id="sumInput" value="#{invoiceController.sumInput}">
         			<p:ajax event="change" update="renting"/>
         		</p:inputText>
-        	</f:facet>
+        	
         
         
         <h:outputText id = "renting" value="#{invoiceController.renting}"/>             

@@ -14,7 +14,7 @@
         <p:panelGrid id="addTypePanel" columns="2">
             <p:outputLabel value="Категория:" for="categoryComboBox"/>
             <p:selectOneMenu id="categoryComboBox" value="#{adminFormController.selectedCategory}" immediate="true">
-                <f:selectItems value="#{calculationController.categories}" var="category" itemLabel="#{category.name}" itemValue="#{category}"/>
+                <f:selectItems value="#{adminFormController.categories}" var="category" itemLabel="#{category.name}" itemValue="#{category}"/>
                 <p:ajax event="change" update="typeList" listener="#{adminFormController.resetType}"/>
             </p:selectOneMenu>
             <p:dataList id="typeList" value="#{adminFormController.selectedCategoryTypes}" var="type" type="ordered">

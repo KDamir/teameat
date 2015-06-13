@@ -59,13 +59,13 @@ body {
 	margin-right: 300px;
 }
 .ui-button {
-	height: 50px;
-	width: 200px;
+	height: 20px;
+	width: 50px;
 
 	
 }
 .ui-button-text {
-	font-size: 25px;
+	font-size: 18px;
 	color: black;
 	
 }
@@ -74,8 +74,8 @@ body {
 	
 }
 .ui-state-default{
-	height: 60px;
-	width: 250px;
+	height: 35px;
+	width: 130px;
 }
 
 #info {

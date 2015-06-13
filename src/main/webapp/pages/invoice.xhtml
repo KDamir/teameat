@@ -29,9 +29,11 @@
                         update="totalClReward"/>
             </p:selectOneMenu>
             <h:outputText id = "totalClReward" value="#{invoiceController.totalClientRwd}"  styleClass="unchangeable"/>                     
-            <p:inputText id="sumInput" value="#{invoiceController.sumInput}">
-        		<p:ajax event="change" update="renting"/>
-        	</p:inputText>
+            <f:facet name="input">
+            	<p:inputText id="sumInput" value="#{invoiceController.sumInput}">
+        			<p:ajax event="change" update="renting"/>
+        		</p:inputText>
+        	</f:facet>
         
         
         <h:outputText id = "renting" value="#{invoiceController.renting}"/>             
@@ -47,7 +49,7 @@
         
         
         <br/>
-        <ui:include src="/pages/meatPartTable.xhtml">
+        <ui:include src="/pages/meatPartTablePC.xhtml">
             <ui:param name="tableController" value="${invoiceController}"/>
             <ui:param name="formid" value="invoiceForm"/>
         </ui:include>

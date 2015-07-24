@@ -77,6 +77,10 @@ body {
 	height: 35px;
 	width: 130px;
 }
+.ui-selectonemenu-panel{
+	height: 200px;
+	width: 200px;
+}
 
 #info {
 	text-align: left;

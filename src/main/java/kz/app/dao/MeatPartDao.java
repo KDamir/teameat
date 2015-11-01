@@ -4,6 +4,7 @@ import kz.app.entity.MeatCategoryEntity;
 import kz.app.entity.MeatTypesEntity;
 
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 
 import kz.app.entity.CalculationEntity;
@@ -211,6 +212,25 @@ public class MeatPartDao {
         }
     }
     
+    public MeatPartEntity getMeatPartByBarcode(BigInteger barcode) {
+        Session sess = HibernateUtil.getSessionfactory().getCurrentSession();
+        try {
+            sess.beginTransaction();
+            Query query = HibernateUtil.getSessionfactory().getCurrentSession().createQuery("from MeatPartEntity where barcode = :barcode");
+            List<MeatPartEntity> list = query.setParameter("barcode", barcode).list();
+            sess.getTransaction().commit();
+            if(list.isEmpty())
+                return null;
+            return list.get(0);
+        } catch (RuntimeException e) {
+            sess.getTransaction().rollback();
+            throw e;
+        } finally {
+            if(sess.isOpen())
+                sess.close();
+        }
+    }
+    
     public MeatCategoryEntity getMeatCategoryByBarcode(BigInteger barcode) {
         Session sess = HibernateUtil.getSessionfactory().getCurrentSession();
         try {
@@ -234,4 +254,28 @@ public class MeatPartDao {
         }
     }
 
+    public List<MeatPartEntity> getListMeatPartByBarcode(BigInteger barcode) {
+    	
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+            Query query = HibernateUtil.getSessionfactory().getCurrentSession().createQuery("from MeatPartEntity where barcode = :barcode");
+            
+            query.setParameter("barcode", barcode);
+            
+            
+            List<MeatPartEntity> list = query.list();
+            session.getTransaction().commit();
+            if(list.isEmpty())
+               return null;
+            return list;
+        } catch (RuntimeException e) {
+            session.getTransaction().rollback();
+            throw e;
+        } finally {
+            if(session.isOpen())
+                session.close();
+        }
+    }
+    
 }

@@ -3,25 +3,34 @@
              xmlns:p="http://primefaces.org/ui"
              xmlns:ui="http://java.sun.com/jsf/facelets"
              xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <style type="text/css">
+            .ui-panelgrid .ui-grid-responsive .ui-panelgrid-cell {
+                text-align: center;
+            }
+        </style>
+    </h:head>
+	
+     
     <p:dialog widgetVar="invoiceDlg" 
               id="panelDlg" 
-              styleClass="invoiceClass"
+          	  height="500"
               modal="true">
-        <h:form>
-            <p:panelGrid columns="2" rendered="#{not empty historyService.selectedInvoice}">
+       
+		<h:form>
+		
+                        <p:panelGrid columns="2" rendered="#{not empty historyService.selectedInvoice}">
                 <h:outputText value="Отправитель:"/>
                 <p:inputText id="senderInput1" value="#{historyService.selectedInvoice.sender}" style="width: 400px"/>
                 <h:outputText value="Получатель:"/>
-                <p:selectOneMenu value="#{historyService.selectedInvoice.receiverId}" style="width: 100%">
+                <p:selectOneMenu value="#{historyService.selectedInvoice.receiverId}" style="width: 85%">
                     <f:selectItem itemValue="" itemLabel=""/>
                     <f:selectItems value="#{historyService.listReceiver}"
                                    var="receiver"
                                    itemValue="#{receiver}"
                                    itemLabel="#{receiver.companyName}"/>
                 </p:selectOneMenu>
-                <h:outputText value="Дата:"/>
-                <p:calendar value="#{historyService.selectedInvoice.date}"
-                            readonlyInput="true"/>
+                
             </p:panelGrid>
             <br/>
             <p:commandButton value="Добавить" action="#{historyService.addNewMeatPart}" update="tableHis"/>
@@ -29,10 +38,15 @@
                              update="tableHis"/>
             <p:commandButton value="Сохранить" 
                              action="#{historyService.updateOrder}" 
-                             update="@form :growl"
+                             update="@form"
                              oncomplete="PF('invoiceDlg').hide()"/>
-            <p:dataTable id="tableHis" value="#{historyService.meatParts}" var="meatPart" editable="true"
-                         editMode="cell" rendered="#{historyService.meatParts ne null}">
+         
+            <p:dataTable id="tableHis" style = "width :1300px;" value="#{historyService.meatParts}" var="meatPart" editable="true"
+                         editMode="cell" rendered="#{historyService.meatParts ne null}" scrollable="false" scrollHeight="500" rowIndexVar="index">
+                         
+                    <p:column width="3%">
+                            <p:outputLabel value="#{index+1}"/>
+                    </p:column>
                 <p:column headerText="Штрих-код" sortBy="#{meatPart.barcode}">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{meatPart.barcode}"/></f:facet>
@@ -43,7 +57,7 @@
                         </f:facet>
                     </p:cellEditor>
                 </p:column>
-                <p:column headerText="Вес" sortBy="#{meatPart.weight}" style="height: 30px;">
+                <p:column headerText="Вес" sortBy="#{meatPart.weight}">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{meatPart.weight}"/></f:facet>
                         <f:facet name="input">
@@ -59,11 +73,16 @@
                 <p:column headerText="Тип" sortBy="#{meatPart.type.name}" styleClass="unchangeable">
                     <h:outputText value="#{meatPart.type.name}"/>
                 </p:column>
-                <p:column headerText="Цена" sortBy="#{meatPart.price}" style="height: 30px;" styleClass="unchangeable">
+                <p:column headerText="Цена" sortBy="#{meatPart.price}" styleClass="unchangeable">
                     <h:outputText value="#{meatPart.price}"/>
                 </p:column>
-                <p:column headerText="Сумма" sortBy="#{meatPart.price}" style="height: 30px;" styleClass="unchangeable">
+                <p:column headerText="Сумма" sortBy="#{meatPart.price}" styleClass="unchangeable">
                     <h:outputText value="#{meatPart.revenue}"/>
+                </p:column>
+                <p:column styleClass="unchangeable">
+                    <p:commandButton icon="ui-icon-close" 
+                                     actionListener="#{historyService.deleteRow(meatPart)}"
+                                     update="@form"/>
                 </p:column>
                 <p:columnGroup type="footer" id="totalsSectionHis">
                     <p:row>
@@ -85,20 +104,15 @@
                                 </h:outputText>
                             </f:facet>
                         </p:column>
+                        <p:column footerText=""/>
                     </p:row>
                 </p:columnGroup>
+                
+           
             </p:dataTable>
-
-            <br/>
-            <p:panelGrid columns="2">   
-                <h:outputText value="Внесено:"/>
-                <p:inputText id="sumInputHis" value="#{invoiceController.sumInput}">
-                        <p:ajax event="change" update="rentingHis"/>
-                </p:inputText>
-
-                <h:outputText value="Сдача:"/>
-                <h:outputText id = "rentingHis" value="#{invoiceController.renting}"/>
-            </p:panelGrid>
+            
         </h:form>
+		
     </p:dialog>
+	 
 </ui:composition>

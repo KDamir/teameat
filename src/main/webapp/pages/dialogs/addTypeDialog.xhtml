@@ -6,22 +6,32 @@
               widgetVar="atd"
               modal="true">
         <h:form id="atdform">
-            <p:panelGrid id="newType" columns="4">
-                <p:outputLabel value="Наименование:" for="typeName" style="text-align: center"/>
-                <p:outputLabel value="Баркод:" for="typeBarcode" style="text-align: center"/>
-                <p:outputLabel value="Цена:" for="typePrice" style="text-align: center"/>
+        	
+            <p:panelGrid id="newType" columns="5">      
+                <p:outputLabel value="Наименование:" for="typeName" style="text-align: center"/>               
+                <p:outputLabel value="Цена продажи:" for="typePrice" style="text-align: center"/>
+                <p:outputLabel value="Цена закупа:" for="typePrice" style="text-align: center"/>
                 <p:outputLabel value="Вознаграждение:" for="typeBall" style="text-align: center"/>
-                <p:inputText id="typeName" value="#{adminFormController.type.name}" required="true"/>
-                <p:inputText id="typeBarcode" value="#{adminFormController.type.barcode}" required="true"/>
-                <p:inputText id="typePrice" value="#{adminFormController.type.price_std}" required="true"/>
-                <p:inputText id="typeBall" value="#{adminFormController.type.reward}"/>
-                <p:message for="typeName" display="icon"/>
-                <p:message for="typeBarcode" display="icon"/>
+                <p:outputLabel value="Баркод:" for="typeBarcode" style="text-align: center"/>
+                <p:inputText id="typeName" value="#{adminFormController.type.name}" required="true"
+                requiredMessage="Поле наименование не заполнено"/>             
+                <p:inputText id="typePrice" value="#{adminFormController.type.price_std}" required="true"
+                requiredMessage="Поле цена продажи не заполнено"/>
+                <p:inputText id="typePrice_zakup" value="#{adminFormController.type.price_zakup}" required="true"
+                requiredMessage="Поле цена закупа не заполнено"/>
+                <p:inputText id="typeBall" value="#{adminFormController.type.reward}"
+                requiredMessage="Поле вознаграждение не заполнено"/>
+                <p:inputText id="typeBarcode" value="#{adminFormController.type.barcode}" required="true"
+                requiredMessage="Поде баркод не заполнено"/>
+                <p:message for="typeName" display="icon"/>              
                 <p:message for="typePrice" display="icon"/>
+                <p:message for="typePrice_zakup" display="icon"/>
+                <p:message for="typeBarcode" display="icon"/>
                 <p:commandButton value="Добавить" 
                                  actionListener="#{adminFormController.addType}" 
-                                 update="newType"
-                                 oncomplete="PF('atd').hide()"/>
+                                 update=":admForm:gridList,newType"
+                                 oncomplete="PF('atd').hide()"
+                                 />
             </p:panelGrid>
         </h:form>
     </p:dialog>

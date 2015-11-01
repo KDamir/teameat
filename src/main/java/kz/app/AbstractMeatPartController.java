@@ -4,6 +4,7 @@ import kz.app.dao.MeatPartDao;
 import kz.app.entity.MeatCategoryEntity;
 import kz.app.entity.MeatTypesEntity;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +24,11 @@ public abstract class AbstractMeatPartController {
     
     private static final MeatPartDao mtd = new MeatPartDao();
 
-    public List<MeatPart> getMeatParts() {
+    public static MeatPartDao getMtd() {
+		return mtd;
+	}
+
+	public List<MeatPart> getMeatParts() {
         return meatParts;
     }
 
@@ -83,9 +88,46 @@ public abstract class AbstractMeatPartController {
     }
     
     public void resetCategoryTypePrice(MeatPart selectedPart){
-    	selectedPart.setCategory(mtd.getMeatCategoryByBarcode(selectedPart.getBarcode()));
-    	selectedPart.setType( mtd.getMeatTypeByBarcode(selectedPart.getBarcode()));
-    	selectedPart.setPrice( mtd.getMeatTypeByBarcode(selectedPart.getBarcode()).getPrice_std());
+    	
+    	// если продукт весовой - (штрих-код 13-значн и начинается с 21)
+    	// выделяем основной штрих-код
+    	// заполняем вес на автомате
+    	String sBarcode = selectedPart.getBarcode().toString();
+    	
+    	
+    	
+    	if (sBarcode.length()==13 && sBarcode.startsWith("21"))
+    	{
+    		Integer iBarcode =Integer.parseInt(sBarcode.substring(2, 7));
+    		Double weight =  Double.parseDouble(sBarcode.substring(7, 12))/1000.0;
+    		
+    		selectedPart.setCategory(mtd.getMeatCategoryByBarcode(BigInteger.valueOf(iBarcode)));
+    		selectedPart.setType( mtd.getMeatTypeByBarcode(BigInteger.valueOf(iBarcode)));
+    		selectedPart.setPrice( mtd.getMeatTypeByBarcode(BigInteger.valueOf(iBarcode)).getPrice_std());
+    		selectedPart.setWeight(weight);
+    	}
+    	// если продукт штучный - (штрих-код 13-значн и начинается с 02)
+    	// выделяем основной штрих-код
+    	else if(sBarcode.length()==13 && sBarcode.startsWith("20"))
+    	{
+    		Integer iBarcode =Integer.parseInt(sBarcode.substring(2, 7));
+    		Double  amount   =Double.parseDouble(sBarcode.substring(7, 12));
+    		
+    		selectedPart.setCategory(mtd.getMeatCategoryByBarcode(BigInteger.valueOf(iBarcode)));
+    		selectedPart.setType( mtd.getMeatTypeByBarcode(BigInteger.valueOf(iBarcode)));
+    		selectedPart.setPrice( mtd.getMeatTypeByBarcode(BigInteger.valueOf(iBarcode)).getPrice_std());
+    		selectedPart.setWeight(amount);
+    	}
+    	// товар с заводским штрих-кодом
+    	else
+    	{
+    		selectedPart.setCategory(mtd.getMeatCategoryByBarcode(selectedPart.getBarcode()));
+    		selectedPart.setType( mtd.getMeatTypeByBarcode(selectedPart.getBarcode()));
+    		selectedPart.setPrice( mtd.getMeatTypeByBarcode(selectedPart.getBarcode()).getPrice_std());	
+    		
+    	}
+    		
+    	
     }
     
     public void deleteRow(MeatPart part) {

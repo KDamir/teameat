@@ -11,7 +11,7 @@ import org.hibernate.Session;
 
 /**
  *
- * @author Дамир
+ * @author 
  */
 public class SupplierDao {
     public void saveSupplier(SupplierEntity supplier) {

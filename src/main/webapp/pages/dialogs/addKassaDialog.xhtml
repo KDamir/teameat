@@ -1,0 +1,24 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:f="http://xmlns.jcp.org/jsf/core"
+             xmlns:ui="http://java.sun.com/jsf/facelets">
+    <p:dialog id="addKassaDlg" 
+              widgetVar="akd"
+              modal="true">
+        <h:form id="akdform">
+            <p:panelGrid id="newSum" columns="1">
+                <p:outputLabel value="Сумма:" for="sum"/>
+                <p:inputText id="sum" value="#{kassaController.kassa.sum}" immediate="true" 
+                			required="true" styleClass="Wid70" style="font-weight: bold;font-size: xx-large;text-align: center">
+                	 		<f:convertNumber maxFractionDigits="1" groupingUsed="true"/>
+                </p:inputText>
+                <p:message for="sum" display="icon"/>
+                <p:commandButton value="Добавить" 
+                                 actionListener="#{kassaController.addKassa}"
+                                 update="newSum,:kassaForm:gridListKas"
+                                 oncomplete="PF('akd').hide()"/>
+            </p:panelGrid>
+        </h:form>
+    </p:dialog>
+</ui:composition>

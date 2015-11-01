@@ -1,25 +1,16 @@
 package kz.app;
 
 import kz.app.dao.GoodsDao;
-import kz.app.dao.InvoiceDao;
-import kz.app.dao.MeatPartDao;
 import kz.app.entity.GoodsEntity;
-import kz.app.entity.InvoiceEntity;
-import kz.app.utils.HibernateUtil;
-import kz.app.utils.MeatPartConverter;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.primefaces.event.data.FilterEvent;
+
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-
-import kz.app.utils.Constants;
 
 /**
  *
@@ -35,29 +26,49 @@ public class GoodsHistoryService extends AbstractMeatPartController{
     private Date end;
 	private static GoodsDao dao;
     private Double sum;
+    private Double filteredSum;
     
-    @PostConstruct
+   
+
+	@PostConstruct
     public void init() {
         dao = new GoodsDao();
         begin = new Date();
         end = new Date();
         sum = 0.0;
+        filteredSum = 0.0;
       //  searchGoods();
     }
     
     //SUM  списке товаров на продажу
     public Double getTotalSum() {
-        
-
-    	listGoods.forEach(e -> {
-            sum = sum + e.getSum();
-        });
+        sum=0.0;
+        if (getListGoods()!=null)
+        	getListGoods().forEach(e -> {
+        		sum = sum + e.getSum();
+        	});
         return sum;
     }
     
+    public Double getFilteredSum() {
+    	filteredSum=0.0;
+        if (getFilteredGoods()!=null)
+        	getFilteredGoods().forEach(e -> {
+        		filteredSum = filteredSum + e.getSum();
+        	});
+		return filteredSum;
+	}
+
+	public void setFilteredSum(Double filteredSum) {
+		this.filteredSum = filteredSum;
+	}
+    
+ 
+    
     public void searchGoods() {
-        java.sql.Date beginSql = new java.sql.Date(begin.getTime());
-        java.sql.Date endSql = new java.sql.Date(end.getTime());
+    	System.out.println(begin+"   "+end);
+        Date beginSql = new Date(begin.getTime());
+        Date endSql = new Date(end.getTime());
         setListGoods(dao.getListGoods(beginSql,endSql));
     }
     
@@ -98,4 +109,5 @@ public class GoodsHistoryService extends AbstractMeatPartController{
 	public void setFilteredGoods(List<GoodsEntity> filteredGoods) {
 		this.filteredGoods = filteredGoods;
 	}
+	
 }

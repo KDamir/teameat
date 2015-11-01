@@ -91,9 +91,10 @@ body {
     background-color: #FCA9A9!important;
 }
 .invoiceClass {
-    width: 600px!important;
-    left: 0px!important;
-    top: 0%!important;
+    width: 500px!important;
+    left: 0px!important;      
+   
+    top: 0%!important;             
     height: auto!important;
     background-color: lightgrey;
 }
@@ -117,4 +118,8 @@ body {
 }
 .ui-layout-unit .ui-layout-unit-content {
     /*overflow: hidden!important;*/
+}
+.ui-selectonemenu-panel{
+	height: 200px;
+	width: 200px;
 }

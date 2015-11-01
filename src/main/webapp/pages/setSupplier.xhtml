@@ -1,0 +1,82 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+        <ui:define name="content">
+                <p:messages id="messagesSetSupForm" showDetail="true" autoUpdate="true" closable="true" />
+                <h:form id="setSupForm">
+                        <p:dataTable id="setSupTable" 
+                                     var="supplier" 
+                                     rowKey="#{supplier.id}"
+                                     value="#{supplierController.suppliers}" 
+                                     paginator="true" 
+                                     rows="10"
+                                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                     rowsPerPageTemplate="5,10,15" 
+                                     selectionMode="single" 
+                                     selection="#{supplierController.selectedSupplier}" 
+                                     lazy="true"
+                                     editable="false">
+                                <p:ajax event="rowSelect" update=":setSupForm:setSupDlg" oncomplete="PF('setSupplierDlg').show()" />
+                                <p:column headerText="Id" sortBy="#{supplier.id}" filterBy="#{supplier.id}">
+                                        <h:outputText value="#{supplier.id}" />
+                                </p:column>
+
+                                <p:column headerText="Адрес" sortBy="#{supplier.address}" filterBy="#{supplier.address}">
+                                        <h:outputText value="#{supplier.address}" style="width:100%"/>
+                                </p:column>
+
+                                <p:column headerText="Наименование" sortBy="#{supplier.companyName}" filterBy="#{supplier.companyName}">
+                                        <h:outputText value="#{supplier.companyName}" style="width:100%"/>
+                                </p:column>
+
+                                <p:column headerText="Примечание" sortBy="#{supplier.note}" filterBy="#{supplier.note}">
+                                        <h:outputText value="#{supplier.note}" style="width:100%"/>
+                                </p:column>
+
+                                <p:column headerText="Тел. номер" sortBy="#{supplier.phoneNumber}" filterBy="#{supplier.phoneNumber}">
+                                        <h:outputText value="#{supplier.phoneNumber}" style="width:100%"/>
+                                </p:column>
+                
+
+                        </p:dataTable>  
+
+                        <p:dialog id="setSupDlg"
+                                  header="Информация о типе" 
+                                  widgetVar="setSupplierDlg" 
+                                  modal="true"
+                                  showEffect="fade"
+                                  hideEffect="fade"
+                                  resizable="false">
+
+                                <p:panelGrid columns="2">
+                                        
+
+                                        <p:outputLabel value="Адрес: "/>
+                                        <p:inputText value="#{supplierController.selectedSupplier.address}" style="width: 400px;"/>
+
+                                        <p:outputLabel value="Наименование: "/>
+                                        <p:inputText value="#{supplierController.selectedSupplier.companyName}" style="width: 400px;"/>
+
+                                        <p:outputLabel value="Примечание: "/>
+                                        <p:inputText value="#{supplierController.selectedSupplier.note}" style="width: 400px;"/>
+
+                                        <p:outputLabel value="Тел. номер: "/>
+                                        <p:inputText value="#{supplierController.selectedSupplier.phoneNumber}" style="width: 400px;"/>
+
+                                        <f:facet name="footer">
+                                                <p:commandButton
+                                                        value="сохранить" 
+                                                        actionListener="#{supplierController.onEdit}"
+                                                        process="setSupDlg"
+                                                        oncomplete="PF('setSupplierDlg').hide()"
+                                                        update="@form"
+                                                        style="float: right"/>
+                                        </f:facet>
+                                </p:panelGrid>
+                        </p:dialog>
+                </h:form>
+        </ui:define>
+</ui:composition>

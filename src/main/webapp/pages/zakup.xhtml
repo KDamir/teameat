@@ -2,7 +2,10 @@
              xmlns:h="http://xmlns.jcp.org/jsf/html"
              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
              xmlns:p="http://primefaces.org/ui"
-             xmlns:f="http://xmlns.jcp.org/jsf/core">
+             xmlns:f="http://xmlns.jcp.org/jsf/core"
+             template="/WEB-INF/template.xhtml">
+    <ui:define name="content">
+    
     <h:form>
         <p:panelGrid columns="2">
             <h:outputText value="Поставщик:"/>
@@ -130,5 +133,8 @@
                 <h:outputText value="Сдача:"/>
                 <h:outputText id = "rentingZak" value="#{purchaseController.renting}"/>
             </p:panelGrid>
+            
+            
     </h:form>
+    </ui:define>
 </ui:composition>

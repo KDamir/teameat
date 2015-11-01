@@ -116,15 +116,15 @@ public class AuthFilter implements Filter {
             UserLoginView authBean = (UserLoginView) req.getSession().getAttribute(authValue);
             String requestURI = req.getRequestURI();
         
-            if((authBean == null || !authBean.logged) && !requestURI.contains("/loginForm.xhtml") && !requestURI.contains("/javax.faces.resource/")) {
+            if((authBean == null || !authBean.logged) && !requestURI.contains("/login.xhtml") && !requestURI.contains("/javax.faces.resource/")) {
                 if(!"XMLHttpRequest".equals(req.getHeader("X-Requested-With"))) {
                     String sessreason = (String) ((HttpServletRequest)request).getSession().getAttribute("reason");
                     if("sessionexpired".equals(sessreason)) {
-                        res.sendRedirect(req.getContextPath() + "/pages/loginForm.xhtml?reason=sessionexpired");
+                        res.sendRedirect(req.getContextPath() + "/pages/login.xhtml?reason=sessionexpired");
                         ((HttpServletRequest)request).getSession().setAttribute("reason", null);
                     }
                     else
-                        res.sendRedirect(req.getContextPath() + "/pages/loginForm.xhtml");
+                        res.sendRedirect(req.getContextPath() + "/pages/login.xhtml");
                 }
                 else {// не авторизованный запрос из AJAX
                     StringBuilder resxml = new StringBuilder();
@@ -138,9 +138,9 @@ public class AuthFilter implements Filter {
                     res.flushBuffer();
                 }
             }
-            else if((authBean != null && authBean.logged) && !requestURI.contains("/main.xhtml") && !requestURI.contains("/javax.faces.resource/")) {
-                res.sendRedirect(req.getContextPath() + "/pages/main.xhtml");
-            }
+//            else if((authBean != null && authBean.logged) && !requestURI.contains("/dashboard.xhtml") && !requestURI.contains("/javax.faces.resource/")) {
+//                res.sendRedirect(req.getContextPath());
+//            }
             else
                 chain.doFilter(request, response);
         } catch (Throwable t) {

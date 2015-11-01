@@ -5,14 +5,14 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
          
                 
-    <p:commandButton value="Добавить" action="#{tableController.addNewMeatPart}" update="table"/>
+    <p:commandButton value="Добавить" action="#{tableController.addNewMeatPart}" update="singleDT"/>
     <p:commandButton value="Удалить" action="#{tableController.deleteLastMeatPart}"
-                     update="table"/>
+                     update="singleDT"/>
     <p:commandButton value="Сохранить" 
                      action="#{tableController.updateOrder}"  
-                      update=":#{formid} :growl"                  
+                      update=":#{formid}"                  
                     oncomplete="PF('invoiceDlg').hide()"     />
-    <p:dataTable id="table" value="#{tableController.meatParts}" var="meatPart" editable="true"
+    <p:dataTable id="singleDT" value="#{tableController.meatParts}" var="meatPart" editable="true"
                  editMode="cell" rendered="#{tableController.meatParts ne null}" >
                  
         <p:column headerText="Штрих-код" sortBy="#{meatPart.barcode}" style="height: 30px; width: 10%;" rendered="#{appBean.group.groupname eq 'vendor'}">
@@ -20,7 +20,7 @@
                 <f:facet name="output"><h:outputText value="#{meatPart.barcode}"/></f:facet>
                 <f:facet name="input">
                     <p:inputText value="#{meatPart.barcode}" style="width:100%">
-                        <p:ajax event="change" update="table"  listener="#{tableController.resetCategoryTypePrice(meatPart)}"/>
+                        <p:ajax event="change" update="singleDT"  listener="#{tableController.resetCategoryTypePrice(meatPart)}"/>
                     </p:inputText>
                 </f:facet>
             </p:cellEditor>
@@ -34,7 +34,7 @@
                 <f:facet name="output"><h:outputText value="#{meatPart.weight}"/></f:facet>
                 <f:facet name="input">
                     <p:inputText value="#{meatPart.weight}" style="width:100%">
-                        <p:ajax event="change" update="table"/>
+                        <p:ajax event="change" update="singleDT"/>
                     </p:inputText>
                 </f:facet>
             </p:cellEditor>
@@ -88,7 +88,7 @@
                         <f:selectItem itemValue="" itemLabel=""/>
                         <f:selectItems value="#{tableController.categories}" var="category"
                                        itemLabel="#{category.name}" itemValue="#{category}"/>
-                        <p:ajax event="change" update="table"
+                        <p:ajax event="change" update="singleDT"
                                 listener="#{tableController.resetType(meatPart)}"/>
                     </p:selectOneMenu>
                 </f:facet>
@@ -129,7 +129,7 @@
         <p:column style="width: 10%;">
             <p:commandButton icon="ui-icon-close" 
                              actionListener="#{tableController.deleteRow(meatPart)}"
-                             update="table"/>
+                             update="singleDT"/>
         </p:column>
         
         <p:columnGroup type="footer" id="totalsSection">

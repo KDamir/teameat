@@ -2,41 +2,80 @@
              xmlns:p="http://primefaces.org/ui"
              xmlns:f="http://java.sun.com/jsf/core"
              xmlns:ui="http://java.sun.com/jsf/facelets"
-             xmlns:h="http://xmlns.jcp.org/jsf/html">
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             template="/WEB-INF/template.xhtml">
+    <ui:define name="head">
+		<style type="text/css">
+			.ui-datalist {
+				width:300px;
+                margin-bottom: 20px;
+			}
+		
+			.ui-datalist-item {
+				padding:3px;
+			}
+            
+            .paginated .ui-datalist-data {
+                padding-left: 20px;
+            }
+            .ui-paginator-first {
+                height: 1px;
+            }
+		</style>
+	</ui:define>
+    <ui:define name="content">
     <h:form id="admForm">
-    <p:panelGrid columns="2">
-        <p:dataList id="categoryList" value="#{adminFormController.categories}" var="category" type="ordered">
-            <f:facet name="header">
-                Существующие категории
-            </f:facet>
-            #{category.name}
-        </p:dataList>
-        <p:panelGrid id="addTypePanel" columns="2">
-            <p:outputLabel value="Категория:" for="categoryComboBox"/>
-            <p:selectOneMenu id="categoryComboBox" value="#{adminFormController.selectedCategory}" immediate="true">
-                <f:selectItems value="#{calculationController.categories}" var="category" itemLabel="#{category.name}" itemValue="#{category}"/>
-                <p:ajax event="change" update="typeList" listener="#{adminFormController.resetType}"/>
-            </p:selectOneMenu>
-            <p:dataList id="typeList" value="#{adminFormController.selectedCategoryTypes}" var="type" type="ordered">
-                <f:facet name="header">
-                    Существующие типы
-                </f:facet>
-                #{type.name}
-            </p:dataList>
-        </p:panelGrid>
-    </p:panelGrid>
-    <p:toolbarGroup>
-        <p:commandButton value="Добавить поставщика" 
+    	<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+    	<p:toolbarGroup>
+        	<p:commandButton value="Добавить поставщика" 
                          oncomplete="PF('apd').show()"
                          style="width: 200px;"/>
-        <p:commandButton value="Добавить категорию" 
+        	<p:commandButton value="Добавить категорию" 
                          oncomplete="PF('acd').show()"
                          process="@this"
                          style="width: 200px;"/>
-        <p:commandButton value="Добавить тип" 
+        	<p:commandButton value="Добавить тип" 
                          oncomplete="PF('atd').show()"
                          process="@this"
                          style="width: 200px;"/>
-    </p:toolbarGroup>
+                         
+            
+            
+    	</p:toolbarGroup>
+    	
+    	<br> </br>
+    	
+        <p:panelGrid columns="4" id="gridList" layout="grid">
+            <p:row>
+                <p:dataList id="categoryList" value="#{adminFormController.categories}" var="category" type="ordered">
+                    <f:facet name="header">
+                        Существующие категории
+                    </f:facet>
+                    #{category.name}
+                </p:dataList>
+            </p:row>
+            <p:row>
+                <p:dataList id="typeList" value="#{adminFormController.selectedCategoryTypes}" var="type" type="ordered" >
+                    <f:facet name="header">
+                        Существующие типы
+                    </f:facet>
+                    #{type.name}
+                </p:dataList>
+            </p:row>
+            <p:row><p:outputLabel value="Выберите категорию  :" for="categoryComboBox"/></p:row>                      
+            <p:row>  
+                <p:selectOneMenu id="categoryComboBox" value="#{adminFormController.selectedCategory}" immediate="true">
+                    <f:selectItems value="#{adminFormController.categories}" var="category" itemLabel="#{category.name}" itemValue="#{category}"/>
+                    <p:ajax event="change" update="typeList" listener="#{adminFormController.resetType}"/>
+                </p:selectOneMenu>
+            </p:row>    
+            
+        </p:panelGrid>
+    
     </h:form>
+        
+        <ui:include src="../pages/dialogs/addPostavshikDialog.xhtml"/>
+        <ui:include src="../pages/dialogs/addCategoryDialog.xhtml"/>
+        <ui:include src="../pages/dialogs/addTypeDialog.xhtml"/>
+    </ui:define>
 </ui:composition>

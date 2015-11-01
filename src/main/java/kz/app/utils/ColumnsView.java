@@ -10,8 +10,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 
 import javax.faces.bean.ViewScoped;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
 
 
 import kz.app.entity.GoodsEntity;
@@ -26,9 +24,9 @@ public class ColumnsView implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private final static List<String> VALID_COLUMN_KEYS = Arrays.asList("id", "category", "type", "weight", "price", "sender", "company_name", "date","sum");
+	private final static List<String> VALID_COLUMN_KEYS = Arrays.asList("id","category", "type", "weight", "price","sum","date","sender", "company_name");
      
-    private String columnTemplate = "category type weight price sum date sender company_name";
+    private String columnTemplate = "id category type weight price sum date sender company_name";
      
     private List<ColumnModel> columns;
      

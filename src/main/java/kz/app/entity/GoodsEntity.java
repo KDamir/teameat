@@ -6,36 +6,26 @@
 package kz.app.entity;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Collection;
 
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Kuat
  */
 @Entity
-@Table(name = "Goods")
+@Table(name = "goodsg")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Goods.findAll", query = "SELECT i FROM GoodsEntity i"),
@@ -49,7 +39,8 @@ public class GoodsEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    private Integer id;   
+    /*   
     @Size(max = 45)
     @Column(name = "category")
     private String category;
@@ -68,6 +59,34 @@ public class GoodsEntity implements Serializable {
     @Column(name = "sum")
     private double sum;
     
+    */
+    @Size(max = 45)
+    @Column(name = "categoryG")
+    private String category;
+    @Column(name = "meattypeG")
+    private String type;
+    @Column(name = "weightG")
+    private double weight;
+    @Column(name = "priceG")
+    private double price;
+    
+    
+    public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	@Column(name = "senderG")
+    private String sender;
+    @Column(name = "company_nameG")
+    private String company_name;
+    @Column(name = "sellDateG")
+    private Date date;
+    @Column(name = "sumG")
+    private double sum;
     
     
     public double getSum() {
@@ -124,12 +143,10 @@ public class GoodsEntity implements Serializable {
     public GoodsEntity() {
     }
 
-    public GoodsEntity(Integer id) {
-        this.id = id;
-    }
 
-    public GoodsEntity(Integer id, String category, String type, double weight, double price, String sender, String company_name, Date date, double sum){
-    	this.id = id;
+
+    public GoodsEntity(String category, String type, double weight, double price, String sender, String company_name, Date date, double sum){
+  //  	this.id = id;
     	this.category = category;
     	this.type=type;
     	this.weight=weight;
@@ -140,7 +157,7 @@ public class GoodsEntity implements Serializable {
     	this.sum = sum;
     	
     }
-    
+ /*   
     public Integer getId() {
         return id;
     }
@@ -148,7 +165,7 @@ public class GoodsEntity implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-
+*/
     public String getSender() {
         return sender;
     }
@@ -168,7 +185,7 @@ public class GoodsEntity implements Serializable {
         this.date = date;
     }
 
-
+/*
     @Override
     public int hashCode() {
         int hash = 0;
@@ -194,6 +211,7 @@ public class GoodsEntity implements Serializable {
         return "kz.app.entity.GoodsEntity[ id=" + id + " ]";
     }
 
+*/
    
     
 }

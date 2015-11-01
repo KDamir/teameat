@@ -36,7 +36,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "MeatTypes.findByBarcode", query = "SELECT m FROM MeatTypesEntity m WHERE m.barcode = :barcode"),
     @NamedQuery(name = "MeatTypes.findByName", query = "SELECT m FROM MeatTypesEntity m WHERE m.name = :name")})
 public class MeatTypesEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
+    
+	private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -51,6 +52,8 @@ public class MeatTypesEntity implements Serializable {
     private BigInteger barcode;
     @Column(name = "price_std")
     private Double price_std;
+    @Column(name = "price_zakup")
+    private Double price_zakup;
     @Column(name = "reward")
     private Double reward;
 
@@ -77,6 +80,14 @@ public class MeatTypesEntity implements Serializable {
         this.price_std = price_std;
     }
 
+    public Double getPrice_zakup() {
+		return price_zakup;
+	}
+
+	public void setPrice_zakup(Double price_zakup) {
+		this.price_zakup = price_zakup;
+	}
+    
     public MeatTypesEntity() {
     }
 

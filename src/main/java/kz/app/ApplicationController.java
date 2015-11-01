@@ -1,7 +1,6 @@
 package kz.app;
 
 import java.util.List;
-import java.util.TimeZone;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -9,12 +8,12 @@ import javax.faces.bean.SessionScoped;
 
 import kz.app.dao.MeatPartDao;
 import kz.app.dao.MeatPartPurchaseDao;
+import kz.app.dao.MeatPartReturnDao;
 import kz.app.entity.MeatCategoryEntity;
 import kz.app.entity.MeatTypesEntity;
 import kz.app.entity.ReceiverEntity;
 import kz.app.entity.SupplierEntity;
 import kz.app.entity.UserGroupsEntity;
-import kz.app.utils.Constants;
 import kz.app.utils.PropUtil;
 
 /**
@@ -33,14 +32,14 @@ public class ApplicationController{
     
     public static MeatPartPurchaseDao daop;
     
+    public static MeatPartReturnDao daor;
+    
     public static List<MeatTypesEntity> types;
     public static List<MeatCategoryEntity> categories;
     public static List<ReceiverEntity> receivers;
     public static List<SupplierEntity> suppliers;
     
     private UserGroupsEntity group;
-    
-    private TimeZone timeZone = Constants.astanaTimeZone;
     
     public static List<SupplierEntity> getSuppliers() {
         return suppliers;
@@ -54,6 +53,7 @@ public class ApplicationController{
     public void init() {
         dao = new MeatPartDao();
         daop = new MeatPartPurchaseDao();
+        daor= new MeatPartReturnDao();
         types = dao.getTypesList();
         categories = dao.getCategoriesList();
         receivers = dao.getReceiversList();
@@ -78,7 +78,7 @@ public class ApplicationController{
         suppliers = daop.getSuppliersList();
     }
     
-    //<editor-fold defaultstate="collapsed" desc="Getter/Setter">
+    //<editor-fold defaultstate="collapsed" desc="Getter/Setter"> 
     public UserGroupsEntity getGroup() {
         return group;
     }
@@ -88,14 +88,6 @@ public class ApplicationController{
     }
     
     public ApplicationController() {
-    }
-    
-    public TimeZone getTimeZone() {
-        return timeZone;
-    }
-
-    public void setTimeZone(TimeZone timeZone) {
-        this.timeZone = timeZone;
     }
 //</editor-fold>
 

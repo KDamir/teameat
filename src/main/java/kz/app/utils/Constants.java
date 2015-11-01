@@ -12,5 +12,6 @@ import java.util.TimeZone;
  */
 public class Constants {
     public static final String UPDATE_SUCCESSFUL = "Данные сохранены";
+    public static final String BARCODE_EXIST_WARN = "Элемент с данным баркодом уже существует";
     public static TimeZone astanaTimeZone = TimeZone.getTimeZone("GMT+06:00");
 }

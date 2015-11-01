@@ -7,9 +7,12 @@ package kz.app.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -56,8 +59,10 @@ public class SupplierEntity implements Serializable {
     private String note;
     @Id
     @Basic(optional = false)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+
+    private Integer id;
 //    @OneToMany(mappedBy = "receiverId")
 //    private Collection<Invoice> invoiceCollection;
 
@@ -81,15 +86,17 @@ public class SupplierEntity implements Serializable {
         this.companyName = companyName;
     }
 
-    public int getId() {
-        return id;
-    }
+  
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public Integer getId() {
+		return id;
+	}
 
-    @Override
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (companyName != null ? companyName.hashCode() : 0);

@@ -6,27 +6,33 @@
               widgetVar="apd"
               modal="true">
         <h:form id="apdform">
-            <p:panelGrid id="addSupplier" columns="4">
+            <p:panelGrid id="addSupplier" columns="4" layout="grid">
             <p:outputLabel value="Наименование:" for="companyName" style="text-align: center"/>
             <p:outputLabel value="Адрес:" for="address" style="text-align: center"/>
             <p:outputLabel value="Телефон:" for="phoneNumber" style="text-align: center"/>
             <p:outputLabel value="Примечание:" for="note" style="text-align: center"/>
             <p:inputText id="companyName"
-                         value="#{adminFormController.supplier.companyName}"
+                         value="#{adminFormController.supplier.companyName}" required="true"
+                         requiredMessage="Поле наименование компании не заполнено"
                          immediate="true"/>
             <p:inputText id="address"
-                         value="#{adminFormController.supplier.address}">
+                         value="#{adminFormController.supplier.address}" required="true"
+                         requiredMessage="Поле адрес не заполнено" immediate="true">
+                         
             </p:inputText>
             <p:inputText id="phoneNumber"
-                         value="#{adminFormController.supplier.phoneNumber}"/>
-            <p:inputText id="note" value="#{adminFormController.supplier.note}"/>
-            <p:message for="companyName" display="icon"/>
+                         value="#{adminFormController.supplier.phoneNumber}" required="true"
+                         requiredMessage="Поле телефон не заполнено"
+                         immediate="true"/>
+            <p:inputText id="note" value="#{adminFormController.supplier.note}" required="true" requiredMessage="Поле примечание не заполнено" immediate="true"/>
+            <p:message for="companyName" display="icon" />
             <p:message for="address" display="icon"/>
             <p:message for="phoneNumber" display="icon"/>
             <p:commandButton value="Добавить" 
                              actionListener="#{adminFormController.addSupplier}" 
-                             update="addSupplier"
-                             oncomplete="PF('apd').hide()"/>
+                             update="addSupplier,:admForm:typeList"
+                             oncomplete="PF('apd').hide()"
+                             process="@form"/>
         </p:panelGrid>
         </h:form>
     </p:dialog>

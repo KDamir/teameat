@@ -1,0 +1,54 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pr="http://primefaces.org/rio">
+
+    <div class="Animated05" id="layout-menu-cover">
+        <ul class="layout-menu">
+            <li>
+                <a class="menulink ripplelink">
+                    <i class="icon-round58 Fs40"></i>
+                    <span class="Fs18">#{userLoginView.username}<i class="icon-downwards Fright Fs20"></i><br /><span class="Fs12 FontRobotoLight">#{userLoginView.username}</span></span>
+                </a>
+                <ul>
+                    <li><a href="#" class="menulink ripplelink"><i class="icon-user158 Fs16"></i> Профиль</a></li>
+                    <li><a href="#" class="menulink ripplelink"><i class="icon-two385 Fs16"></i> Сменить пользователя</a></li>
+                    <li><a href="#" class="menulink ripplelink"><i class="icon-settings49 Fs16"></i> Системные настройки</a></li>
+                    <h:form>
+<!--                        <li><a href="#" class="menulink ripplelink" ><i class="icon-thermostat1 Fs16"></i> Выход</a></li>-->
+                            <li><p:commandLink class="menulink ripplelink icon-thermostat1 Fs16" 
+                                               value="Выйти" 
+                                               action="#{userLoginView.logout()}" 
+                                               ajax="false"/></li>
+                    </h:form>
+                </ul>
+            </li>
+        </ul>
+        <div class="Separator"></div>
+        
+        <pr:menu rendered="#{userLoginView.logged}">
+            <p:menuitem id="rm_dashboard" value="Главное меню" icon="icon-planet29" outcome="/dashboard"/>
+            <p:menuitem id="rm_team1" value="Накладные на поставку"  icon="fa-file-o" outcome="/pages/zakupProd" rendered="#{appBean.admin}"/>
+            <p:menuitem id="rm_team11" value="Просмотр накладных на поставку" icon="fa-file-o" outcome="/pages/purchaseHistory" rendered="#{appBean.admin}"/>
+            <p:menuitem id="rm_team2" value="Остатки" icon="fa-file-o" outcome="/pages/calculation" rendered="#{appBean.admin}"/>
+            <p:menuitem id="rm_team3" value="Накладные на продажу" icon="fa-file-o" outcome="/pages/invoiceProd" rendered="#{appBean.vendor}" />
+            <p:menuitem id="rm_team13" value="Накладные для оптовых продаж" icon="fa-file-o" outcome="/pages/invoiceProdOpt"  rendered="#{appBean.admin}"/>
+            <p:menuitem id="rm_team4" value="Просмотр накладных на продажу" icon="fa-file-o" outcome="/pages/invoiceHistory"/>
+            <p:menuitem id="rm_team14" value="Накладные на возврат"  icon="fa-file-o" outcome="/pages/return" rendered="#{appBean.admin}"/>
+            <p:menuitem id="rm_team15" value="Просмотр накладных на возврат"  icon="fa-file-o" outcome="/pages/returningHistory" rendered="#{appBean.admin}"/>
+            <p:menuitem id="rm_team5" value="Список проданных товаров/услуг" icon="fa-file-o" outcome="/pages/meatPartHistory" rendered="#{appBean.admin}"/>
+            <p:menuitem id="rm_team6" value="Добавить элементы" icon="fa-file-o" outcome="/pages/adminForm" rendered="#{appBean.admin}"/>
+            <p:menuitem id="rm_team7" value="Установка параметров товаров/услуг(цена,штрих-код,вознаграждение)" icon="fa-file-o" outcome="/pages/setGoods" rendered="#{appBean.admin}"/>
+            <p:menuitem id="rm_team12" value="Установка параметров поставщиков" icon="fa-file-o" outcome="/pages/setSupplier" rendered="#{appBean.admin}"/>
+            <p:menuitem id="rm_team8" value="Импорт данных из excel" icon="fa-file-o" outcome="/pages/dataImport" rendered="#{appBean.admin}"/>
+            <p:menuitem id="rm_team9" value="Касса" icon="fa-file-o" outcome="/pages/kassa" rendered="#{appBean.admin}"/>
+            <p:menuitem id="rm_team10" value="Остатки" icon="fa-file-o" outcome="/pages/leavings" rendered="#{appBean.admin}"/>
+            <p:separator />
+        </pr:menu>
+
+    </div>
+
+</ui:composition>

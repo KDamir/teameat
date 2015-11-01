@@ -1,0 +1,139 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:f="http://xmlns.jcp.org/jsf/core"
+             template="/WEB-INF/template.xhtml"
+             xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+                 
+    <ui:define name="head">
+        <style type="text/css">
+            .ui-panelgrid .ui-grid-responsive .ui-panelgrid-cell {
+                text-align: center;
+            }
+        </style>
+        <h:outputScript name="js/btnClickEventInvoice.js" library="rio-layout" />
+        
+    </ui:define>
+    
+    <ui:define name="content">
+        <div class="Container100 Responsive WidAutoOnMobile HeiAutoOnMobile">
+            <div class="ContainerIndent">
+                <h:form id="invoiceProdForm">
+                    <p:messages/>
+                    <p:panelGrid columns="3">
+                    <h:panelGrid columns="3">
+                        <h:outputText value="Отправитель:" style="font-weight: bold"/>
+                        <p:inputText id="senderInput" 
+                                     value="#{invoiceController.invoice.sender}" 
+                                     styleClass="Wid40 Responsive WidAutoOnMobile HeiAutoOnMobile"
+                                     disabled="true"/>
+<!--                        <h:outputText value="Количество баллов клиента:" styleClass="Wid40 Responsive WidAutoOnMobile HeiAutoOnMobile Underline"
+                                       style="font-weight: bold;"/>-->
+
+                        <h:outputText value="Получатель:" style="font-weight: bold"/>
+                        <p:selectOneMenu  value="#{invoiceController.invoice.receiverId}" 
+                                          styleClass="Wid40 Responsive WidAutoOnMobile HeiAutoOnMobile"
+                                          filter="true"
+                                          filterMatchMode="startsWith">
+                            <f:selectItems value="#{invoiceController.listReceiver}" 
+                                           var="receiver" 
+                                           itemValue="#{receiver}" 
+                                           itemLabel="#{receiver.companyName}"/>     
+                            <p:ajax event="change" 
+                                    listener="#{invoiceController.showTotalReward(invoiceController.invoice.receiverId)}"
+                                    />
+                        </p:selectOneMenu>
+<!--                        <h:outputText id = "totalClReward" 
+                                      value="#{invoiceController.totalClientRwd}"  
+                                      styleClass="unchangeable Wid20 Responsive WidAutoOnMobile HeiAutoOnMobile Underline"/>      -->
+                    </h:panelGrid>
+                    
+                    <p:panelGrid columns="2" layout="grid">   
+                        <h:outputText value="Внесено:" style="font-weight: bold;font-size: xx-large"/>
+                        <p:inputText id="sumInput" value="#{invoiceController.sumInput}" styleClass="Wid70" style="font-weight: bold;font-size: xx-large;text-align: center">
+                                <p:ajax event="change" update="renting"/>
+                                <f:convertNumber maxFractionDigits="1" groupingUsed="true"/>
+                        </p:inputText>
+
+                        <h:outputText value="Сдача:" style="font-weight: bold;font-size: xx-large"/>
+                        <h:outputText id = "renting" value="#{invoiceController.renting}" style="font-weight: bold;font-size: xx-large" styleClass="Wid50">
+                            <f:convertNumber maxFractionDigits="1" groupingUsed="true"/>
+                        </h:outputText>
+                    </p:panelGrid>
+                        
+                    <p:panelGrid columns="1" layout="grid" style="width: 200px;">
+                            <h:outputText id="totalSalesAmount" value="#{invoiceController.totalSalesAmount}" 
+                                            style="font-weight: bold;font-size: xx-large;text-align: center" >
+                              <f:convertNumber maxFractionDigits="1" groupingUsed="true"/>
+                            </h:outputText>
+                    </p:panelGrid>
+                    </p:panelGrid>
+                    <br/>
+                    <p:toolbarGroup  styleClass="HeiAutoOnMobile">
+                            <p:commandButton id="addinvoiceProdBtn" value="Добавить" 
+                                             action="#{invoiceController.addNewMeatPart}" 
+                                             update="mprepeat" 
+                                             disabled="true"/>
+                        <p:commandButton value="Сохранить" id="saveBtn"
+                                         action="#{invoiceController.updateOrder}"  
+                                          update=":invoiceProdForm"/>
+                        <p:commandButton value="Очистить" action="#{invoiceController.clear}" update=":invoiceProdForm"/>
+                    </p:toolbarGroup>
+
+                    <p:scrollPanel id="mprepeat" style="height:470px;" styleClass="HeiAutoOnMobile">
+                            <p:focus context="mprepeat"/>  
+                            <ui:repeat id="repeatInvProd" value="#{invoiceController.meatParts}" var="part" varStatus="status">
+                                    <p:panelGrid id="panelInvProd" columns="9" layout="grid" style="border:0px !important; background:none;" styleClass="FormContent">
+                                    <p:row>
+                                            <p:outputLabel value="#{status.index+1}"/>
+                                    </p:row>
+                                    <p:row>   
+                                    <p:inputText id="barcodeId" style="height: 30px; width: 80%;border: 1px double black;font-weight: bold;"  
+                                                 styleClass="Wid50" placeholder="Штрих-код" value="#{part.barcode}" 
+                                                 onkeypress="if(event.keyCode == 13) {
+                                                         if(#{!status.last}) {
+                                                                document.getElementById('invoiceProdForm:repeatInvProd:#{status.index+1}:barcodeId').focus();
+                                                         }
+                                                 }">
+                                        <p:ajax event="change" update="partWei,partCat,partType,partPrice,partRev,:invoiceProdForm:totalSalesAmount,:invoiceProdForm:renting"  listener="#{invoiceController.resetCategoryTypePrice(part)}"/>
+                                        <!--<p:focus for=":invoiceProdForm:repeatInvProd:#{status.index+1}:barcodeId" rendered="#{!status.last}"/>-->
+                                    </p:inputText>
+                                </p:row>
+                                <p:row>
+                                        <!--<p:focus for=":invoiceProdForm:repeatInvProd:#{status.end-1}:barcodeId_#{status.end}" />-->
+                                    <p:inputText 	id="partWei" style="height: 30px; width: 80%;border: 1px double black;font-weight: bold;" 
+                                        			styleClass="Wid50" placeholder="Вес" value="#{part.weight}">
+                                        <p:ajax event="change" update=":invoiceProdForm:mprepeat, :invoiceProdForm:totalSalesAmount,:invoiceProdForm:renting"/>
+                                        
+                                        <!--<p:focus for=":invoiceProdForm:repeatInvProd:#{status.index}:barcodeId_#{status.index+1}"  />-->
+                                        <!--<p:focus for=":invoiceProdForm:repeatInvProd:#{status.end-1}:barcodeId_#{status.end}"/>-->
+                                    </p:inputText>
+                                </p:row>
+                                <p:row><p:inputText id="partCat" style="height: 30px; width: 80%;border: 1px double black;font-weight: bold;" 
+                                                    styleClass="Wid50" placeholder="Категория" disabled="true" value="#{part.category.name}"/></p:row>
+                                <p:row><p:inputText id="partType" style="height: 30px; width: 80%;border: 1px double black;font-weight: bold;"  
+                                                    styleClass="Wid50" placeholder="Тип" disabled="true" value="#{part.type.name}"/></p:row>
+                                <p:row><p:inputText id="partPrice" style="height: 30px; width: 80%;border: 1px double black;font-weight: bold;"   
+                                                    styleClass="Wid50" placeholder="Цена" disabled="true" value="#{part.price}">
+                                    <f:convertNumber maxFractionDigits="1" groupingUsed="true"/>
+                                    </p:inputText></p:row>
+                                <p:row><p:inputText id="partRev" style="height: 30px; width: 60%;border: 1px double black;font-weight: bold;"
+                                                    styleClass="Wid50 Responsive WidAutoOnMobile HeiAutoOnMobile" 
+                                                    placeholder="Сумма" disabled="true" value="#{part.revenue}">
+                                  <f:convertNumber maxFractionDigits="1" groupingUsed="true"/>  
+                                    </p:inputText></p:row>
+                                <p:row><p:commandButton icon="ui-icon-close" 
+                                                 actionListener="#{invoiceController.deleteRow(part)}"
+                                                 update=":invoiceProdForm:mprepeat,:invoiceProdForm:totalSalesAmount,:invoiceProdForm:renting"/></p:row>
+                            </p:panelGrid>
+
+                        </ui:repeat>
+                    </p:scrollPanel>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+    
+    
+</ui:composition>

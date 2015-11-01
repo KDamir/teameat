@@ -53,7 +53,10 @@ public class MeatCategoryEntity implements Serializable {
     public MeatCategoryEntity(String name) {
         this.name = name;
     }
-
+    public MeatCategoryEntity(int id) {
+    	this.id = id;
+    }
+    
     public MeatCategoryEntity(String name, int id) {
         this.name = name;
         this.id = id;

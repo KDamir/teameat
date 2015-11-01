@@ -27,7 +27,7 @@ public class InvoiceController extends AbstractMeatPartController{
     private ReceiverEntity selectedReceiver;
     
     // Внесенный платеж
-    private double sumInput=0.0;
+    private Double sumInput=null;
     // сдача
     private double renting = 0.0;
     
@@ -38,11 +38,25 @@ public class InvoiceController extends AbstractMeatPartController{
     private static MeatPartDao meatPartDao;
     
     private List<String> buf;
- 
-    FacesMessage msg = null;
+    
+    private boolean isInvoiceForSell;
+    
+    private ReceiverEntity selectedRecOpt; 
+
+	FacesMessage msg = null;
     FacesContext fc;
     
     UserLoginView user;
+    
+    
+    
+    public boolean isInvoiceForSell() {
+		return isInvoiceForSell;
+	}
+
+	public void setInvoiceForSell(boolean isInvoiceForSell) {
+		this.isInvoiceForSell = isInvoiceForSell;
+	}
     
     public List<ReceiverEntity> getListReceiver() {
         return listReceiver;
@@ -113,7 +127,7 @@ public class InvoiceController extends AbstractMeatPartController{
         invoice = new InvoiceEntity();
         invoice.setSender(user.getUsername());
         meatParts = new ArrayList<>();
-        for(int i = 0; i < 5; i++) {
+        for(int i = 0; i < 50; i++) {
             meatParts.add(new MeatPart());
         }        
         categories   = ApplicationController.categories;
@@ -123,7 +137,7 @@ public class InvoiceController extends AbstractMeatPartController{
         /*TODO: Потом переделать
          */
         for (ReceiverEntity recItem : listReceiver) {
-            if (recItem.getId() == 5) {
+            if (recItem.getId() == 0) {
                 invoice.setReceiverId(recItem);
                 break;
             }
@@ -135,21 +149,24 @@ public class InvoiceController extends AbstractMeatPartController{
         buf.clear();
     	double sum = 0.0;/* Общая сумма товаров, которые будут оплачены баллами*/
         for(MeatPart part : meatParts) {
+            if(part.getWeight() == null) {
+                msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Действие отменено. Для сохранения введите вес!", "");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                return;
+            }
             if(null != part.getCategory())
                 buf.add(part.getCategory().getName());
             if(part.getBarcode() != null && part.isBall())
                 sum = sum + part.getRevenue();
         }
         if(buf.isEmpty()) {
-            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Действие отменено",
-                    "Для сохранения необходим хотя бы один товар");
+            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Действие отменено. Для сохранения необходим хотя бы один товар!", "");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             return;
         }
         if (selectedReceiver != null) {
             if (sum > selectedReceiver.getReward()) {
-                msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Действие отменено",
-                        "Недостаточно баллов");
+                msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Действие отменено. Недостаточно баллов!", "");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 return;
             }
@@ -167,6 +184,8 @@ public class InvoiceController extends AbstractMeatPartController{
             meatPartDao.saveReceiver(selectedReceiver);
         }
         invoice.setDate(new Date());
+        if (sumInput != null)
+        	invoice.setPaidAmount(sumInput);
         meatPartDao.saveInvoice(invoice);
         // TODO: Должна быть валидация на заполнение нужных полей
         meatParts.forEach(e -> {
@@ -174,20 +193,7 @@ public class InvoiceController extends AbstractMeatPartController{
                 meatPartDao.saveMeatPart(MeatPartConverter.convertMeatPartToEntity(e, invoice, null));
         });
         
-        invoice = new InvoiceEntity();
-        invoice.setSender(user.getUsername());
-        /*TODO: Потом переделать
-         */
-        for (ReceiverEntity recItem : listReceiver) {
-            if (recItem.getId() == 5) {
-                invoice.setReceiverId(recItem);
-                break;
-            }
-        }
-        meatParts = new ArrayList<>();
-        for(int i = 0; i < 5; i++) {
-            meatParts.add(new MeatPart());
-        }
+        clear();
     }
 
     @Override
@@ -197,20 +203,42 @@ public class InvoiceController extends AbstractMeatPartController{
         meatParts.remove(idx);
     }
 
-    public double getSumInput() {
+    public Double getSumInput() {
         return sumInput;
     }
 
-    public void setSumInput(double sumInput) {
+    public void setSumInput(Double sumInput) {
         this.sumInput = sumInput;
     }
 	
 	
 	 /*Сдача*/
     public Double getRenting() {
-        return ( sumInput - meatParts.stream().mapToDouble(MeatPart::getRevenue).sum() );
+        if(sumInput == null) {
+            return 0.0;
+        }
+        else
+            return ( sumInput - meatParts.stream().mapToDouble(MeatPart::getRevenue).sum() );
     }
 
-        
+    public void clear() {
+        invoice = new InvoiceEntity();
+        invoice.setSender(user.getUsername());
+        /*TODO: Потом переделать
+         */
+        if (listReceiver!=null)
+        	for (ReceiverEntity recItem : listReceiver) {
+        		if (recItem.getId() == 0) {
+        			invoice.setReceiverId(recItem);
+        			break;
+        		}
+        	}
+        meatParts = new ArrayList<>();
+        for(int i = 0; i < 50; i++) {
+            meatParts.add(new MeatPart());
+        }
+        sumInput = null;
+        renting = 0.0;
+    }
     
 }

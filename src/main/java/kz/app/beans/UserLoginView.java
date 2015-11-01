@@ -123,6 +123,6 @@ public class UserLoginView{
         if(session != null)
             session.invalidate();
         logger.log(Level.INFO,"user={0}; Logout.",new Object[]{username});
-        return "go_to_login";
+        return "/pages/login.xhtml";
     }
 }

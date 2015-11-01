@@ -1,0 +1,116 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:ui="http://java.sun.com/jsf/facelets"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <style type="text/css">
+            .ui-panelgrid .ui-grid-responsive .ui-panelgrid-cell {
+                text-align: center;
+            }
+        </style>
+    </h:head>
+	
+     
+    <p:dialog widgetVar="returningDlg" 
+              id="panelDlgRet" 
+          	  height="700"
+              modal="true">
+       
+		<h:form>
+		
+                        <p:panelGrid columns="2" rendered="#{not empty returningHistoryService.selectedReturning}">
+                <h:outputText value="Отправитель:"/>
+                <p:inputText id="senderInputRet" value="#{returningHistoryService.selectedReturning.receiver}" style="width: 400px"/>
+                <h:outputText value="Поставщик:"/>
+                <p:selectOneMenu value="#{returningHistoryService.selectedReturning.supplierId}" style="width: 85%">
+                    <f:selectItem itemValue="" itemLabel=""/>
+                    <f:selectItems value="#{returningHistoryService.listSupplier}"
+                                   var="supplier"
+                                   itemValue="#{supplier}"
+                                   itemLabel="#{supplier.companyName}"/>
+                </p:selectOneMenu>
+             
+            </p:panelGrid>
+            <br/>
+            <p:commandButton value="Добавить" action="#{returningHistoryService.addNewMeatPart}" update="tableRetHis"/>
+            <p:commandButton value="Удалить" action="#{returningHistoryService.deleteLastMeatPart}"
+                             update="tableRetHis"/>
+            <p:commandButton value="Сохранить" 
+                             action="#{returningHistoryService.updateOrder}" 
+                             update="@form"
+                             oncomplete="PF('returningDlg').hide()"/>
+         
+            <p:dataTable id="tableRetHis" style = "width :1300px;" value="#{returningHistoryService.meatParts}" var="meatPart" editable="true"
+                         editMode="cell" rendered="#{returningHistoryService.meatParts ne null}" scrollable="false" scrollHeight="500">
+                         
+             
+                <p:column headerText="Штрих-код" sortBy="#{meatPart.barcode}">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{meatPart.barcode}"/></f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{meatPart.barcode}">
+                                <p:ajax event="change" update="tableRetHis" listener="#{returningHistoryService.resetCategoryTypePrice(meatPart)}"/>
+                            </p:inputText>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Вес" sortBy="#{meatPart.weight}">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{meatPart.weight}"/></f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{meatPart.weight}" style="width:100%">
+                                <p:ajax event="change" update="tableRetHis"/>
+                            </p:inputText>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Категория" sortBy="#{meatPart.category.name}" styleClass="unchangeable">
+                    <h:outputText value="#{meatPart.category.name}"/>
+                </p:column>
+                <p:column headerText="Тип" sortBy="#{meatPart.type.name}" styleClass="unchangeable">
+                    <h:outputText value="#{meatPart.type.name}"/>
+                </p:column>
+                <p:column headerText="Цена" sortBy="#{meatPart.price}" styleClass="unchangeable">
+                    <h:outputText value="#{meatPart.price}"/>
+                </p:column>
+                <p:column headerText="Сумма" sortBy="#{meatPart.price}" styleClass="unchangeable">
+                    <h:outputText value="#{meatPart.revenue}"/>
+                </p:column>
+                <p:column styleClass="unchangeable">
+                    <p:commandButton icon="ui-icon-close" 
+                                     actionListener="#{returningHistoryService.deleteRow(meatPart)}"
+                                     update="@form"/>
+                </p:column>
+                <p:columnGroup type="footer" id="totalsSectionPurHis">
+                    <p:row>
+                        <p:column footerText="Итого:"/>
+                        <p:column id="totalWeightPurHis">
+                            <f:facet name="footer">
+                                <h:outputText value="#{returningHistoryService.totalWeight}">
+                                    <f:convertNumber pattern="#0.00"/>
+                                </h:outputText>
+                            </f:facet>
+                        </p:column>
+                        <p:column footerText=""/>
+                        <p:column footerText=""/>
+                        <p:column footerText=""/>
+                        <p:column id="totalSalesAmountPurHis">
+                            <f:facet name="footer">
+                                <h:outputText value="#{returningHistoryService.totalSalesAmount}">
+                                    <f:convertNumber pattern="#0.00"/>
+                                </h:outputText>
+                            </f:facet>
+                        </p:column>
+                        <p:column footerText=""/>
+                    </p:row>
+                </p:columnGroup>
+                
+           
+            </p:dataTable>
+            
+        </h:form>
+		
+    </p:dialog>
+	 
+</ui:composition>

@@ -1,19 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
- <navigation-rule>
-  <from-view-id>/pages/loginForm.xhtml</from-view-id>
+ 
+    <component>
+        <component-type>org.primefaces.component.RioMenu</component-type>
+        <component-class>org.primefaces.rio.component.menu.RioMenu</component-class>
+    </component>
+    
+    <render-kit>
+        <renderer>
+            <component-family>org.primefaces.component</component-family>
+            <renderer-type>org.primefaces.component.RioMenuRenderer</renderer-type>
+            <renderer-class>org.primefaces.rio.component.menu.RioMenuRenderer</renderer-class>
+        </renderer>
+    </render-kit>
+    
+    <navigation-rule>
+  <from-view-id>/pages/login.xhtml</from-view-id>
   <navigation-case>
    <from-outcome>success</from-outcome>
-   <to-view-id>/pages/main.xhtml</to-view-id>
+   <to-view-id>/dashboard.xhtml</to-view-id>
   </navigation-case>
  </navigation-rule>
-  <navigation-rule>
-  <from-view-id>/pages/main.xhtml</from-view-id>
+<!--  <navigation-rule>
+  <from-view-id>/</from-view-id>
   <navigation-case>
    <from-outcome>go_to_login</from-outcome>
-   <to-view-id>/pages/loginForm.xhtml</to-view-id>
+   <to-view-id>/pages/login.xhtml</to-view-id>
   </navigation-case>
- </navigation-rule>
+ </navigation-rule>-->
  <application/>
 </faces-config>

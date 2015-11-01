@@ -2,7 +2,9 @@
              xmlns:h="http://java.sun.com/jsf/html"
              xmlns:f="http://java.sun.com/jsf/core"
              xmlns:p="http://primefaces.org/ui"
-             xmlns:ui="http://java.sun.com/jsf/facelets">
+             xmlns:ui="http://java.sun.com/jsf/facelets"
+             template="/WEB-INF/template.xhtml">
+    <ui:define name="content">
     <h:form id="calcId">
             <p:panelGrid id="infoTable" columns="2">
                 <p:panelGrid id="carcassInfo" columns="3">
@@ -48,7 +50,7 @@
             <br/>
             <p:commandButton value="Добавить" action="#{calculationController.addNewMeatPart}" update="mainTable"/>
             <p:commandButton value="Удалить" action="#{calculationController.deleteLastMeatPart}" update="mainTable"/>
-            <p:commandButton value="Сохранить" action="#{calculationController.updateOrder}" update=":growl"/>
+            <p:commandButton value="Сохранить" action="#{calculationController.updateOrder}"/>
 			<p:dataTable id="mainTable" value="#{calculationController.meatParts}" var="meatPart" varStatus="status" editable="true" editMode="cell" draggableRows="true"  onkeypress="{
                                       if (event.keyCode == 13) {
                                           document.getElementById('calculationFragment:saveOrder').click();
@@ -59,7 +61,8 @@
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{meatPart.category.name}"/></f:facet>
                         <f:facet name="input">
-                            <p:selectOneMenu value="#{meatPart.category}" style="width:100%">
+                            <div class="ContainerIndent">
+                            <p:selectOneMenu id="console" value="#{meatPart.category}" style="min-width:20px; width:60px;">
                                 <f:selectItem itemValue="" itemLabel=""/>
                                 <f:selectItems value="#{calculationController.categories}" 
                                                var="category" 
@@ -67,6 +70,7 @@
                                                itemValue="#{category}"/>
                                 <p:ajax event="change" update="mainTable" listener="#{calculationController.resetType(meatPart)}"/>
                             </p:selectOneMenu>
+                                </div>
                         </f:facet>
                     </p:cellEditor>
                 </p:column>
@@ -153,4 +157,5 @@
                 </p:columnGroup>
 			</p:dataTable>
     </h:form>
+    </ui:define>
 </ui:composition>

@@ -1,0 +1,121 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:f="http://xmlns.jcp.org/jsf/core"
+             template="/WEB-INF/template.xhtml">
+                 
+    <ui:define name="head">
+        <style type="text/css">
+            .ui-panelgrid .ui-grid-responsive .ui-panelgrid-cell {
+                text-align: center;
+            }
+        </style>
+        
+        <h:outputScript name="js/btnClickEventZakup.js" library="rio-layout" />
+    </ui:define>
+    
+    <ui:define name="content">
+        <div class="Container100 Responsive WidAutoOnMobile HeiAutoOnMobile">
+            <div class="ContainerIndent">
+                <h:form id="purchaseProdForm">
+                    <p:messages/>
+                    <p:panelGrid columns="3">
+                    <h:panelGrid columns="3">
+                        <h:outputText value="Получатель:" style="font-weight: bold"/>
+                        <p:inputText id="receiverInputZak" 
+                                     value="#{purchaseController.purchase.receiver}" 
+                                     styleClass="Wid40 Responsive WidAutoOnMobile HeiAutoOnMobile"
+                                     disabled="true"/>
+<!--                        <h:outputText value="Количество баллов клиента:" styleClass="Wid40 Responsive WidAutoOnMobile HeiAutoOnMobile Underline"
+                                       style="font-weight: bold;"/>-->
+
+                        <h:outputText value="Поставщик:" style="font-weight: bold"/>
+                        <p:selectOneMenu  value="#{purchaseController.purchase.supplierId}" 
+                                          styleClass="Wid40 Responsive WidAutoOnMobile HeiAutoOnMobile"
+                                          filter="true"
+                                          filterMatchMode="startsWith">
+                            <f:selectItems value="#{purchaseController.listSupplier}" 
+                                           var="supplier" 
+                                           itemValue="#{supplier}" 	
+                                           itemLabel="#{supplier.companyName}"/>     
+                           
+                        </p:selectOneMenu>
+<!--                        <h:outputText id = "totalClReward" 
+                                      value="#{invoiceController.totalClientRwd}"  
+                                      styleClass="unchangeable Wid20 Responsive WidAutoOnMobile HeiAutoOnMobile Underline"/>      -->
+                    </h:panelGrid>
+                    
+                    <p:panelGrid columns="2" layout="grid">   
+                        <h:outputText value="Внесено:" style="font-weight: bold;font-size: xx-large"/>
+                        <p:inputText id="sumInputZak" value="#{purchaseController.sumInput}" styleClass="Wid70" style="font-weight: bold;font-size: xx-large;text-align: center">
+                                <p:ajax event="change" update="rentingZak"/>
+                                <f:convertNumber maxFractionDigits="1" groupingUsed="true"/>
+                        </p:inputText>
+
+                        <h:outputText value="Сдача:" style="font-weight: bold;font-size: xx-large"/>
+                        <h:outputText id = "rentingZak" value="#{purchaseController.renting}" style="font-weight: bold;font-size: xx-large" styleClass="Wid50">
+                            <f:convertNumber maxFractionDigits="1" groupingUsed="true"/>
+                        </h:outputText>
+                    </p:panelGrid>
+                        
+                    <p:panelGrid columns="1" layout="grid" style="width: 200px;">
+                            <h:outputText id="totalSalesAmountZak" value="#{purchaseController.totalSalesAmount}" 
+                                            style="font-weight: bold;font-size: xx-large;text-align: center" >
+                              <f:convertNumber maxFractionDigits="1" groupingUsed="true"/>
+                            </h:outputText>
+                    </p:panelGrid>
+                    </p:panelGrid>
+                    <br/>
+                    
+                    <p:toolbarGroup  styleClass="HeiAutoOnMobile">
+                        <p:commandButton value="Добавить" action="#{purchaseController.addNewMeatPart}" update="tableZak"/>
+                        <p:commandButton value="Сохранить" id="saveBtnZak"
+                                         action="#{purchaseController.updateOrder}"  
+                                          update=":purchaseProdForm"/>
+                        <p:commandButton value="Очистить" action="#{purchaseController.clear}" update=":purchaseProdForm"/>
+                    </p:toolbarGroup>
+                    
+                    <p:panel id="tableZak" style="height:200%; min-height:348px;" styleClass="HeiAutoOnMobile">
+                        <ui:repeat value="#{purchaseController.meatParts}" var="partZak" varStatus="status">
+                            <p:panelGrid columns="7" layout="grid" style="border:0px !important; background:none;" styleClass="FormContent">
+                                <p:row>   
+                                    <p:inputText id="barcodeIdZak" style="height: 30px; width: 80%;border: 1px double black;font-weight: bold;"  
+                                                 styleClass="Wid50" placeholder="Штрих-код" value="#{partZak.barcode}">
+                                        <p:ajax event="change" update="partCatZak,partTypeZak,partPriceZak,partRevZak,:purchaseProdForm:totalSalesAmountZak,:purchaseProdForm:rentingZak"  listener="#{purchaseController.resetCategoryTypePrice(partZak)}"/>
+                                    </p:inputText>
+                                </p:row>
+                                <p:row>
+                                    <p:inputText style="height: 30px; width: 80%;border: 1px double black;font-weight: bold;" 
+                                        styleClass="Wid50" placeholder="Вес" value="#{partZak.weight}">
+                                        <p:ajax event="change" update=":purchaseProdForm:tableZak, :purchaseProdForm:totalSalesAmountZak,:purchaseProdForm:rentingZak"/>
+                                        <p:focus for="barcodeIdZak"  />
+                                    </p:inputText>
+                                </p:row>
+                                <p:row><p:inputText id="partCatZak" style="height: 30px; width: 80%;border: 1px double black;font-weight: bold;" 
+                                                    styleClass="Wid50" placeholder="Категория" disabled="true" value="#{partZak.category.name}"/></p:row>
+                                <p:row><p:inputText id="partTypeZak" style="height: 30px; width: 80%;border: 1px double black;font-weight: bold;"  
+                                                    styleClass="Wid50" placeholder="Тип" disabled="true" value="#{partZak.type.name}"/></p:row>
+                                <p:row><p:inputText id="partPriceZak" style="height: 30px; width: 80%;border: 1px double black;font-weight: bold;"   
+                                                    styleClass="Wid50" placeholder="Цена" disabled="false" value="#{partZak.price}">
+                                    <f:convertNumber maxFractionDigits="1" groupingUsed="true"/>
+                                    </p:inputText></p:row>
+                                <p:row><p:inputText id="partRevZak" style="height: 30px; width: 60%;border: 1px double black;font-weight: bold;"
+                                                    styleClass="Wid50 Responsive WidAutoOnMobile HeiAutoOnMobile" 
+                                                    placeholder="Сумма" disabled="true" value="#{partZak.revenue}">
+                                  <f:convertNumber maxFractionDigits="1" groupingUsed="true"/>  
+                                    </p:inputText></p:row>
+                                <p:row><p:commandButton icon="ui-icon-close" 
+                                                 actionListener="#{purchaseController.deleteRow(partZak)}"
+                                                 update=":purchaseProdForm:tableZak,:purchaseProdForm:totalSalesAmountZak,:purchaseProdForm:rentingZak"/></p:row>
+                            </p:panelGrid>
+
+                        </ui:repeat>
+                    </p:panel>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+    
+    
+</ui:composition>

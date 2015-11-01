@@ -1,0 +1,59 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+        <ui:define name="content">
+                <p:messages id="messagesLeavingsForm" showDetail="true" autoUpdate="true" closable="true" />
+                <h:form id="leavingsForm">
+                 		<p:commandButton value="Обновить" update="leavingsTable" actionListener="#{leavingsController.update}"/>
+                        <p:dataTable id="leavingsTable" 
+                                     var="leaving" 
+                                     rowKey="#{leaving.barcode}"
+                                     value="#{leavingsController.leavings}" 
+                                     paginator="true" 
+                                     rows="10"
+                                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                     rowsPerPageTemplate="5,10,15" 
+                                     selectionMode="single" 
+                                     selection="#{leavingsController.selectedLeaving}" 
+                                     lazy="true"
+                                     editable="false">
+                                
+                                <p:column headerText="Штрих код" sortBy="#{leaving.barcode}" filterBy="#{leaving.barcode}">
+                                        <h:outputText value="#{leaving.barcode}" />
+                                </p:column>
+                                <p:column headerText="Наименование" sortBy="#{leaving.name}" filterBy="#{leaving.name}">
+                                        <h:outputText value="#{leaving.name}" />
+                                </p:column>
+                                <p:column headerText="Количество(инвент)" sortBy="#{leaving.inv_quantity}" filterBy="#{leaving.inv_quantity}">
+                                        <h:outputText value="#{leaving.inv_quantity}" />
+                                </p:column>
+                                <p:column headerText="Количество(ост)" sortBy="#{leaving.ostatok}" filterBy="#{leaving.ostatok}">
+                                        <h:outputText value="#{leaving.ostatok}" />
+                                </p:column>
+                                 <p:column headerText="Продано" sortBy="#{leaving.sold}" filterBy="#{leaving.sold}">
+                                        <h:outputText value="#{leaving.sold}" />
+                                </p:column>
+                                 <p:column headerText="Поставлено" sortBy="#{leaving.supplied}" filterBy="#{leaving.supplied}">
+                                        <h:outputText value="#{leaving.supplied}" />
+                                </p:column>
+                                <p:column headerText="Возвращено" sortBy="#{leaving.returning}" filterBy="#{leaving.returning}">
+                                        <h:outputText value="#{leaving.returning}" />
+                                </p:column>
+                                <p:column headerText="Прибыль" sortBy="#{leaving.profit}" filterBy="#{leaving.profit}">
+                                        <h:outputText value="#{leaving.profit}" />
+                                </p:column>
+                                <p:column headerText="Поставщик" sortBy="#{leaving.supplier}" filterBy="#{leaving.supplier}">
+                                        <h:outputText value="#{leaving.supplier}" />
+                                </p:column>
+                               
+
+                               
+                        </p:dataTable>  
+
+                        
+                </h:form>
+        </ui:define>
+</ui:composition>

@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      template="/WEB-INF/template.xhtml">
+    <ui:define name="content">
+    <h:form id="historyFormRet">
+        <p:dataTable id="historyTableRet"
+                     value="#{returningHistoryService.listReturning}" 
+                     var="returning"
+                     paginator="true"
+                     paginatorPosition="top"
+                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     rowsPerPageTemplate="5,10,25,50">
+            <p:column headerText="Id">
+                <h:outputText value="#{returning.id}"/>
+            </p:column>
+            <p:column headerText="Отправитель">
+                <h:outputText value="#{returning.supplierId.companyName}"/>
+            </p:column>
+            <p:column headerText="Получатель">
+                <h:outputText value="#{returning.receiver}"/>
+            </p:column>
+            <p:column headerText="Дата">
+                <h:outputText value="#{returning.date}">
+                    <f:convertDateTime pattern="dd.MM.yyyy, HH:mm"/>
+                </h:outputText>
+            </p:column>
+            <p:column>
+                <p:commandButton update=":panelDlgRet"
+                                 oncomplete="PF('returningDlg').show()"
+                                 value="edit" 
+                                 action="#{returningHistoryService.onEdit(returning)}"
+                                 process="historyTableRet"/>
+            </p:column>
+        </p:dataTable>
+        <p:commandButton value="Обновить" update="historyTableRet" actionListener="#{returningHistoryService.searchReturning}"/>
+            
+    </h:form>
+    <ui:include src="../pages/dialogs/returningDialog.xhtml"/>
+    
+    </ui:define>
+</ui:composition>

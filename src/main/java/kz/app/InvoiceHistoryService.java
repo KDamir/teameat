@@ -8,6 +8,7 @@ package kz.app;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
+
 import kz.app.dao.InvoiceDao;
 import kz.app.dao.MeatPartDao;
 import kz.app.entity.InvoiceEntity;
@@ -15,19 +16,24 @@ import kz.app.utils.HibernateUtil;
 import kz.app.utils.MeatPartConverter;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+
 import kz.app.entity.ReceiverEntity;
 import kz.app.utils.Constants;
 
 /**
  *
- * @author damir.keldibekov
+ * 
  */
 @ManagedBean(name = "historyService")
 @SessionScoped
@@ -68,6 +74,8 @@ public class InvoiceHistoryService extends AbstractMeatPartController{
         //searchInvoice();
         beginLoc = LocalDate.now();
         endLoc = LocalDate.now().plusDays(1);
+        
+        
         beginD = Date.from(beginLoc.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         endD = Date.from(endLoc.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         beginSql = new java.sql.Date(beginD.getTime());
@@ -87,13 +95,13 @@ public class InvoiceHistoryService extends AbstractMeatPartController{
     }
     
     public void searchInvoice() {
-        beginSql = new java.sql.Date(begin.getTime());
-        endSql = new java.sql.Date(end.getTime());
-        //listInvoice = dao.getListInvoice(endSql, beginSql);
+        beginSql = new java.sql.Date(beginD.getTime());
+        endSql = new java.sql.Date(endD.getTime());
+        listInvoice = dao.getListInvoice(beginSql,endSql);
     }
     
     public void currentInvoice() {
-        listInvoice = dao.getListInvoice(endSql, beginSql);
+        listInvoice = dao.getListInvoice(beginSql,endSql);
     }
     
     //<editor-fold defaultstate="collapsed" desc="Getter/Setter">
@@ -137,6 +145,8 @@ public class InvoiceHistoryService extends AbstractMeatPartController{
     @Override
     public void updateOrder() {
         FacesContext context = FacesContext.getCurrentInstance();
+        selectedInvoice.setDate(new Date());
+        selectedInvoice.setTotalAmount(meatParts.stream().mapToDouble(MeatPart::getRevenue).sum());
         dao.updateInvoice(selectedInvoice, meatParts.stream()
                                             .map(mp -> MeatPartConverter.convertMeatPartToEntity(mp, selectedInvoice, null))
                                             .collect(Collectors.toList())
@@ -149,6 +159,11 @@ public class InvoiceHistoryService extends AbstractMeatPartController{
         int idx = meatParts.size() - 1;
         meatPartDao.deleteMeatPart(MeatPartConverter.convertMeatPartToEntity(meatParts.get(idx), selectedInvoice, null));
         meatParts.remove(idx);
+    }
+    @Override
+    public void deleteRow(MeatPart part) {
+        meatPartDao.deleteMeatPart(MeatPartConverter.convertMeatPartToEntity(part, selectedInvoice, null));
+        meatParts.remove(part);
     }
     
     

@@ -2,9 +2,11 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
-    <h:form id="historyForm">
-        <p:dataTable id="historyTable"
+      xmlns:p="http://primefaces.org/ui"
+      template="/WEB-INF/template.xhtml">
+    <ui:define name="content">
+    <h:form id="historyFormIh">
+        <p:dataTable id="historyTableIh"
                      value="#{historyService.listInvoice}" 
                      var="invoice"
                      paginator="true"
@@ -22,8 +24,7 @@
             </p:column>
             <p:column headerText="Дата">
                 <h:outputText value="#{invoice.date}">
-                    <f:convertDateTime pattern="dd.MM.yyyy, HH:mm" 
-                                       timeZone="#{appBean.timeZone}"/>
+                    <f:convertDateTime pattern="dd.MM.yyyy, HH:mm"/>
                 </h:outputText>
             </p:column>
             <p:column>
@@ -31,10 +32,11 @@
                                  oncomplete="PF('invoiceDlg').show()"
                                  value="edit" 
                                  action="#{historyService.onEdit(invoice)}"
-                                 process="historyTable"/>
+                                 process="historyTableIh"/>
             </p:column>
         </p:dataTable>
-            <p:commandButton value="Обновить" update="historyTable">
-            </p:commandButton>
+        <p:commandButton value="Обновить" update="historyTableIh" actionListener="#{historyService.searchInvoice}"/>
+            
     </h:form>
+    </ui:define>
 </ui:composition>

@@ -2,25 +2,27 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      template="/WEB-INF/template.xhtml">
+    <ui:define name="content">
     <h:form id="mphForm">
         <p:panelGrid columns="2">
-            <p:outputLabel value="Дата начала:" for="beginDateP"/>
-            <p:calendar id="beginDateP" value="#{goodsHistoryService.begin}" readonlyInput="true"/>
-            <p:outputLabel value="Дата окончания:" for="endDateP"/>
-            <p:calendar id="endDateP" value="#{goodsHistoryService.end}" readonlyInput="true"/>
+            <p:outputLabel value="Дата начала:" for="beginDateMph"/>
+            <p:calendar id="beginDateMph" value="#{goodsHistoryService.begin}" readonlyInput="true"/>
+            <p:outputLabel value="Дата окончания:" for="endDateMph"/>
+            <p:calendar id="endDateMph" value="#{goodsHistoryService.end}" readonlyInput="true"/>
         </p:panelGrid>
         <p:commandButton value="Найти"
-                             update=":mphForm:historyTableP"
+                             update=":mphForm:historyTableMph"
                              action="#{goodsHistoryService.searchGoods()}"
                              process="@form"/>
         <h:panelGrid columns="3" style="margin:10px 0">
-        	<p:outputLabel for="template" value="Доступные колонки: id,category,type,weight,price,sender,company_name,date." />
+        	<p:outputLabel for="templateMph" value="Доступные колонки: id, category,type,weight,price,sender,company_name,date, sum." />
         </h:panelGrid>                  
         <h:panelGrid columns="3" style="margin:10px 0">
-        	<p:outputLabel for="template" value="Шаблон:" style="font-weight:bold"/>
-        	<p:inputText id="template" value="#{dtColumnsView.columnTemplate}" size="50"/>
-        	<p:commandButton update=":mphForm:historyTableP" 
+        	<p:outputLabel for="templateMph" value="Шаблон:" style="font-weight:bold"/>
+        	<p:inputText id="templateMph" value="#{dtColumnsView.columnTemplate}" size="50"/>
+        	<p:commandButton update=":mphForm:historyTableMph" 
                                  actionListener="#{dtColumnsView.updateColumns}" 
                                  value="Изменить" 
                                  process="@parent" 
@@ -29,37 +31,61 @@
                                  ajax="false"/>
     	</h:panelGrid>                     
                              
-        <p:dataTable id="historyTableP" 
+        <p:dataTable id="historyTableMph" 
                      value="#{goodsHistoryService.listGoods}" 
                      var="goods" widgetVar="goodsTable" 
                      filteredValue="#{goodsHistoryService.filteredGoods}">
-		
+                     
+            <p:ajax event="filter" listener="#{goodsHistoryService.getFilteredSum}" update="@(.totalSalesAmountMph)" />         
+			
 			<p:columns value="#{dtColumnsView.columns}" 
                                    var="column" 
-                                   columnIndexVar="colIndex" 
+                                   columnIndexVar="colIndex"  	
                                    sortBy="#{goods[column.property]}" 
                                    filterBy="#{goods[column.property]}">
             	<f:facet name="header">
-                	<h:outputText value="#{column.header}" />
+                	<h:outputText value="#{column.header}" /> 	 	 	
             	</f:facet>
             	<h:outputText value="#{goods[column.property]}" >
      <!--         		<f:convertDateTime type="both" pattern="dd.MM.yyyy"/>     -->
             	</h:outputText>
         	</p:columns>
-<!--  	
-		<p:columnGroup type="footer" id="totalsSection">
+  	
+		<p:columnGroup type="footer" id="totalsSectionMph">
             <p:row>
+                <p:column footerText=""/>
+                
+                <p:column footerText=""/>
+                <p:column footerText=""/>
+                <p:column footerText=""/>
+                <p:column footerText=""/>
+                 
+  			    <p:column  styleClass="totalSalesAmountMph">
+                    <f:facet name="footer">
+                        <h:outputText value="#{goodsHistoryService.filteredSum}">
+                             <f:convertNumber maxFractionDigits="1" groupingUsed="true"/>
+                        </h:outputText>
+                    </f:facet>
+                </p:column>
+
+
+                <p:column footerText=""/>
+                <p:column footerText=""/>
+                <p:column footerText=""/>
+               
+            </p:row>
+             <p:row>
                 <p:column footerText="Итого:"/>
                 
                 <p:column footerText=""/>
                 <p:column footerText=""/>
                 <p:column footerText=""/>
-                
+                <p:column footerText=""/>
                  
-  			    <p:column id="totalSalesAmount">
+  			    <p:column  >
                     <f:facet name="footer">
                         <h:outputText value="#{goodsHistoryService.totalSum}">
-                            <f:convertNumber pattern="#0.00"/>
+                             <f:convertNumber maxFractionDigits="1" groupingUsed="true"/>
                         </h:outputText>
                     </f:facet>
                 </p:column>
@@ -71,11 +97,12 @@
                
             </p:row>
         </p:columnGroup>
-   -->     
+        
         
          </p:dataTable>
             
-            <p:commandButton value="Обновить" update=":mphForm:historyTableP">
+            <p:commandButton value="Вывести сумму" action="#{goodsHistoryService.searchGoods()}" update=":mphForm:historyTableMph">
             </p:commandButton>
     </h:form>
+    </ui:define>
 </ui:composition>

@@ -55,12 +55,17 @@ public class MeatPart {
     }
 
     public Double getRevenue() {
+        if(weight == null || price == null)
+            return 0.0;
         return weight * price;
     }
 
     public Double getItemReward(){
     	if (type == null)
     		return 0.0;
+        if(weight == null || type.getReward() == null) {
+            return 0.0;
+        }
     	return weight * type.getReward();
     }
     

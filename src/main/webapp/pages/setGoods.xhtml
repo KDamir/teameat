@@ -1,75 +1,86 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
-      <h:form id="sgForm">
-      	<p:dataTable id="typeTable" 
-                     var="meattype" 
-                     value="#{meatTypeController.meatTypes}" 
-                     paginator="true" 
-                     rows="10"
-                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                     rowsPerPageTemplate="5,10,15" 
-                     selectionMode="single" 
-                     selection="#{meatTypeController.selectedMeatType}" 
-                     lazy="true"
-                     editable="true"
-                     editMode="cell">
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+        <ui:define name="content">
+                <p:messages id="messagesSGForm" showDetail="true" autoUpdate="true" closable="true" />
+                <h:form id="sgForm">
+                        <p:dataTable id="typeTable" 
+                                     var="meattype" 
+                                     rowKey="#{meattype.id}"
+                                     value="#{meatTypeController.meatTypes}" 
+                                     paginator="true" 
+                                     rows="10"
+                                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                     rowsPerPageTemplate="5,10,15" 
+                                     selectionMode="single" 
+                                     selection="#{meatTypeController.selectedMeatType}" 
+                                     lazy="true"
+                                     editable="false">
+                                <p:ajax event="rowSelect" update=":sgForm:idTypeDlg" oncomplete="PF('setGoodsTypeDlg').show()" />
+                                <p:column headerText="Id" sortBy="#{meattype.id}" filterBy="#{meattype.id}">
+                                        <h:outputText value="#{meattype.id}" />
+                                </p:column>
 
-        	<p:column headerText="Id" sortBy="#{meattype.id}" filterBy="#{meattype.id}">
-        	
-            		<h:outputText value="#{meattype.id}" />
-            	
-        	</p:column>
-        	<p:column headerText="Имя" sortBy="#{meattype.name}" filterBy="#{meattype.name}">
-            	<p:cellEditor>	
-            		<f:facet name="output"><h:outputText value="#{meattype.name}" /></f:facet>
-            		<f:facet name="input">
-            			<p:inputText value="#{meattype.name}" style="width:100%"/>
-            		</f:facet>
-            	</p:cellEditor>
-        	</p:column>
-         	<p:column headerText="Категория" sortBy="#{meattype.categoryId.id}" filterBy="#{meattype.categoryId.id}">
-            	<p:cellEditor>	
-            		<f:facet name="output"><h:outputText value="#{meattype.categoryId.id}" /></f:facet>
-            		<f:facet name="input">
-            			<p:inputText value="#{meattype.categoryId.id}" style="width:100%"/>
-            		</f:facet>
-        		</p:cellEditor>
-        	</p:column>                                                                                         
-        	<p:column headerText="Штрих-код" sortBy="#{meattype.barcode}" filterBy="#{meattype.barcode}">
-            	<p:cellEditor>	
-            		<f:facet name="output"><h:outputText value="#{meattype.barcode}" /></f:facet>
-            		<f:facet name="input">
-            			<p:inputText value="#{meattype.barcode}" style="width:100%"/>
-            		</f:facet>
-        		</p:cellEditor>
-        	</p:column>
-        	<p:column headerText="Цена" sortBy="#{meattype.price_std}" filterBy="#{meattype.price_std}">
-            	<p:cellEditor>	
-            		<f:facet name="output"><h:outputText value="#{meattype.price_std}" /></f:facet>
-            		<f:facet name="input">
-            			<p:inputText value="#{meattype.price_std}" style="width:100%"/>
-            		</f:facet>
-        		</p:cellEditor>
-        	</p:column>
-        	<p:column headerText="Вознаграждение" sortBy="#{meattype.reward}" filterBy="#{meattype.reward}">
-            	<p:cellEditor>	
-            		<f:facet name="output"><h:outputText value="#{meattype.reward}" /></f:facet>
-            		<f:facet name="input">
-            			<p:inputText value="#{meattype.reward}" style="width:100%"/>
-            		</f:facet>
-        		</p:cellEditor>
-        	</p:column>
-        	<p:column>
-                 <p:commandButton 
-                                     value="сохранить" 
-                                     action="#{meatTypeController.onEdit(meattype)}"
-                                     process="typeTable"
-                  />
-            </p:column>
-        
-    </p:dataTable>  
-      </h:form>
+                                <p:column headerText="Имя" sortBy="#{meattype.name}" filterBy="#{meattype.name}">
+                                        <h:outputText value="#{meattype.name}" style="width:100%"/>
+                                </p:column>
+
+                                <p:column headerText="Штрих-код" sortBy="#{meattype.barcode}" filterBy="#{meattype.barcode}">
+                                        <h:outputText value="#{meattype.barcode}" style="width:100%"/>
+                                </p:column>
+
+                                <p:column headerText="Цена продажи" sortBy="#{meattype.price_std}" filterBy="#{meattype.price_std}">
+                                        <h:outputText value="#{meattype.price_std}" style="width:100%"/>
+                                </p:column>
+
+                                <p:column headerText="Цена закупа" sortBy="#{meattype.price_zakup}" filterBy="#{meattype.price_zakup}">
+                                        <h:outputText value="#{meattype.price_zakup}" style="width:100%"/>
+                                </p:column>
+
+                                <p:column headerText="Вознаграждение" sortBy="#{meattype.reward}" filterBy="#{meattype.reward}">
+                                        <h:outputText value="#{meattype.reward}" style="width:100%"/>
+                                </p:column>
+
+                        </p:dataTable>  
+
+                        <p:dialog id="idTypeDlg"
+                                  header="Информация о типе" 
+                                  widgetVar="setGoodsTypeDlg" 
+                                  modal="true"
+                                  showEffect="fade"
+                                  hideEffect="fade"
+                                  resizable="false">
+
+                                <p:panelGrid columns="2">
+                                        <p:outputLabel value="Наименование: "/>
+                                        <p:inputText value="#{meatTypeController.selectedMeatType.name}" style="width: 400px;"/>
+
+                                        <p:outputLabel value="Штрих-код: "/>
+                                        <p:inputText value="#{meatTypeController.selectedMeatType.barcode}" style="width: 400px;"/>
+
+                                        <p:outputLabel value="Цена продажи: "/>
+                                        <p:inputText value="#{meatTypeController.selectedMeatType.price_std}" style="width: 400px;"/>
+
+                                        <p:outputLabel value="Цена закупа: "/>
+                                        <p:inputText value="#{meatTypeController.selectedMeatType.price_zakup}" style="width: 400px;"/>
+
+                                        <p:outputLabel value="Вознаграждние: "/>
+                                        <p:inputText value="#{meatTypeController.selectedMeatType.reward}" style="width: 400px;"/>
+
+                                        <f:facet name="footer">
+                                                <p:commandButton
+                                                        value="сохранить" 
+                                                        actionListener="#{meatTypeController.onEdit}"
+                                                        process="idTypeDlg"
+                                                        oncomplete="PF('setGoodsTypeDlg').hide()"
+                                                        update="@form"
+                                                        style="float: right"/>
+                                        </f:facet>
+                                </p:panelGrid>
+                        </p:dialog>
+                </h:form>
+        </ui:define>
 </ui:composition>

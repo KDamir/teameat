@@ -43,7 +43,11 @@ public class MeatPartPurchaseEntity implements Serializable {
     private Double weight;
     @Column(name = "price")
     private Double price;
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    public PurchaseEntity getPurchaseId() {
+		return purchaseId;
+	}
+
+	@JoinColumn(name = "category_id", referencedColumnName = "id")
     @ManyToOne
     private MeatCategoryEntity categoryId;
     @JoinColumn(name = "purchase_id", referencedColumnName = "id")

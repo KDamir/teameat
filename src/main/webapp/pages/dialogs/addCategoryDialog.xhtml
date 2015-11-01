@@ -8,11 +8,11 @@
         <h:form id="acdform">
             <p:panelGrid id="newCategory" columns="1">
                 <p:outputLabel value="Наименование:" for="categoryName"/>
-                <p:inputText id="categoryName" value="#{adminFormController.category.name}" immediate="true"/>
+                <p:inputText id="categoryName" value="#{adminFormController.category.name}" immediate="true" required="true"/>
                 <p:message for="categoryName" display="icon"/>
                 <p:commandButton value="Добавить" 
                                  actionListener="#{adminFormController.addCategory}"
-                                 update="newCategory"
+                                 update=":admForm:gridList,newCategory"
                                  oncomplete="PF('acd').hide()"/>
             </p:panelGrid>
         </h:form>

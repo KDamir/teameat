@@ -3,6 +3,7 @@ package kz.app;
 import kz.app.entity.InventoryEntity;
 import kz.app.entity.MeatCategoryEntity;
 import kz.app.entity.MeatTypesEntity;
+import kz.app.entity.ReceiverEntity;
 import kz.app.entity.SupplierEntity;
 
 import javax.annotation.PostConstruct;
@@ -19,6 +20,7 @@ import javax.faces.context.FacesContext;
 import kz.app.dao.InventoryDao;
 import kz.app.dao.MeatCategoryDao;
 import kz.app.dao.MeatTypeDao;
+import kz.app.dao.ReceiverDao;
 import kz.app.dao.SupplierDao;
 import kz.app.utils.Constants;
 
@@ -36,17 +38,20 @@ public class AdminFormController {
     protected List<MeatTypesEntity> types;
     protected List<MeatCategoryEntity> categories;
     protected List<SupplierEntity> suppliers;
+    protected List<ReceiverEntity> receivers;
 
     private SupplierEntity supplier;
     private MeatCategoryEntity category;
     private MeatCategoryEntity selectedCategory;
     private MeatTypesEntity type;
     private InventoryEntity	inventory;
+    private ReceiverEntity receiver;
     
     private SupplierDao supplierDao;
     private MeatCategoryDao categoryDao;
     private MeatTypeDao typeDao;
     private InventoryDao inventoryDao;
+    private ReceiverDao receiverDao;
 
     @PostConstruct
     private void init() {
@@ -54,6 +59,7 @@ public class AdminFormController {
         categoryDao = new MeatCategoryDao();
         typeDao     = new MeatTypeDao();
         inventoryDao = new InventoryDao();
+        receiverDao = new ReceiverDao();
         
         categories   = ApplicationController.categories;
         selectedCategory = categories.get(0);
@@ -64,6 +70,7 @@ public class AdminFormController {
         category = new MeatCategoryEntity();
         type = new MeatTypesEntity();
         inventory = new InventoryEntity();
+        receiver = new ReceiverEntity();
     }
 
     public List<MeatTypesEntity> getSelectedCategoryTypes() {
@@ -76,6 +83,19 @@ public class AdminFormController {
 
     public void resetType() {
 
+    }
+    
+    public void addReceiver() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        if ("".equals(receiver.getCompanyName()) ||
+        	"".equals(receiver.getReward()))
+        	return;
+        
+        receiverDao.saveReceiver(receiver);
+        context.addMessage(null, new FacesMessage(Constants.UPDATE_SUCCESSFUL));
+        update();
+        /*для создания след. объекта*/
+        receiver = new ReceiverEntity();
     }
     
     public void addSupplier() {
@@ -152,6 +172,15 @@ public class AdminFormController {
     public void setCategories(List<MeatCategoryEntity> categories) {
         this.categories = categories;
     }
+    
+    public void setReceiver(ReceiverEntity receiver) {
+        this.receiver = receiver;
+    }
+    
+    public ReceiverEntity getReceiver() {
+        return receiver;
+    }
+    
     
     public SupplierEntity getSupplier() {
         return supplier;

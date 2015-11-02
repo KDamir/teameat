@@ -5,7 +5,9 @@
  */
 package kz.app.dao;
 
-import kz.app.entity.MeatCategoryEntity;
+import kz.app.entity.GoodsSupEntity;
+import kz.app.entity.ReceiverEntity;
+import kz.app.entity.SupplierEntity;
 import kz.app.utils.HibernateUtil;
 
 import java.util.List;
@@ -14,14 +16,14 @@ import org.hibernate.Session;
 
 /**
  *
- * @author Дамир
+ * @author 
  */
-public class MeatCategoryDao {
-    public void saveCategory(MeatCategoryEntity category) {
+public class ReceiverDao {
+    public void saveReceiver(ReceiverEntity receiver) {
         Session sess = HibernateUtil.getSessionfactory().getCurrentSession();
         try {
             sess.beginTransaction();
-            sess.saveOrUpdate(category);
+            sess.saveOrUpdate(receiver);
             sess.getTransaction().commit();
         } catch (RuntimeException e) {
             sess.getTransaction().rollback();
@@ -32,7 +34,7 @@ public class MeatCategoryDao {
         }
     }
 
-    public List<MeatCategoryEntity> getListCategory() {
-		return HibernateUtil.createQueryForList("from MeatCategoryEntity");
+	public List<ReceiverEntity> getListReceiver() {
+		return HibernateUtil.createQueryForList("from ReceiverEntity");
    }
 }

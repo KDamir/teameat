@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:ui="http://java.sun.com/jsf/facelets">
+    <p:dialog id="addrecvDlg" 
+              widgetVar="ard"
+              modal="true">
+        <h:form id="ardform">
+            <p:panelGrid id="addReceiver" columns="2" layout="grid">
+            <p:outputLabel value="Наименование:" for="companyName" style="text-align: center"/>
+            <p:outputLabel value="Вознаграждение:" for="reward" style="text-align: center"/>
+            <p:inputText id="companyName"
+                         value="#{adminFormController.receiver.companyName}" required="true"
+                         requiredMessage="Поле наименование компании не заполнено"
+                         immediate="true"/>
+            <p:inputText id="reward"
+                         value="#{adminFormController.receiver.reward}" required="true"
+                         requiredMessage="Поле вознаграждение не заполнено"
+                         immediate="true"/>
+            <p:message for="companyName" display="icon" />
+            <p:message for="reward" display="icon"/>
+            <p:commandButton value="Добавить" 
+                             actionListener="#{adminFormController.addReceiver}" 
+                             update="addReceiver,:admForm:typeList"
+                             oncomplete="PF('ard').hide()"
+                             process="@form"/>
+        </p:panelGrid>
+        </h:form>
+    </p:dialog>
+</ui:composition>

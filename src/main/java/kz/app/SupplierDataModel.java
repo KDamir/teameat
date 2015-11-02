@@ -65,7 +65,7 @@ public class SupplierDataModel extends LazyDataModel<SupplierEntity> {
 						privStrField.setAccessible(true);
 						String fieldValue = String.valueOf(privStrField.get(sup));
 
-						if (filterValue == null || fieldValue.startsWith(filterValue.toString())) {
+						if (filterValue == null || fieldValue.contains(filterValue.toString())) {
 							match = true;
 						} else {
 							match = false;

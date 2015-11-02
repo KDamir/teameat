@@ -7,6 +7,9 @@ package kz.app.dao;
 
 import kz.app.entity.SupplierEntity;
 import kz.app.utils.HibernateUtil;
+
+import java.util.List;
+
 import org.hibernate.Session;
 
 /**
@@ -28,4 +31,8 @@ public class SupplierDao {
                 sess.close();
         }
     }
+
+    public List<SupplierEntity> getListSupplier() {
+		return HibernateUtil.createQueryForList("from SupplierEntity");
+   }
 }

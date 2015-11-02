@@ -64,7 +64,7 @@ public class MeatTypeDataModel extends LazyDataModel<MeatTypesEntity> {
 						privStrField.setAccessible(true);
 						String fieldValue = String.valueOf(privStrField.get(type));
 
-						if (filterValue == null || fieldValue.startsWith(filterValue.toString())) {
+						if (filterValue == null || fieldValue.contains(filterValue.toString())) {
 							match = true;
 						} else {
 							match = false;

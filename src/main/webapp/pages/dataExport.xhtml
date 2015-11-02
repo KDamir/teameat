@@ -1,0 +1,51 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+	<ui:define name="content">
+		<h:form id="dataForm">
+			<p:messages />
+			
+			<p:outputLabel value="Экспортировать данные типов товара  :"
+				style="font-weight: bold;font-size: x-large;text-align: center" />
+			<br> </br>
+			<p:commandButton value="Выгрузить данные" update="dataForm"
+				actionListener="#{dataImportService.exportMeatType}" />
+			<br> </br>
+			<p:outputLabel value="Экспортировать данные о продажах  :"
+				style="font-weight: bold;font-size: x-large;text-align: center" />
+			<br> </br>
+			<p:commandButton value="Выгрузить данные" update="dataForm"
+				actionListener="#{dataImportService.exportGoodsG}" />
+			<br> </br>
+			<p:outputLabel value="Экспортировать данные о покупках  :"
+				style="font-weight: bold;font-size: x-large;text-align: center" />
+			<br> </br>
+			<p:commandButton value="Выгрузить данные" update="dataForm"
+				actionListener="#{dataImportService.exportGoodsSup}" />
+				
+			<br> </br>
+			<p:outputLabel value="Экспортировать данные о категориях товаров  :"
+				style="font-weight: bold;font-size: x-large;text-align: center" />
+			<br> </br>
+			<p:commandButton value="Выгрузить данные" update="dataForm"
+				actionListener="#{dataImportService.exportCategory}" />
+			
+			<br> </br>
+			<p:outputLabel value="Экспортировать данные о получателях  :"
+				style="font-weight: bold;font-size: x-large;text-align: center" />
+			<br> </br>
+			<p:commandButton value="Выгрузить данные" update="dataForm"
+				actionListener="#{dataImportService.exportReceiver}" />
+				
+			<br> </br>
+			<p:outputLabel value="Экспортировать данные о поставщиках  :"
+				style="font-weight: bold;font-size: x-large;text-align: center" />
+			<br> </br>
+			<p:commandButton value="Выгрузить данные" update="dataForm"
+				actionListener="#{dataImportService.exportSupplier}" />
+			
+		</h:form>
+	</ui:define>
+</ui:composition>

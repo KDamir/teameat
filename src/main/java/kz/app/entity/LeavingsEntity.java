@@ -98,7 +98,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 
 	public double getProfit() {
-		return profit;
+		if (profit!=null)
+			return profit; 	
+		return 0.0;
 	}
 
 

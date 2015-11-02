@@ -32,4 +32,9 @@ public class GoodsDao {
 	                session.close();
 	        }
     }
+	
+	public List<GoodsEntity> getListGoodsFull() {
+		return HibernateUtil.createQueryForList("from GoodsEntity");
+   }
+    
 }

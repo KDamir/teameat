@@ -27,6 +27,9 @@
     <h:form id="admForm">
     	<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
     	<p:toolbarGroup>
+    		<p:commandButton value="Добавить получателя" 
+                         oncomplete="PF('ard').show()"
+                         style="width: 200px;"/>
         	<p:commandButton value="Добавить поставщика" 
                          oncomplete="PF('apd').show()"
                          style="width: 200px;"/>
@@ -77,5 +80,6 @@
         <ui:include src="../pages/dialogs/addPostavshikDialog.xhtml"/>
         <ui:include src="../pages/dialogs/addCategoryDialog.xhtml"/>
         <ui:include src="../pages/dialogs/addTypeDialog.xhtml"/>
+        <ui:include src="../pages/dialogs/addReceiverDialog.xhtml"/>
     </ui:define>
 </ui:composition>

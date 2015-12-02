@@ -1,10 +1,12 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
              xmlns:h="http://java.sun.com/jsf/html"
              xmlns:p="http://primefaces.org/ui"
+             xmlns:f="http://xmlns.jcp.org/jsf/core"
              xmlns:ui="http://java.sun.com/jsf/facelets">
     <p:dialog id="addtypeDlg" 
               widgetVar="atd"
-              modal="true">
+              modal="true"
+              closeOnEscape="true">
         <h:form id="atdform">
         	
             <p:panelGrid id="newType" columns="5">      
@@ -27,11 +29,17 @@
                 <p:message for="typePrice" display="icon"/>
                 <p:message for="typePrice_zakup" display="icon"/>
                 <p:message for="typeBarcode" display="icon"/>
+                <f:facet name="footer">
+                <p:commandButton value="Отмена" 
+                                 onclick="PF('atd').hide()"
+                                 process="@this"
+                                 style="float: right"/>
                 <p:commandButton value="Добавить" 
                                  actionListener="#{adminFormController.addType}" 
                                  update=":admForm:gridList,newType"
                                  oncomplete="PF('atd').hide()"
-                                 />
+                                 style="float: right"/>
+                </f:facet>
             </p:panelGrid>
         </h:form>
     </p:dialog>

@@ -79,6 +79,10 @@
                                          action="#{invoiceController.updateOrder}"  
                                           update=":invoiceProdForm"/>
                         <p:commandButton value="Очистить" action="#{invoiceController.clear}" update=":invoiceProdForm"/>
+                        
+                        <p:commandButton value="Печать" id="printBtn"
+                                         action="#{invoiceController.print}"  
+                                          update=":invoiceProdForm"/>
                     </p:toolbarGroup>
 
                     <p:scrollPanel id="mprepeat" style="height:470px;" styleClass="HeiAutoOnMobile">

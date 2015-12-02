@@ -32,7 +32,7 @@ public class DataImportController {
 
     
     public void exportMeatType() {
-    	Parser.parse_exportmeatType("/home/yerulan/teameat_new/teameat/import/meatTypes-" + new java.util.Date().toString() + ".xls");
+    	Parser.parse_exportMeatType("/home/yerulan/teameat_new/teameat/import/meatTypes-" + new java.util.Date().toString() + ".xls");
     }
     
     public void exportGoodsG() {

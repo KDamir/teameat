@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
+import kz.app.entity.GoodsEntity;
 import kz.app.entity.GoodsSupEntity;
 import kz.app.entity.InventoryEntity;
 import kz.app.entity.InvoiceEntity;
@@ -28,6 +29,25 @@ public class GoodsSupDao {
 		return HibernateUtil.createQueryForList("from GoodsSupEntity");
    }
     
-    
+	public List<GoodsSupEntity> getListSups(Date begin, Date end) {
+		 Session session = HibernateUtil.getSession();
+	        try {
+	            session.beginTransaction();
+	            Query query = HibernateUtil.getSessionfactory().getCurrentSession().createQuery("from GoodsSupEntity where date between :begin and :end");
+	            query.setTimestamp("begin", begin);
+	            query.setTimestamp("end", end);
+	            List<GoodsSupEntity> list = query.list();
+	            session.getTransaction().commit();
+	            if(list.isEmpty())
+	               return null;
+	            return list;
+	        } catch (RuntimeException e) {
+	            session.getTransaction().rollback();
+	            throw e;
+	        } finally {
+	            if(session.isOpen())
+	                session.close();
+	        }
+   }
     
 }

@@ -178,7 +178,7 @@ public class Parser {
 		
 	}
 	
-	public static void parse_exportmeatType(String name){
+	public static void parse_exportMeatType(String name){
 		FileOutputStream out = null;
 		HSSFWorkbook wb =null;
 		File fileout =new File(name);
@@ -418,7 +418,10 @@ public class Parser {
 		Sheet sheet = wb.createSheet("Sheet 1");
 		Row row1 = sheet.createRow(0);
 		row1.createCell(0).setCellValue("Компания");
-		row1.createCell(1).setCellValue("Вознаграждение");
+		row1.createCell(1).setCellValue("Адрес");
+		row1.createCell(2).setCellValue("Телефон");
+		row1.createCell(3).setCellValue("Вознаграждение");
+		row1.createCell(4).setCellValue("Заметка");
 		ReceiverDao goodsDao = new ReceiverDao();
 		List <ReceiverEntity> goodsReceiverList = goodsDao.getListReceiver();
 		//ListIterator <MeatTypesEntity> it=lis.listIterator();
@@ -428,7 +431,10 @@ public class Parser {
 			//type =it.next();
 			Row row = sheet.createRow(a);
 			row.createCell(0).setCellValue(typ.getCompanyName());
-			row.createCell(1).setCellValue(typ.getReward());
+			row.createCell(1).setCellValue(typ.getAddress());
+			row.createCell(2).setCellValue(typ.getPhoneNumber());
+			row.createCell(3).setCellValue(typ.getReward());
+			row.createCell(4).setCellValue(typ.getNote());
 			a++;
 		}
 		try {

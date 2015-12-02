@@ -41,7 +41,22 @@ public class ReceiverEntity implements Serializable {
     private String companyName ;
     @Basic(optional = false)
     @Column(name = "id")
-    private int id ;
+    private Integer id ;
+
+    @Size(max = 10)
+    @Column(name = "phone_number")
+    private String phoneNumber;
+    @Basic(optional = true)
+    @NotNull
+    @Size(max = 50)
+    @Column(name = "address")
+    private String address;
+    @Basic(optional = true)
+    @NotNull
+    @Size(max = 1000)
+    @Column(name = "note")
+    private String note;
+    
 //    @OneToMany(mappedBy = "receiverId")
 //    private Collection<Invoice> invoiceCollection;
 
@@ -52,7 +67,7 @@ public class ReceiverEntity implements Serializable {
         this.companyName = companyName;
     }
 
-    public ReceiverEntity(String companyName, int id, Double reward) {
+    public ReceiverEntity(String companyName, Integer id, Double reward) {
         this.companyName = companyName;
         this.id = id;
         this.reward = reward;
@@ -66,11 +81,11 @@ public class ReceiverEntity implements Serializable {
         this.companyName = companyName;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -107,5 +122,31 @@ public class ReceiverEntity implements Serializable {
     public void setReward(Double reward) {
         this.reward = reward;
     }
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+    
+    
     
 }

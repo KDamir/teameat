@@ -2,8 +2,10 @@ package kz.app;
 
 import kz.app.dao.MeatPartDao;
 import kz.app.dao.Registered_clientsDao;
+import kz.app.dao.SupplierDao;
 import kz.app.entity.InvoiceEntity;
 import kz.app.entity.ReceiverEntity;
+import kz.app.entity.SupplierEntity;
 import kz.app.utils.MeatPartConverter;
 
 import javax.annotation.PostConstruct;
@@ -12,7 +14,21 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import kz.app.beans.UserLoginView;
@@ -240,5 +256,64 @@ public class InvoiceController extends AbstractMeatPartController{
         sumInput = null;
         renting = 0.0;
     }
+    
+    
+    public void print(){
+    	String name="/home/yerulan/teameat_new/teameat/import/PatternBill.xls";
+    	InputStream in = null;
+		HSSFWorkbook wb =null;
+		try{
+			in = new FileInputStream(name);
+			wb = new HSSFWorkbook(in);			
+		}
+		catch (IOException e){
+			e.printStackTrace();
+		}
+		
+		Sheet sheet = wb.getSheetAt(0);
+        Row row = sheet.getRow(1);
+        Cell cell = row.getCell(2);
+        cell.setCellValue("teameat");
+        row=sheet.getRow(2);
+        cell=row.getCell(2);
+        cell.setCellValue("Some_addr");
+        row=sheet.getRow(4);
+        cell=row.getCell(2);
+        cell.setCellValue(new SimpleDateFormat("HH:mm:ss dd.MM.yyyy").format(Calendar.getInstance().getTime()));
+        row=sheet.getRow(6);
+        cell=row.getCell(2);
+        cell.setCellValue(invoice.getSender());
+        row=sheet.getRow(8);
+        cell=row.getCell(2);
+        cell.setCellValue(getTotalSalesAmount().toString());
+		FileOutputStream out = null;
+		try{
+			out = new FileOutputStream(name);		
+		}
+		catch (IOException e){
+			e.printStackTrace();
+		}
+		try {
+			wb.write(out);
+			out.flush();
+			out.close();
+			System.out.println(name + " is successfully written");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		Desktop desktop = Desktop.getDesktop();
+		try {
+		desktop.print(new File(name));
+		} catch (Exception e) {           
+		e.printStackTrace();
+		}
+		FacesMessage msg = null;
+	    msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Данные о поставщиках выгружены",
+	            "Информация о новых типах сохранена в файле export.xls");
+	    FacesContext.getCurrentInstance().addMessage(null, msg);
+		return;
+	}
     
 }

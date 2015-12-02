@@ -87,8 +87,9 @@ public class AdminFormController {
     
     public void addReceiver() {
         FacesContext context = FacesContext.getCurrentInstance();
-        if ("".equals(receiver.getCompanyName()) ||
-        	"".equals(receiver.getReward()))
+        if ("".equals(receiver.getCompanyName()) || "".equals(receiver.getPhoneNumber()) ||
+        	"".equals(receiver.getReward()) || "".equals(receiver.getAddress()) ||
+        	"".equals(receiver.getNote()))
         	return;
         
         receiverDao.saveReceiver(receiver);

@@ -35,7 +35,7 @@ public class MeatCategoryEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @Column(name = "id")
-    private int id;
+    private Integer id;
     @Id
     @Basic(optional = false)
     @NotNull
@@ -53,20 +53,20 @@ public class MeatCategoryEntity implements Serializable {
     public MeatCategoryEntity(String name) {
         this.name = name;
     }
-    public MeatCategoryEntity(int id) {
+    public MeatCategoryEntity(Integer id) {
     	this.id = id;
     }
     
-    public MeatCategoryEntity(String name, int id) {
+    public MeatCategoryEntity(String name, Integer id) {
         this.name = name;
         this.id = id;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

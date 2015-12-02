@@ -52,7 +52,8 @@
                                   modal="true"
                                   showEffect="fade"
                                   hideEffect="fade"
-                                  resizable="false">
+                                  resizable="false"
+                                  closeOnEscape="true">
 
                                 <p:panelGrid columns="2">
                                         <p:outputLabel value="Наименование: "/>
@@ -71,6 +72,11 @@
                                         <p:inputText value="#{meatTypeController.selectedMeatType.reward}" style="width: 400px;"/>
 
                                         <f:facet name="footer">
+                                        		
+                                                <p:commandButton
+                                                        value="отмена" 
+                                                        oncomplete="PF('setGoodsTypeDlg').hide()"
+                                                        style="float: right"/>
                                                 <p:commandButton
                                                         value="сохранить" 
                                                         actionListener="#{meatTypeController.onEdit}"

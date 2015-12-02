@@ -1,29 +1,56 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
              xmlns:h="http://java.sun.com/jsf/html"
              xmlns:p="http://primefaces.org/ui"
+             xmlns:f="http://xmlns.jcp.org/jsf/core"
              xmlns:ui="http://java.sun.com/jsf/facelets">
     <p:dialog id="addrecvDlg" 
               widgetVar="ard"
-              modal="true">
+              modal="true"
+              closeOnEscape="true">
         <h:form id="ardform">
-            <p:panelGrid id="addReceiver" columns="2" layout="grid">
+            <p:panelGrid id="addReceiver" columns="5" >
             <p:outputLabel value="Наименование:" for="companyName" style="text-align: center"/>
+            <p:outputLabel value="Адрес:" for="address" style="text-align: center"/>
+            <p:outputLabel value="Телефон:" for="phoneNumber" style="text-align: center"/>
             <p:outputLabel value="Вознаграждение:" for="reward" style="text-align: center"/>
+            <p:outputLabel value="Примечание:" for="note" style="text-align: center"/>
             <p:inputText id="companyName"
                          value="#{adminFormController.receiver.companyName}" required="true"
                          requiredMessage="Поле наименование компании не заполнено"
+                         immediate="true"/>
+            <p:inputText id="address"
+                         value="#{adminFormController.receiver.address}" required="true"
+                         requiredMessage="Поле адрес не заполнено"
+                         immediate="true"/>
+            <p:inputText id="phoneNumber"
+                         value="#{adminFormController.receiver.phoneNumber}" required="true"
+                         requiredMessage="Поле телефон не заполнено"
                          immediate="true"/>
             <p:inputText id="reward"
                          value="#{adminFormController.receiver.reward}" required="true"
                          requiredMessage="Поле вознаграждение не заполнено"
                          immediate="true"/>
+            <p:inputText id="note"
+                         value="#{adminFormController.receiver.note}" required="true"
+                         requiredMessage="Поле примечание не заполнено"
+                         immediate="true"/>
             <p:message for="companyName" display="icon" />
+            <p:message for="address" display="icon"/>
+            <p:message for="phoneNumber" display="icon"/>
             <p:message for="reward" display="icon"/>
-            <p:commandButton value="Добавить" 
-                             actionListener="#{adminFormController.addReceiver}" 
-                             update="addReceiver,:admForm:typeList"
-                             oncomplete="PF('ard').hide()"
-                             process="@form"/>
+            <p:message for="note" display="icon"/>
+                <f:facet name="footer">
+                <p:commandButton value="Отмена" 
+                                 onclick="PF('ard').hide()"
+                                 process="@this"
+                                 style="float: right"/>
+         	    <p:commandButton value="Добавить" 
+                             	 actionListener="#{adminFormController.addReceiver}" 
+                            	 update="addReceiver,:admForm:typeList"
+                            	 oncomplete="PF('ard').hide()"
+                           	 	 process="@form"
+                                 style="float: right"/>
+                </f:facet>
         </p:panelGrid>
         </h:form>
     </p:dialog>

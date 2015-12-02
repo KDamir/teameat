@@ -5,7 +5,8 @@
              xmlns:ui="http://java.sun.com/jsf/facelets">
     <p:dialog id="addKassaDlg" 
               widgetVar="akd"
-              modal="true">
+              modal="true"
+              closeOnEscape="true">
         <h:form id="akdform">
             <p:panelGrid id="newSum" columns="1">
                 <p:outputLabel value="Сумма:" for="sum"/>
@@ -14,10 +15,17 @@
                 	 		<f:convertNumber maxFractionDigits="1" groupingUsed="true"/>
                 </p:inputText>
                 <p:message for="sum" display="icon"/>
+                <f:facet name="footer">
+                <p:commandButton value="Отмена" 
+                                 onclick="PF('akd').hide()"
+                                 process="@this"
+                                 style="float: right"/>
                 <p:commandButton value="Добавить" 
                                  actionListener="#{kassaController.addKassa}"
                                  update="newSum,:kassaForm:gridListKas"
-                                 oncomplete="PF('akd').hide()"/>
+                                 oncomplete="PF('akd').hide()"
+                                 style="float: right"/>
+                </f:facet>
             </p:panelGrid>
         </h:form>
     </p:dialog>

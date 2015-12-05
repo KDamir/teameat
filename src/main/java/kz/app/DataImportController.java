@@ -22,37 +22,37 @@ public class DataImportController {
 
   
     public void importMeatType() {
-    	Parser.parse_meatType("/home/yerulan/teameat_new/teameat/import/meatType.xls");
+    	Parser.parse_meatType("D:\\GIT\\teameat\\import\\meatType.xls");
     }
     
     public void importInventory() {
-    	Parser.parse_inventory("/home/yerulan/teameat_new/teameat/import/inventory.xls");
+    	Parser.parse_inventory("D:\\GIT\\teameat\\import\\inventory.xls");
     }
     
 
     
     public void exportMeatType() {
-    	Parser.parse_exportMeatType("/home/yerulan/teameat_new/teameat/import/meatTypes-" + new java.util.Date().toString() + ".xls");
+    	Parser.parse_exportMeatType("D:\\GIT\\teameat\\import\\meatTypes" +  ".xls");
     }
     
     public void exportGoodsG() {
-    	Parser.parse_exportGoodsG("/home/yerulan/teameat_new/teameat/import/Продажи " + new java.util.Date().toString() + ".xls");
+    	Parser.parse_exportGoodsG("D:\\GIT\\teameat\\import\\Продажи" +  ".xls");
     }
     
     public void exportGoodsSup() {
-    	Parser.parse_exportGoodsSup("/home/yerulan/teameat_new/teameat/import/Покупки " + new java.util.Date().toString() + ".xls");
+    	Parser.parse_exportGoodsSup("D:\\GIT\\teameat\\import\\Покупки" +  ".xls");
     }
     
     public void exportCategory() {
-    	Parser.parse_exportCategory("/home/yerulan/teameat_new/teameat/import/Категории " + new java.util.Date().toString() + ".xls");
+    	Parser.parse_exportCategory("D:\\GIT\\teameat\\import\\Категории" + ".xls");
     }
     
     public void exportReceiver() {
-    	Parser.parse_exportReceiver("/home/yerulan/teameat_new/teameat/import/Получатели " + new java.util.Date().toString() + ".xls");
+    	Parser.parse_exportReceiver("D:\\GIT\\teameat\\import\\Получатели" + ".xls");
     }
     
     public void exportSupplier() {
-    	Parser.parse_exportSupplier("/home/yerulan/teameat_new/teameat/import/Поставщики " + new java.util.Date().toString() + ".xls");
+    	Parser.parse_exportSupplier("D:\\GIT\\teameat\\import\\Поставщики" + ".xls");
     }
  
 }

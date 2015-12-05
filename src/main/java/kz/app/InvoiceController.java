@@ -259,7 +259,7 @@ public class InvoiceController extends AbstractMeatPartController{
     
     
     public void print(){
-    	String name="/home/yerulan/teameat_new/teameat/import/PatternBill.xls";
+    	String name="D:\\GIT\\teameat\\import\\PatternBill.xls";
     	InputStream in = null;
 		HSSFWorkbook wb =null;
 		try{
@@ -310,7 +310,7 @@ public class InvoiceController extends AbstractMeatPartController{
 		e.printStackTrace();
 		}
 		FacesMessage msg = null;
-	    msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Данные о поставщиках выгружены",
+	    msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Чек выдан",
 	            "Информация о новых типах сохранена в файле export.xls");
 	    FacesContext.getCurrentInstance().addMessage(null, msg);
 		return;

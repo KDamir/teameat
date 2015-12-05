@@ -30,7 +30,7 @@
         <div class="Separator"></div>
         
         <pr:menu rendered="#{userLoginView.logged}">
-            <p:menuitem id="rm_dashboard" value="Главное меню" icon="icon-planet29" outcome="/dashboard"/>
+            <p:menuitem id="rm_dashboard" value="Главное меню" icon="icon-planet29" outcome="/dashboard"/>			
             <p:menuitem id="rm_team1" value="Накладные на поставку"  icon="fa-file-o" outcome="/pages/zakupProd" rendered="#{appBean.admin}"/>
             <p:menuitem id="rm_team11" value="Просмотр накладных на поставку" icon="fa-file-o" outcome="/pages/purchaseHistory" rendered="#{appBean.admin}"/>
             <p:menuitem id="rm_team2" value="Остатки" icon="fa-file-o" outcome="/pages/calculation" rendered="#{appBean.admin}"/>
@@ -47,10 +47,8 @@
             <p:menuitem id="rm_team9" value="Касса" icon="fa-file-o" outcome="/pages/kassa" rendered="#{appBean.admin}"/>
             <p:menuitem id="rm_team10" value="Остатки" icon="fa-file-o" outcome="/pages/leavings" rendered="#{appBean.admin}"/>
             <p:menuitem id="rm_team16" value="Экспорт данных в excel" icon="fa-file-o" outcome="/pages/dataExport" rendered="#{appBean.admin}"/>
-            <p:menuitem id="rm_team17" value="Список поставленных товаров/услуг" icon="fa-file-o" outcome="/pages/suppliesHistory" rendered="#{appBean.admin}"/>
-            <p:menuitem id="rm_team18" value="Установка параметров получателей" icon="fa-file-o" outcome="/pages/setReceiver" rendered="#{appBean.admin}"/>
-            <p:menuitem id="rm_team19" value="Установка параметров категорий" icon="fa-file-o" outcome="/pages/setCategories" rendered="#{appBean.admin}"/>
-            <p:separator />
+ 
+              <p:separator />
         </pr:menu>
 
     </div>
